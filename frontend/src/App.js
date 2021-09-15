@@ -1,10 +1,10 @@
 // api components layout redux pages assets font utils
 import Layout from "./components/Layout/Layout";
 import Main from "./components/Layout/Main";
-import Location from "./components/Location";
-import Lent from "./components/Lent";
-import Detail from "./components/Detail";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Location from "./pages/Location";
+import Lent from "./pages/Lent";
+import Detail from "./pages/Detail";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
 
@@ -16,7 +16,6 @@ function App() {
         <Switch>
           <Layout>
             <PublicRouter path="/" component={Main} exact />
-            <PublicRouter path="/location" component={Location} exact />
             <PublicRouter path="/location" component={Location} exact />
             <PublicRouter path="/detail" component={Detail} exact />
 
