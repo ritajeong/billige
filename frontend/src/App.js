@@ -2,8 +2,8 @@
 import Layout from "./components/Layout/Layout";
 import Main from "./components/Layout/Main";
 import Location from "./components/Location";
-import Lent from "./components/Lent";
-import Detail from "./components/Detail";
+import Lent from "./pages/Lent";
+import Detail from "./pages/Detail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
