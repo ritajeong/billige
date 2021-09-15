@@ -1,3 +1,4 @@
+// api components layout redux pages assets font utils
 import Layout from "./components/Layout/Layout";
 import Main from "./components/Layout/Main";
 import Location from "./components/Location";
