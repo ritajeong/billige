@@ -1,0 +1,26 @@
+.detail-product {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.detail-user-icon {
+  width: 20%;
+  margin-left: 5%;
+}
+
+.detail-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.detail-user-address {
+  margin-top: 0;
+}

@@ -2,7 +2,7 @@
 import Layout from "./components/Layout/Layout";
 import Main from "./components/Layout/Main";
 import Location from "./components/Location";
-import Lent from "./pages/Lent";
+import Rent from "./pages/Rent";
 import Detail from "./pages/Detail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -15,7 +15,7 @@ function App() {
           <Layout>
             <Route path="/" component={Main} exact />
             <Route path="/location" component={Location} exact />
-            <Route path="/lent" component={Lent} exact />
+            <Route path="/rent" component={Rent} exact />
             <Route path="/detail" component={Detail} exact />
           </Layout>
         </Switch>

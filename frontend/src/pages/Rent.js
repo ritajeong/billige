@@ -1,9 +1,10 @@
 import React from 'react';
-import Lent from '../components/Lent';
+import Rent from '../components/Rent/index';
+
 
 const index = () => {
   return (
-      <Lent />
+      <Rent />
   );
 };
 
