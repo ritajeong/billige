@@ -5,6 +5,8 @@ import Location from "./components/Location";
 import Lent from "./components/Lent";
 import Detail from "./components/Detail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PrivateRouter from "./router/PrivateRouter";
+import PublicRouter from "./router/PublicRouter";
 
 import "./App.css";
 function App() {
@@ -13,10 +15,12 @@ function App() {
       <Router>
         <Switch>
           <Layout>
-            <Route path="/" component={Main} exact />
-            <Route path="/location" component={Location} exact />
-            <Route path="/lent" component={Lent} exact />
-            <Route path="/detail" component={Detail} exact />
+            <PublicRouter path="/" component={Main} exact />
+            <PublicRouter path="/location" component={Location} exact />
+            <PublicRouter path="/location" component={Location} exact />
+            <PublicRouter path="/detail" component={Detail} exact />
+
+            <PrivateRouter path="/lent" component={Lent} exact />
           </Layout>
         </Switch>
       </Router>
