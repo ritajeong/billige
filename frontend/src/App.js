@@ -1,10 +1,10 @@
 // api components layout redux pages assets font utils
 import Layout from "./components/Layout/Layout";
 import Main from "./components/Layout/Main";
-import Location from "./components/Location";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Rent from "./pages/Rent";
 import Detail from "./pages/Detail";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Location from "./pages/Location";
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
 
