@@ -1,5 +1,5 @@
 import React from "react";
-import backIcon from "../../assets/icons/icons/back.png";
+import backIcon from "../../assets/icons/back.png";
 import { Link, useLocation, withRouter } from "react-router-dom";
 import "./Layout.css";
 import CurrentPage from "../CurrentPage";

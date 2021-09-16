@@ -34,7 +34,7 @@
     url("assets/fonts/NotoSansKR-Bold.otf") format("truetype");
 }
 
-body {
+* {
   font-family: "Noto Sans CJK KR";
   margin: 0;
 }
