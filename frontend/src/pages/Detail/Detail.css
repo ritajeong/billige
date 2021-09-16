@@ -45,6 +45,10 @@
   background-color: #f5f5f5;
 }
 
+.detail-product-detail {
+  margin: auto 5%;
+}
+
 .detail-product-name {
   font-size: 160%;
   font-weight: bold;
@@ -61,10 +65,16 @@
   align-items: flex-start;
   margin-right: 10%;
   margin-bottom: 2%;
+  margin-top: 2%;
 }
 
 .detail-price {
   font-size: 200%;
+  margin-bottom: 5%;
+}
+
+.detail-day {
+  color: #939597;
 }
 
 .detail-inquire-buy {
