@@ -1,10 +1,10 @@
-package com.billige.ssafy;
+package com.ssafy.billige;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SsafyApplicationTests {
+class BilligeApplicationTests {
 
 	@Test
 	void contextLoads() {
