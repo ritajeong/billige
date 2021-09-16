@@ -9,8 +9,12 @@ const CurrentPage = (props) => {
 
       "/location": "위치 정보",
 
-      "/lent": "대여하기",
+      "/rent": "대여하기",
       "/detail": "제품 상세",
+      "/write": "대여 게시글 등록",
+      "/mypage": "마이페이지",
+      "/wish": "관심목록",
+      "/chat": "채팅",
     };
     setPageName(page[props.url]);
   }, [props.url]);

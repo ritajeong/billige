@@ -7,12 +7,12 @@ import "./index.css";
 import App from "./App";
 import rootReducer from "./redux/reducers";
 
+import "semantic-ui-css/semantic.min.css";
+
 const store = createStore(rootReducer, composeWithDevTools());
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </Provider>,
   document.getElementById("root")
 );
