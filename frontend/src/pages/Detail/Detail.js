@@ -4,12 +4,12 @@ import User from '../../assets/image/user.png'
 import './Detail.css'
 import likeIcon from '../../assets/icons/wish.png'
 import { useHistory } from 'react-router';
+import { Button } from "semantic-ui-react";
 
 export const Detail = () => {
 
 	const history = useHistory();
 	const onSelectProduct = () => {
-		console.log('결제할래')
 		history.push('/rent');
 	}
 
@@ -48,8 +48,12 @@ export const Detail = () => {
 					<div className="detail-day">1일 기준</div>
 				</div>
 				<div className="detail-button">
-					<button>문의하기</button>
-					<button className="detail-mayment" onClick={onSelectProduct}>결제하기</button>
+					<Button style={{ backgroundColor: "#F5F5F5", color: "black" }}>
+						문의하기
+					</Button>
+					<Button style={{ backgroundColor: "#497C5F", color: "white" }} className="detail-mayment" onClick={onSelectProduct}>
+						대여하기
+					</Button>
 				</div>
 			</div>
 		</div>
