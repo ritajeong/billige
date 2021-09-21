@@ -1,18 +1,17 @@
 package com.ssafy.billige.user.service.impl;
 
-import java.util.Optional;
-
 import com.ssafy.billige.user.domain.User;
 import com.ssafy.billige.user.repository.UserRepository;
 import com.ssafy.billige.user.service.UserService;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
@@ -23,8 +22,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public User getUser(long uid) {
+		return userRepository.findById(uid)
+			.orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
 	}
 
 }

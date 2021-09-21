@@ -6,4 +6,6 @@ public interface UserService {
 	User getKakaoUser(User user);
 
 	User save(User user);
+
+	User getUser(long uid);
 }
