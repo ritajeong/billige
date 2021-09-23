@@ -1,0 +1,28 @@
+import React, { useState, useEffect } from "react";
+
+const CurrentPage = (props) => {
+  const [pageName, setPageName] = useState();
+
+  useEffect(() => {
+    const page = {
+      "": "메인",
+
+      location: "위치 정보",
+
+      rent: "대여하기",
+      detail: "제품 상세",
+      write: "대여 게시글 등록",
+      mypage: "마이페이지",
+      wish: "관심목록",
+      chat: "채팅",
+      signin: "로그인",
+      signup: "회원 가입",
+      findpwd: "비밀번호 찾기",
+    };
+    setPageName(page[props.url.split("/")[1]]);
+  }, [props.url]);
+
+  return <div className="header-location">{pageName}</div>;
+};
+
+export default CurrentPage;
