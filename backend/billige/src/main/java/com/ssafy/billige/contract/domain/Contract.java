@@ -39,6 +39,8 @@ public class Contract {
 	@JoinColumn(name = "item_id")
 	private Item item;
 
+	private Long ownerId;
+
 	private LocalDate startDate;
 	private LocalDate endDate;
 
