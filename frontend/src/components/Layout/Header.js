@@ -3,7 +3,7 @@ import backIcon from "../../assets/icons/back.png";
 import { Link } from "react-router-dom";
 
 import CurrentPage from "./CurrentPage";
-import location from "../../assets/icons/placeholder.png";
+
 import "./Layout.css";
 const Header = (props) => {
   const beforePage = () => {

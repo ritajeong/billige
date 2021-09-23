@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { Button, Input } from "semantic-ui-react";
+import { Input } from "semantic-ui-react";
 import arrow from "../../assets/icons/next.png";
 import "./Main.css";
 import "slick-carousel/slick/slick.css";
