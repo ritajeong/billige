@@ -18,13 +18,14 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Builder
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC
+)
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
