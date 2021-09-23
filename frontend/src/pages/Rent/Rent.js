@@ -22,9 +22,9 @@ const stringToNum = {
 	Nov: 11,
 	Dec: 12
 }
+const pricePerDay = 200000 // 나중에 상품 상세 페에지에서 props로 받을 데이터.
 
 const today = new Date().toString().split(' ');
-	
 const [state, setState] = useState([
 	{
 		startDate: new Date(),
@@ -36,28 +36,35 @@ const [state, setState] = useState([
 		}
 	}
 ]);
-
 const [rentalStartYear, setrentalStartYear] = useState(today[3]);
 const [rentalStartMonth, setrentalStartMonth] = useState(stringToNum[today[1]]);
 const [rentalStartDay, setrentalStartDay] = useState(today[2]);
 const [rentalEndYear, setrentalEndYear] = useState(today[3]);
 const [rentalEndMonth, setrentalEndMonth] = useState(stringToNum[today[1]]);
 const [rentalEndDay, setrentalEndDay] = useState(today[2]);
+const [price, setPrice] = useState('0');
 
 const onChangeDate = (item) => {
 	setState([item.selection]);
-	const y1 = item.selection['startDate'].toString().split(' ')[3];
-	const m1 = stringToNum[item.selection['startDate'].toString().split(' ')[1]];
-	const d1 = item.selection['startDate'].toString().split(' ')[2];
-	const y2 = item.selection['endDate'].toString().split(' ')[3];
-	const m2 = stringToNum[item.selection['endDate'].toString().split(' ')[1]];
-	const d2 = item.selection['endDate'].toString().split(' ')[2];
+	const y1 = Number(item.selection['startDate'].toString().split(' ')[3]);
+	const m1 = Number(stringToNum[item.selection['startDate'].toString().split(' ')[1]]);
+	const d1 = Number(item.selection['startDate'].toString().split(' ')[2]);
+	const y2 = Number(item.selection['endDate'].toString().split(' ')[3]);
+	const m2 = Number(stringToNum[item.selection['endDate'].toString().split(' ')[1]]);
+	const d2 = Number(item.selection['endDate'].toString().split(' ')[2]);
 	setrentalStartYear(y1);
 	setrentalStartMonth(m1);
 	setrentalStartDay(d1);
 	setrentalEndYear(y2);
 	setrentalEndMonth(m2);
 	setrentalEndDay(d2);
+
+	const date1 = new Date(y1, m1, d1);
+	const date2 = new Date(y2, m2, d2);
+
+	const elapsedMSec = date2.getTime() - date1.getTime();
+	const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24;
+	setPrice((elapsedDay*pricePerDay).toLocaleString());
 }
 
   return (
@@ -94,7 +101,7 @@ const onChangeDate = (item) => {
 					</div>
 					<div className="rent-price-krw">
 						<div className="rent-estimated-price">
-							200,000&nbsp;
+							{price}&nbsp;
 						</div>
 						<div className="rent-estimated-krw">
 							원
