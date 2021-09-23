@@ -4,3 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: billige
     password: billige2021!
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false

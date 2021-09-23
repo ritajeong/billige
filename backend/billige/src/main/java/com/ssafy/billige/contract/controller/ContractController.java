@@ -1,5 +1,7 @@
 package com.ssafy.billige.contract.controller;
 
+import static com.ssafy.billige.utils.StringUtils.*;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +14,7 @@ import com.ssafy.billige.contract.service.ContractService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/contract")
+@RequestMapping(value = CONTRACT)
 @RequiredArgsConstructor
 public class ContractController {
 
