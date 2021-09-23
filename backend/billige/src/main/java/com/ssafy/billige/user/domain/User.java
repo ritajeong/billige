@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ssafy.billige.contract.domain.Contract;
 import com.ssafy.billige.item.domain.Item;
 
 import lombok.AccessLevel;
@@ -19,13 +21,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PUBLIC
-)
+@NoArgsConstructor
+@JsonIgnoreProperties(value = {"password", "tokenId", "email"})
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,4 +49,8 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Item> items = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Contract> contracts = new ArrayList<>();
 }
