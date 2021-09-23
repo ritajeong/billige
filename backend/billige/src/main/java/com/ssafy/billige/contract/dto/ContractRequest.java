@@ -16,6 +16,7 @@ import lombok.Setter;
 public class ContractRequest {
 	private String token;
 	private Long uid;
+	private Long ownerId;
 	private Long itemId;
 	private LocalDate startDate;
 	private LocalDate endDate;
