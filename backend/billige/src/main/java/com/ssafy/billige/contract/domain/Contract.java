@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.user.domain.User;
 
@@ -35,6 +36,7 @@ public class Contract {
 	@JoinColumn(name = "uid")
 	private User user;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
 	private Item item;
