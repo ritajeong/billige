@@ -42,4 +42,10 @@ public class ItemCrudController {
 		itemCrudService.removeItem(itemId);
 		return ResponseEntity.ok().body(SUCCESS);
 	}
+
+	@PutMapping("/active/{itemId}")
+	public ResponseEntity<?> activeItem(@PathVariable("itemId") Long itemId) {
+		itemCrudService.activeItem(itemId);
+		return ResponseEntity.ok().body(SUCCESS);
+	}
 }

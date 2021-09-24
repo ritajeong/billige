@@ -9,4 +9,6 @@ public interface ItemCrudService {
 	void itemUpdate(ItemUpdateRequest itemRequest);
 
 	void removeItem(Long itemId);
+
+	void activeItem(Long itemId);
 }
