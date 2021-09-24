@@ -14,8 +14,12 @@ import Write from "./pages/Write/Write";
 import Chat from "./pages/Chat/Chat";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
-import "./App.css";
 import FindPwd from "./pages/FindPwd/FindPwd";
+import UserEdit from "./pages/UserEdit/UserEdit";
+import TradeLog from "./pages/TradeLog/TradeLog";
+import Charge from "./pages/Charge/Charge";
+import "./App.css";
+
 function App() {
   return (
     <div className="App">
@@ -31,6 +35,9 @@ function App() {
 
             <PrivateRouter path="/rent" component={Rent} exact />
             <PrivateRouter path="/mypage" component={MyPage} exact />
+            <PrivateRouter path="/useredit" component={UserEdit} exact />
+            <PrivateRouter path="/tradelog" component={TradeLog} exact />
+            <PrivateRouter path="/charge" component={Charge} exact />
             <PrivateRouter path="/wish" component={Wish} exact />
             <PrivateRouter path="/write" component={Write} exact />
             <PrivateRouter path="/chat" component={Chat} exact />
