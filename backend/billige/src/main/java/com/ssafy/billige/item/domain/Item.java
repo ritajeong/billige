@@ -18,13 +18,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.ssafy.billige.item.dto.request.ItemUpdateRequest;
 import com.ssafy.billige.user.domain.User;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Item {
 
@@ -55,4 +60,12 @@ public class Item {
 
 	@LastModifiedDate
 	private LocalDateTime modifiedTime;
+
+	//===CRUD 메소드===//
+	public void updateItem(Item item, ItemUpdateRequest request) {
+		item.setCategory(request.getCategory());
+		item.setItemname(request.getItemname());
+		item.setDescription(request.getDescription());
+		item.setPrice(request.getPrice());
+	}
 }
