@@ -19,7 +19,10 @@ import com.ssafy.billige.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class KakaoLoginServiceImpl implements KakaoLoginService {
 
