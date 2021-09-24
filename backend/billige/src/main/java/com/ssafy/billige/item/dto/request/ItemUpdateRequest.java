@@ -12,13 +12,12 @@ import lombok.Setter;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class ItemRequest {
+public class ItemUpdateRequest {
 	private Long uid;
+	private Long itemId;
 	private String itemname;
 	private String category;
 	private String description;
 	private int price;
-	private String position;
-	private int itemSigunguCode;
 }
 
