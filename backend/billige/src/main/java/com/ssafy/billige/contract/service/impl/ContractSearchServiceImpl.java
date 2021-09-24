@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.billige.contract.domain.Contract;
-import com.ssafy.billige.contract.dto.response.ContractSearchMyItemResponse;
-import com.ssafy.billige.contract.dto.response.ContractSearchRendItemResponse;
+import com.ssafy.billige.contract.dto.response.MyItemContractResponse;
+import com.ssafy.billige.contract.dto.response.MyContractResponse;
 import com.ssafy.billige.contract.repository.ContractRepository;
 import com.ssafy.billige.contract.service.ContractSearchService;
 
@@ -24,19 +24,19 @@ public class ContractSearchServiceImpl implements ContractSearchService {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public List<ContractSearchRendItemResponse> rentItemSearch(long uid) {
+	public List<MyContractResponse> myContracts(long uid) {
 		List<Contract> rentItem = contractRepository.findAllByUser_Uid(uid);
 		return rentItem.stream()
-			.map(item -> modelMapper.map(item, ContractSearchRendItemResponse.class))
+			.map(item -> modelMapper.map(item, MyContractResponse.class))
 			.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<ContractSearchMyItemResponse> myItemSearch(long ownerId) {
-		List<Contract> myItem = contractRepository.findAllByOwnerId(ownerId);
+	public List<MyItemContractResponse> myItemContracts(long ownerId, long itemId) {
+		List<Contract> myItem = contractRepository.findAllByOwnerIdAndItem_ItemId(ownerId, itemId);
 		return myItem.stream()
 			.map(item -> {
-					ContractSearchMyItemResponse map = modelMapper.map(item, ContractSearchMyItemResponse.class);
+					MyItemContractResponse map = modelMapper.map(item, MyItemContractResponse.class);
 					map.setBorrower(item.getUser());
 					return map;
 				}

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractSearchMyItemResponse {
+public class MyItemContractResponse {
 	private User borrower;
 	private Item item;
 	private LocalDate startDate;
