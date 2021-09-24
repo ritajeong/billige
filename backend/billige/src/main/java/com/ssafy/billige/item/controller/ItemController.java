@@ -1,15 +1,12 @@
 package com.ssafy.billige.item.controller;
 
-import java.util.Map;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.billige.item.dto.ItemRequest;
+import com.ssafy.billige.item.dto.request.ItemRequest;
 import com.ssafy.billige.item.service.ItemService;
 
 import lombok.RequiredArgsConstructor;

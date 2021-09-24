@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.billige.item.domain.Item;
-import com.ssafy.billige.item.dto.ItemRequest;
+import com.ssafy.billige.item.dto.request.ItemRequest;
 import com.ssafy.billige.item.repository.ItemRepository;
 import com.ssafy.billige.item.service.ItemService;
 import com.ssafy.billige.user.service.UserService;

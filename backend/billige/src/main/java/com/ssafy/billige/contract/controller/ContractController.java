@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.billige.contract.dto.ContractRequest;
+import com.ssafy.billige.contract.dto.request.ContractRequest;
 import com.ssafy.billige.contract.service.ContractService;
 
 import lombok.RequiredArgsConstructor;

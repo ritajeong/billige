@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.billige.contract.domain.Contract;
-import com.ssafy.billige.contract.dto.ContractSearchMyItemResponse;
-import com.ssafy.billige.contract.dto.ContractSearchRendItemResponse;
+import com.ssafy.billige.contract.dto.response.ContractSearchMyItemResponse;
+import com.ssafy.billige.contract.dto.response.ContractSearchRendItemResponse;
 import com.ssafy.billige.contract.repository.ContractRepository;
 import com.ssafy.billige.contract.service.ContractSearchService;
 

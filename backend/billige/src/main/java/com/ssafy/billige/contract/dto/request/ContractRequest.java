@@ -1,8 +1,6 @@
-package com.ssafy.billige.contract.dto;
+package com.ssafy.billige.contract.dto.request;
 
 import java.time.LocalDate;
-
-import com.ssafy.billige.item.domain.Item;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +13,12 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractSearchRendItemResponse {
-	private Item item;
+public class ContractRequest {
+	private String token;
+	private Long uid;
+	private Long ownerId;
+	private Long itemId;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	private int totalPrice;
 }

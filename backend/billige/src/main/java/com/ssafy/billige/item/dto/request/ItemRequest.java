@@ -1,4 +1,4 @@
-package com.ssafy.billige.item.dto;
+package com.ssafy.billige.item.dto.request;
 
 
 import lombok.AllArgsConstructor;

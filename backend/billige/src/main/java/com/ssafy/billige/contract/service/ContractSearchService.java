@@ -2,8 +2,8 @@ package com.ssafy.billige.contract.service;
 
 import java.util.List;
 
-import com.ssafy.billige.contract.dto.ContractSearchMyItemResponse;
-import com.ssafy.billige.contract.dto.ContractSearchRendItemResponse;
+import com.ssafy.billige.contract.dto.response.ContractSearchMyItemResponse;
+import com.ssafy.billige.contract.dto.response.ContractSearchRendItemResponse;
 
 public interface ContractSearchService {
 	// 대여한 대여품 조회
