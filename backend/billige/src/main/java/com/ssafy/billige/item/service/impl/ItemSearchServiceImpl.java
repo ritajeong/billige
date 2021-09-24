@@ -20,6 +20,6 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
 	@Override
 	public List<Item> myItems(long uid) {
-		return itemRepository.findAllByUser_Uid(uid);
+		return itemRepository.findAllByUser_UidOrderByModifiedTimeDesc(uid);
 	}
 }
