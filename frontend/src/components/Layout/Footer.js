@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="footer-team">
         <div className="footer-member">
           <p>
-            박혜빈 김민재 이진호 최동욱
+            박혜빈 김민재 이진호 최동욱 정진주
             <br /> 월 ~ 금 09 : 00 ~ 18 : 00
           </p>
         </div>
