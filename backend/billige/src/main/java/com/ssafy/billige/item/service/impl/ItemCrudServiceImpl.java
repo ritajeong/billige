@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.billige.item.domain.ActiveStatus;
 import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.dto.request.ItemRegistryRequest;
 import com.ssafy.billige.item.dto.request.ItemUpdateRequest;
@@ -31,13 +32,23 @@ public class ItemCrudServiceImpl implements ItemCrudService {
 
 	@Override
 	public void itemUpdate(ItemUpdateRequest itemRequest) {
-		Item item = itemRepository.findById(itemRequest.getItemId())
-			.orElseThrow(() -> new IllegalArgumentException("해당 제품이 존재하지 않습니다."));
-		item.updateItem(item, itemRequest);
+		Item item = getItem(itemRequest.getItemId());
+		item.updateItem(itemRequest);
 	}
 
 	@Override
 	public void removeItem(Long itemId) {
 		itemRepository.deleteById(itemId);
+	}
+
+	@Override
+	public void activeItem(Long itemId) {
+		Item item = getItem(itemId);
+		item.activeItem();
+	}
+
+	private Item getItem(Long itemId) {
+		return itemRepository.findById(itemId)
+			.orElseThrow(() -> new IllegalArgumentException("해당 제품이 존재하지 않습니다."));
 	}
 }

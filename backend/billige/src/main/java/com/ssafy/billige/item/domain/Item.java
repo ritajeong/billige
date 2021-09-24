@@ -50,7 +50,7 @@ public class Item {
 	private User user;
 
 	@Enumerated(EnumType.STRING)
-	private ActiveStatus isActive = ActiveStatus.N;
+	private ActiveStatus isActive = ActiveStatus.Y;
 
 	private int itemSigunguCode;
 
@@ -62,10 +62,18 @@ public class Item {
 	private LocalDateTime modifiedTime;
 
 	//===CRUD 메소드===//
-	public void updateItem(Item item, ItemUpdateRequest request) {
-		item.setCategory(request.getCategory());
-		item.setItemname(request.getItemname());
-		item.setDescription(request.getDescription());
-		item.setPrice(request.getPrice());
+	public void updateItem(ItemUpdateRequest request) {
+		this.category = request.getCategory();
+		this.itemname = request.getItemname();
+		this.description = request.getDescription();
+		this.price = request.getPrice();
+	}
+
+	public void activeItem() {
+		if (ActiveStatus.N.equals(this.isActive)) {
+			this.isActive = ActiveStatus.Y;
+		} else {
+			this.isActive = ActiveStatus.N;
+		}
 	}
 }
