@@ -1,7 +1,6 @@
 package com.ssafy.billige.item.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.dto.request.ItemRequest;
-import com.ssafy.billige.item.dto.response.ItemResponse;
 import com.ssafy.billige.item.repository.ItemRepository;
 import com.ssafy.billige.item.service.ItemService;
 import com.ssafy.billige.user.service.UserService;
@@ -35,14 +33,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemResponse> myItems(long uid) {
-		List<Item> items = itemRepository.findAllByUser_Uid(uid);
-		return items.stream()
-			.map(item -> {
-				ItemResponse map = modelMapper.map(item, ItemResponse.class);
-				map.setUid(uid);
-				return map;
-			})
-			.collect(Collectors.toList());
+	public List<Item> myItems(long uid) {
+		return itemRepository.findAllByUser_Uid(uid);
 	}
 }
