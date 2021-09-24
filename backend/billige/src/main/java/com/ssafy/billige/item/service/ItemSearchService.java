@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.ssafy.billige.item.domain.Item;
 
-public interface ItemService {
+public interface ItemSearchService {
 	List<Item> myItems(long uid);
 }
