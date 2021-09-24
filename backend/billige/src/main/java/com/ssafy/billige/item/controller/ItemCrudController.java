@@ -3,6 +3,8 @@ package com.ssafy.billige.item.controller;
 import static com.ssafy.billige.utils.StringUtils.*;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,12 @@ public class ItemCrudController {
 	@PutMapping
 	public ResponseEntity<?> itemUpdate(@RequestBody ItemUpdateRequest itemUpdateRequest) {
 		itemCrudService.itemUpdate(itemUpdateRequest);
+		return ResponseEntity.ok().body(SUCCESS);
+	}
+
+	@DeleteMapping("/{itemId}")
+	public ResponseEntity<?> removeItem(@PathVariable("itemId") Long itemId) {
+		itemCrudService.removeItem(itemId);
 		return ResponseEntity.ok().body(SUCCESS);
 	}
 }

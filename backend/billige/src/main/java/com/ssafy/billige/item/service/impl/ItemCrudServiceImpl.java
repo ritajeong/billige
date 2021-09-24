@@ -35,4 +35,9 @@ public class ItemCrudServiceImpl implements ItemCrudService {
 			.orElseThrow(() -> new IllegalArgumentException("해당 제품이 존재하지 않습니다."));
 		item.updateItem(item, itemRequest);
 	}
+
+	@Override
+	public void removeItem(Long itemId) {
+		itemRepository.deleteById(itemId);
+	}
 }

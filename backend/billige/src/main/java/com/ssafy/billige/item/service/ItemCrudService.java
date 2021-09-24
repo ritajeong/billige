@@ -7,4 +7,6 @@ public interface ItemCrudService {
 	void saveItem(ItemRegistryRequest itemRegistryRequest);
 
 	void itemUpdate(ItemUpdateRequest itemRequest);
+
+	void removeItem(Long itemId);
 }
