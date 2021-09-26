@@ -2,6 +2,7 @@ package com.ssafy.billige.item.service.impl;
 
 import java.util.List;
 
+import com.ssafy.billige.item.dto.response.ItemResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,5 +22,10 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	@Override
 	public List<Item> myItems(long uid) {
 		return itemRepository.findAllByUser_UidOrderByModifiedTimeDesc(uid);
+	}
+
+	@Override
+	public List<ItemResponse> getItems() {
+		return itemRepository.findAllItemResponseList();
 	}
 }

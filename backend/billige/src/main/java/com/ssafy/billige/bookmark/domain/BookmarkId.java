@@ -11,5 +11,5 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 public class BookmarkId {
     private Long uid;
-    private Long item_id;
+    private Long itemId;
 }
