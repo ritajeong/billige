@@ -16,5 +16,5 @@ public class ItemResponse {
     private String position;
     private int price;
     private LocalDateTime modifiedTime;
-    private int bookmarkCount;
+    private Long bookmarkCount;
 }

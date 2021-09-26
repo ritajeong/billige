@@ -1,5 +1,7 @@
 package com.ssafy.billige.item.service.impl;
 
+import static com.ssafy.billige.utils.StringUtils.*;
+
 import java.util.List;
 
 import com.ssafy.billige.item.dto.response.ItemResponse;
@@ -25,7 +27,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 
 	@Override
-	public List<ItemResponse> getItems() {
-		return itemRepository.findAllItemResponseList();
+	public List<ItemResponse> getItems(int page) {
+		int offset = (page - 1) * LIMIT;
+		return itemRepository.findAllItemResponseList(offset);
 	}
 }

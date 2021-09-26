@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.ssafy.billige.item.domain.QItem.*;
 import static com.ssafy.billige.bookmark.domain.QBookmark.*;
+import static com.ssafy.billige.utils.StringUtils.*;
 
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepositoryCustom{
@@ -16,7 +17,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ItemResponse> findAllItemResponseList() {
+    public List<ItemResponse> findAllItemResponseList(int offset) {
         return queryFactory
                 .select(Projections.constructor(ItemResponse.class,
                         item.itemId,
@@ -29,6 +30,8 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom{
                 .leftJoin(bookmark).on(item.itemId.eq(bookmark.bookmarkId.itemId))
                 .groupBy(bookmark.bookmarkId.itemId)
                 .orderBy(item.modifiedTime.desc())
-                .fetch();
+            .limit(LIMIT)
+            .offset(offset)
+            .fetch();
     }
 }
