@@ -73,9 +73,9 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 			String email = getJsonElementValue(kakaoAccount, "email").getAsString();
 
 			User user = User.builder()
-				.tokenId(tokenId)
-				.username(nickname)
-				.email(email)
+				.userTokenId(tokenId.toString())
+				.userName(nickname)
+				.userEmail(email)
 				.is_deleted(UserStatus.N)
 				.build();
 

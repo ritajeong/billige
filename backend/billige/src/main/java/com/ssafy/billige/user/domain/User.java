@@ -1,47 +1,45 @@
 package com.ssafy.billige.user.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.billige.contract.domain.Contract;
 import com.ssafy.billige.item.domain.Item;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
+@Data
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"password", "tokenId", "email"})
-public class User {
+public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long uid;
 
-	private Long tokenId;
-	private String username;
-	private String email;
-	private String password;
+	private String userTokenId;
+	private String userName;
+	@JsonIgnore
+	private String userNickname;
+	private String userEmail;
+	private String userPassword;
+	@JsonIgnore
+	private String userSalt;
 
+	@JsonIgnore
 	@Enumerated(EnumType.STRING)
 	private UserStatus is_deleted;
-
-	private String address;
-	private String wallet;
+	@JsonIgnore
+	private String userAddress;
+	@JsonIgnore
+	private String userWallet;
+	@JsonIgnore
 	private int userSigunguCode;
 
 	@JsonIgnore
