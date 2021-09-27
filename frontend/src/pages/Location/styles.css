@@ -17,3 +17,16 @@
 .pagination {
   text-align: center;
 }
+
+.btn {
+  display: flex;
+  margin: auto;
+  background: #497c5f;
+  width: 150px;
+  height: 28px;
+  color: white;
+  text-align: center;
+  border: 1px solid #c5d3cc;
+  box-sizing: border-box;
+  border-radius: 21px;
+}
