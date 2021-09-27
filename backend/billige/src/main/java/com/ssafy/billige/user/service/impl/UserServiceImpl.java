@@ -8,7 +8,6 @@ import com.ssafy.billige.user.dto.response.UserEmailResponse;
 import com.ssafy.billige.user.repository.UserRepository;
 import com.ssafy.billige.user.service.UserService;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Map;
 import java.util.UUID;
 
 import static com.ssafy.billige.utils.StringUtils.FROM_ADDRESS;
@@ -48,6 +48,12 @@ public class UserServiceImpl implements UserService {
 	public User getUser(long uid) {
 		return userRepository.findByUid(uid)
 			.orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
+	}
+
+	@Override
+	public User getUser(String userEmail){
+		return userRepository.findByUserEmail(userEmail)
+				.orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다."));
 	}
 
 	@Override
@@ -135,5 +141,19 @@ public class UserServiceImpl implements UserService {
 			sb.append(charSet[idx]);
 		}
 		return sb.toString();
+	}
+
+	@Override
+	@Transactional
+	public void modifyPassword(Map<String, String> modifyRequest){
+		String requestEmail = modifyRequest.get("userEmail");
+		String requestPassword = modifyRequest.get("userPassword");
+		User user = getUser(requestEmail);
+
+		String salt = RandomSaltProvider.getNextSalt().toString();
+		user.setUserPassword(passwordEncoder.encode(requestPassword + salt));
+		user.setUserSalt(salt);
+
+		userRepository.save(user);
 	}
 }

@@ -85,4 +85,11 @@ public class UserController {
         }
         return new ResponseEntity<>(result, status);
     }
+
+    @PutMapping("/modify/password")
+    @ApiOperation(value = "비밀번호 수정")
+    public Object modifyPassword(@RequestBody Map<String, String> modifyRequest){
+        userService.modifyPassword(modifyRequest);
+        return ResponseEntity.ok().body("success");
+    }
 }
