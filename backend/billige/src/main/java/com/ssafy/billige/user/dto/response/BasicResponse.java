@@ -2,7 +2,7 @@ package com.ssafy.billige.user.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class UserSignupResponse {
+public class BasicResponse {
     @ApiModelProperty(value = "status", position = 1)
     public boolean status;
     @ApiModelProperty(value = "data", position = 2)

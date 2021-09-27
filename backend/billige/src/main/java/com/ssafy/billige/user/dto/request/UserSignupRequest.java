@@ -10,6 +10,16 @@ public class UserSignupRequest {
 
     String userNickname;
 
+    String userAddress;
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
     public String getUserNickname() {
         return userNickname;
     }
