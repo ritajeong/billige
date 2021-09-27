@@ -18,13 +18,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.ssafy.billige.item.dto.request.ItemUpdateRequest;
 import com.ssafy.billige.user.domain.User;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Item {
 
@@ -45,7 +50,7 @@ public class Item {
 	private User user;
 
 	@Enumerated(EnumType.STRING)
-	private ActiveStatus isActive = ActiveStatus.N;
+	private ActiveStatus isActive = ActiveStatus.Y;
 
 	private int itemSigunguCode;
 
@@ -55,4 +60,20 @@ public class Item {
 
 	@LastModifiedDate
 	private LocalDateTime modifiedTime;
+
+	//===CRUD 메소드===//
+	public void updateItem(ItemUpdateRequest request) {
+		this.category = request.getCategory();
+		this.itemname = request.getItemname();
+		this.description = request.getDescription();
+		this.price = request.getPrice();
+	}
+
+	public void activeItem() {
+		if (ActiveStatus.N.equals(this.isActive)) {
+			this.isActive = ActiveStatus.Y;
+		} else {
+			this.isActive = ActiveStatus.N;
+		}
+	}
 }
