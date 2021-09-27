@@ -8,10 +8,6 @@ const Main = () => {
       <br />
       <Link to="/detail">제품상세 페이지로</Link>
       <br />
-      {/* <Link to="/location">위치검색 페이지로</Link>
-      <br /> */}
-      <Link to="/searchplace">위치검색 페이지로</Link>
-      <br />
 
       <Button style={{ backgroundColor: "#497C5F", color: "white" }}>
         버튼테스트

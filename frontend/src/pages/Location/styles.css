@@ -1,0 +1,19 @@
+.title {
+  text-align: center;
+}
+
+.searchBar {
+  /* Rectangle 58 */
+  display: flex;
+  width: 319px;
+  height: 32px;
+  margin: auto;
+  background: #ffffff;
+  border: 1px solid #c5d3cc;
+  box-sizing: border-box;
+  border-radius: 21px;
+}
+
+.pagination {
+  text-align: center;
+}
