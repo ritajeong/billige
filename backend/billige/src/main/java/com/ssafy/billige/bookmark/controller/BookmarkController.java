@@ -4,6 +4,7 @@ import static com.ssafy.billige.utils.StringUtils.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -34,5 +35,11 @@ public class BookmarkController {
 		Long uid = TokenUtils.getUidFromToken(token);
 		bookmarkService.cancelBookmark(uid, itemId);
 		return ResponseEntity.ok(SUCCESS);
+	}
+
+	@GetMapping
+	public ResponseEntity<?> getBookmarkItems(@RequestHeader(AUTH_HEADER) String token) {
+		Long uid = TokenUtils.getUidFromToken(token);
+		return ResponseEntity.ok().body(bookmarkService.getBookmarkItems(uid));
 	}
 }
