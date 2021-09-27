@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
 				.userNickname(userSignupRequest.getUserNickname())
 				.userEmail(userSignupRequest.getUserEmail())
 				.userPassword(passwordEncoder.encode(userSignupRequest.getUserPassword()+salt))
-				.is_deleted(UserStatus.N)
 				.userSalt(salt)
+				.is_deleted(UserStatus.N)
 				.build();
 
 		userRepository.save(user);

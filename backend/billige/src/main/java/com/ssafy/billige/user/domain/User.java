@@ -41,10 +41,6 @@ public class User implements Serializable {
 	private String userWallet;
 	@JsonIgnore
 	private int userSigunguCode;
-	@JsonIgnore
-	private String userImage;
-	@JsonIgnore
-	private String userComment;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
