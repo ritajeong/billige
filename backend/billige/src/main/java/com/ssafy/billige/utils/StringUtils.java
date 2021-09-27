@@ -7,7 +7,7 @@ public class StringUtils {
 	public static final int LIMIT = 20;
 
 	public static final String CONTRACT = "/api/contract";
-	public static final String USER = "api/user";
+	public static final String USER = "/api/user";
 	public static final String ITEM = "/api/item";
 	// JWT String
 	public static final String AUTH_HEADER = "Authentication";

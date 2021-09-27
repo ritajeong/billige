@@ -105,19 +105,18 @@ public class TokenUtils {
 //    	logger.info(header);
         Claims claims = TokenUtils.getClaimsFromToken(header);
         String tokenUid = (String) claims.get("uid");
-        return tokenUid.equals(uid) ? true : false;
+        return tokenUid.equals(uid);
     }
 
     public static boolean isSameNickname(String header, String userNickname) {
 //    	logger.info(header);
         Claims claims = TokenUtils.getClaimsFromToken(header);
         String tokenUserNickname = (String) claims.get("userNickname");
-        return tokenUserNickname.equals(userNickname) ? true : false;
+        return tokenUserNickname.equals(userNickname);
     }
 
-    public static String getUidFromToken(String header) {
+    public static Long getUidFromToken(String header) {
         Claims claims = TokenUtils.getClaimsFromToken(header);
-        String tokenUid = (String) claims.get("uid");
-        return tokenUid;
+        return Long.parseLong(String.valueOf(claims.get("uid")));
     }
 }
