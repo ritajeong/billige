@@ -81,6 +81,7 @@ public class TokenUtils {
         claims.put("uid", user.getUid());
         claims.put("userEmail", user.getUserEmail());
         claims.put("userNickname", user.getUserNickname());
+        claims.put("userSigunguCode", user.getUserSigunguCode());
 
         return claims;
     }
@@ -118,5 +119,10 @@ public class TokenUtils {
     public static Long getUidFromToken(String header) {
         Claims claims = TokenUtils.getClaimsFromToken(header);
         return Long.parseLong(String.valueOf(claims.get("uid")));
+    }
+
+    public static int getSigunguCodeFromToken(String token) {
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        return Integer.parseInt(String.valueOf(claims.get("userSigunguCode")));
     }
 }

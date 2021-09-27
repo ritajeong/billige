@@ -29,7 +29,8 @@ public class ItemSearchController {
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<?> getItems(@RequestParam("page") int page) {
-		return ResponseEntity.ok().body(itemSearchService.getItems(page));
+	public ResponseEntity<?> getItems(@RequestParam("page") int page, @RequestHeader(AUTH_HEADER) String token) {
+		int userSigunguCode = TokenUtils.getSigunguCodeFromToken(token);
+		return ResponseEntity.ok().body(itemSearchService.getItems(page, userSigunguCode));
 	}
 }

@@ -19,7 +19,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public List<ItemResponse> findAllItemResponseList(int offset) {
+	public List<ItemResponse> findAllItemResponseList(int offset, int userSigunguCode) {
 		return queryFactory
 			.select(Projections.constructor(ItemResponse.class,
 				item.itemId,
@@ -29,8 +29,9 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				item.modifiedTime,
 				bookmark.count().as("item_id")))
 			.from(item)
-			.where(item.isActive.eq(ActiveStatus.Y))
 			.leftJoin(bookmark).on(item.itemId.eq(bookmark.bookmarkId.itemId))
+			.where(item.isActive.eq(ActiveStatus.Y)
+				.and(item.itemSigunguCode.eq(userSigunguCode)))
 			.groupBy(bookmark.bookmarkId.itemId)
 			.orderBy(item.modifiedTime.desc())
 			.limit(LIMIT)
