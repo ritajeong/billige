@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Rent from "./pages/Rent/Rent";
 import Detail from "./pages/Detail/Detail";
 import Location from "./pages/Location/Location";
+import SearchPlace from "./pages/Location/SearchPlace";
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
 

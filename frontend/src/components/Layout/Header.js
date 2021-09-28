@@ -14,7 +14,7 @@ const Header = (props) => {
     <div className="header">
       {props.location.pathname === "/" ? (
         <div className="header-location">
-          <Link to="/location">서울특별시 강남구</Link>
+          <Link to="/searchplace">서울특별시 강남구</Link>
         </div>
       ) : (
         <div className="header-pages">
