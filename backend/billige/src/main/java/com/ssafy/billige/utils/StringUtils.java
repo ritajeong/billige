@@ -7,10 +7,7 @@ public class StringUtils {
 	public static final String BOOKMARK = "/api/bookmark";
 	public static final String CONTRACT = "/api/contract";
 	public static final String ITEM = "/api/item";
-<<<<<<< HEAD
-=======
 	public static final String SEARCH = "/api/search";
->>>>>>> develop
 	public static final String USER = "/api/user";
 
 	// JWT String
@@ -21,11 +18,8 @@ public class StringUtils {
 	public static final String FROM_ADDRESS = "billige2021@gmail.com";
 
 	public static final String SUCCESS = "success";
-<<<<<<< HEAD
 
 	// Address, SiGunGu Code
 	public static final String DEFAULT_ADDRESS = "서울특별시 강남구 역삼동 언주로 508";
 	public static final String DEFAULT_CODE = "06220";
-=======
->>>>>>> develop
 }
