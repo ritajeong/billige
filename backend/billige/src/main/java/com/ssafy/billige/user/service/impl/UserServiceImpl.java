@@ -72,11 +72,12 @@ public class UserServiceImpl implements UserService {
 	public int signup(UserSignupRequest userSignupRequest){
 
 		String salt = RandomSaltProvider.getNextSalt().toString();
+		String tokenId = "B" + UUID.randomUUID().toString().substring(0,9);
 
 		User user = User.builder()
-				.userTokenId("B" + UUID.randomUUID().toString().substring(0,9))
+				.userTokenId(tokenId)
 				.userName(userSignupRequest.getUserName())
-				.userNickname(userSignupRequest.getUserNickname())
+				.userNickname(tokenId)
 				.userEmail(userSignupRequest.getUserEmail())
 				.userPassword(passwordEncoder.encode(userSignupRequest.getUserPassword()+salt))
 				.userSalt(salt)

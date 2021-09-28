@@ -8,25 +8,11 @@ public class UserSignupRequest {
 
     String userEmail;
 
-    String userNickname;
-
     String userAddress;
 
-    public String getUserAddress() {
-        return userAddress;
-    }
+    public String getUserAddress() { return userAddress; }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
-
-    public String getUserNickname() {
-        return userNickname;
-    }
-
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
-    }
+    public void setUserAddress(String userAddress) { this.userAddress = userAddress; }
 
     public String getUserName() {
         return userName;
