@@ -7,6 +7,7 @@ public class StringUtils {
 	public static final String BOOKMARK = "/api/bookmark";
 	public static final String CONTRACT = "/api/contract";
 	public static final String ITEM = "/api/item";
+	public static final String SEARCH = "/api/search";
 	public static final String USER = "/api/user";
 
 	// JWT String

@@ -1,10 +1,21 @@
 package com.ssafy.billige.item.repository;
 
+import com.ssafy.billige.item.dto.response.ItemListResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
+import com.ssafy.billige.search.dto.request.SearchFilter;
 
 import java.util.List;
 
 public interface ItemRepositoryCustom {
     // 대여품 목록 가져오기
-    List<ItemResponse> findAllItemResponseList(int page, int userSigunguCode);
+    List<ItemResponse> findAllItemResponseList(int offset, int userSigunguCode);
+
+    // 카테고리 검색
+    List<ItemListResponse> findByCategory(String category, int offset);
+
+    // 키워드 검색
+    List<ItemListResponse> findByKeyword(String keyword, int offset);
+
+    // 필터 검색
+    List<ItemListResponse> findByFilter(SearchFilter searchFilter, int offset);
 }
