@@ -1,6 +1,8 @@
 package com.ssafy.billige.item.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,11 +15,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.ssafy.billige.image.domain.Image;
 import com.ssafy.billige.item.dto.request.ItemUpdateRequest;
 import com.ssafy.billige.user.domain.User;
 
@@ -60,6 +64,9 @@ public class Item {
 
 	@LastModifiedDate
 	private LocalDateTime modifiedTime;
+
+	@OneToMany(mappedBy = "item")
+	private List<Image> images = new ArrayList<>();
 
 	//===CRUD 메소드===//
 	public void updateItem(ItemUpdateRequest request) {
