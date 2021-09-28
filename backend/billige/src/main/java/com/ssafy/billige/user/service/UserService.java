@@ -3,6 +3,7 @@ package com.ssafy.billige.user.service;
 import com.ssafy.billige.user.domain.User;
 import com.ssafy.billige.user.dto.request.UserSignupRequest;
 import com.ssafy.billige.user.dto.response.UserEmailResponse;
+import com.ssafy.billige.user.dto.response.UserProfileResponse;
 
 import java.util.Map;
 
@@ -36,4 +37,6 @@ public interface UserService {
 	public void createWallet(String tokenEmail, String userWallet);
 
 	public void chargeBli(String tokenEmail, int bli);
+
+	public UserProfileResponse showProfile(String tokenEmail);
 }

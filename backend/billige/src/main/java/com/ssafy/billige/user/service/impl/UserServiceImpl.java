@@ -1,13 +1,16 @@
 package com.ssafy.billige.user.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.billige.authentication.provider.RandomSaltProvider;
 import com.ssafy.billige.user.domain.User;
 import com.ssafy.billige.user.domain.UserStatus;
 import com.ssafy.billige.user.dto.request.UserSignupRequest;
 import com.ssafy.billige.user.dto.response.UserEmailResponse;
+import com.ssafy.billige.user.dto.response.UserProfileResponse;
 import com.ssafy.billige.user.repository.UserRepository;
 import com.ssafy.billige.user.service.UserService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -208,5 +211,24 @@ public class UserServiceImpl implements UserService {
 		user.setUserBli(resultBli);
 
 		userRepository.save(user);
+	}
+
+	@Autowired
+	ModelMapper modelMapper;
+	@Override
+	@Transactional
+	public UserProfileResponse showProfile(String tokenEmail){
+
+		User user = getUser(tokenEmail);
+		UserProfileResponse result = modelMapper.map(user, UserProfileResponse.class);
+		if(user.getUserWallet() != null){
+			result.setExistWallet(true);
+			result.setUserBli(user.getUserBli());
+		}else {
+			result.setExistWallet(false);
+			result.setUserBli(0);
+		}
+
+		return result;
 	}
 }

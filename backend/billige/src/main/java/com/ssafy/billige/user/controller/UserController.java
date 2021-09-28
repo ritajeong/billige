@@ -2,6 +2,7 @@ package com.ssafy.billige.user.controller;
 
 import com.ssafy.billige.user.dto.request.UserSignupRequest;
 import com.ssafy.billige.user.dto.response.BasicResponse;
+import com.ssafy.billige.user.dto.response.UserProfileResponse;
 import com.ssafy.billige.user.service.UserService;
 import com.ssafy.billige.utils.S3UploadUtils;
 import com.ssafy.billige.utils.TokenUtils;
@@ -167,5 +168,19 @@ public class UserController {
         userService.chargeBli(tokenEmail, bli);
         logger.info(tokenEmail + " : charge bli success");
         return ResponseEntity.ok().body("success");
+    }
+
+    @GetMapping("/mypage")
+    @ApiOperation(value = "마이페이지 보기")
+    public Object showProfile(@RequestHeader(AUTH_HEADER) String token){
+
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        String tokenEmail = (String) claims.get("userEmail");
+        logger.info(tokenEmail + " : request show profile");
+
+        UserProfileResponse result = userService.showProfile(tokenEmail);
+        logger.info(tokenEmail + " : show profile success");
+        return ResponseEntity.ok().body(result);
+
     }
 }
