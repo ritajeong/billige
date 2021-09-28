@@ -14,5 +14,8 @@ public class StringUtils {
 	public static final String AUTH_HEADER = "Authentication";
 	public static final String TOKEN_TYPE = "BEARER";
 
+	// Mail Sender
+	public static final String FROM_ADDRESS = "billige2021@gmail.com";
+
 	public static final String SUCCESS = "success";
 }
