@@ -18,15 +18,13 @@
   text-align: center;
 }
 
-.btn {
+.set-address-button {
   display: flex;
   margin: auto;
-  background: #497c5f;
-  width: 150px;
-  height: 28px;
-  color: white;
-  text-align: center;
-  border: 1px solid #c5d3cc;
-  box-sizing: border-box;
-  border-radius: 21px;
+  background-color: #497c5f !important;
+  color: white !important;
+  border-radius: 24px !important;
+  height: 35px;
+  max-width: 40%;
+  font-weight: 500 !important;
 }
