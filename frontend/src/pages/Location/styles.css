@@ -1,5 +1,7 @@
+/* SearchPlace.js*/
 .title {
   text-align: center;
+  margin-top: 15px;
 }
 
 .searchBar {
@@ -14,17 +16,30 @@
   border-radius: 21px;
 }
 
-.pagination {
-  text-align: center;
+.set-address-div {
+  display: flex;
+  flex-direction: column;
 }
 
 .set-address-button {
   display: flex;
-  margin: auto;
+  margin: auto !important;
   background-color: #497c5f !important;
   color: white !important;
   border-radius: 24px !important;
+  width: 200px;
   height: 35px;
-  max-width: 40%;
   font-weight: 500 !important;
+}
+
+/* Location.js*/
+
+.pagination {
+  text-align: center;
+  font-size: large;
+}
+
+.result-list {
+  margin-left: 25px;
+  margin-right: 25px;
 }
