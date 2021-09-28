@@ -8,3 +8,9 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
