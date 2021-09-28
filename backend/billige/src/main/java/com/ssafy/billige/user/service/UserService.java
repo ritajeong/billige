@@ -29,7 +29,7 @@ public interface UserService {
 
 	public void modifyPassword(Map<String, String> modifyRequest);
 
-	public void modifyProfile(String tokenEmail, String requestComment, String imageUrl);
+	public void modifyProfile(String tokenEmail, String requestPassword, String imageUrl);
 
 	public void modifyAddress(String tokenEmail, Map<String, String> request);
 

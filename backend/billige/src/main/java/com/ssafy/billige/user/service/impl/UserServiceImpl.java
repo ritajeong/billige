@@ -85,7 +85,6 @@ public class UserServiceImpl implements UserService {
 				.userAddress(DEFAULT_ADDRESS)
 				.userSigunguCode(DEFAULT_CODE)
 				.userImage("https://billige.s3.ap-northeast-2.amazonaws.com/profile/basicProfileImage.png")
-				.userComment("")
 				.build();
 
 		userRepository.save(user);
@@ -163,10 +162,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void modifyProfile(String tokenEmail, String requestComment, String imageUrl){
+	public void modifyProfile(String tokenEmail, String requestPassword, String imageUrl){
+
+		String salt = RandomSaltProvider.getNextSalt().toString();
 
 		User user = getUser(tokenEmail);
-		user.setUserComment(requestComment);
+		user.setUserPassword(passwordEncoder.encode(requestPassword + salt));
+		user.setUserSalt(salt);
 		user.setUserImage(imageUrl);
 
 		userRepository.save(user);

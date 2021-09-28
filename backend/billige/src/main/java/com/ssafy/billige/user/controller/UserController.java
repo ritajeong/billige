@@ -107,9 +107,8 @@ public class UserController {
 
     @PutMapping("/modify/profile")
     @ApiOperation(value = "프로필 편집")
-    public Object modifyProfile(@RequestHeader Map<String, Object> requestHeader, @RequestParam(required = false, value = "userComment") String requestComment, @RequestParam(required = false, value = "userImage")MultipartFile multipartFile){
+    public Object modifyProfile(@RequestHeader(AUTH_HEADER) String token, @RequestParam(required = false, value = "userPassword") String requestPassword, @RequestParam(required = false, value = "userImage")MultipartFile multipartFile){
 
-        final String token = (String) requestHeader.get("authorization");
         Claims claims = TokenUtils.getClaimsFromToken(token);
         String tokenEmail = (String) claims.get("userEmail");
         logger.info(tokenEmail + " : request modify profile");
@@ -126,7 +125,7 @@ public class UserController {
             }
         }
 
-        userService.modifyProfile(tokenEmail, requestComment, imageUrl);
+        userService.modifyProfile(tokenEmail, requestPassword, imageUrl);
         logger.info(tokenEmail + " : modify profile success");
         return ResponseEntity.ok().body("success");
     }

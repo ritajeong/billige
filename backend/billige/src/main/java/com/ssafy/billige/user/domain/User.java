@@ -42,8 +42,6 @@ public class User implements Serializable {
 	@JsonIgnore
 	private String userImage;
 	@JsonIgnore
-	private String userComment;
-	@JsonIgnore
 	@Enumerated(EnumType.STRING)
 	private UserStatus is_deleted;
 
