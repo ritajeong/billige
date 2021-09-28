@@ -40,7 +40,7 @@ public class User implements Serializable {
 	@JsonIgnore
 	private String userWallet;
 	@JsonIgnore
-	private int userSigunguCode;
+	private String userSigunguCode;
 	@JsonIgnore
 	private String userImage;
 	@JsonIgnore

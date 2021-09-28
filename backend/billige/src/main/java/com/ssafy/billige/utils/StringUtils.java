@@ -17,4 +17,8 @@ public class StringUtils {
 	public static final String FROM_ADDRESS = "billige2021@gmail.com";
 
 	public static final String SUCCESS = "success";
+
+	// Address, SiGunGu Code
+	public static final String DEFAULT_ADDRESS = "서울특별시 강남구 역삼동 언주로 508";
+	public static final String DEFAULT_CODE = "06220";
 }

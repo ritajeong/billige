@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.ssafy.billige.utils.StringUtils.FROM_ADDRESS;
+import static com.ssafy.billige.utils.StringUtils.*;
 
 @Service
 @RequiredArgsConstructor
@@ -82,7 +82,8 @@ public class UserServiceImpl implements UserService {
 				.userPassword(passwordEncoder.encode(userSignupRequest.getUserPassword()+salt))
 				.userSalt(salt)
 				.is_deleted(UserStatus.N)
-				.userAddress(userSignupRequest.getUserAddress())
+				.userAddress(DEFAULT_ADDRESS)
+				.userSigunguCode(DEFAULT_CODE)
 				.userImage("https://billige.s3.ap-northeast-2.amazonaws.com/profile/basicProfileImage.png")
 				.userComment("")
 				.build();

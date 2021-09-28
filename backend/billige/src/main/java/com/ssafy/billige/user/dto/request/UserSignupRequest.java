@@ -8,12 +8,6 @@ public class UserSignupRequest {
 
     String userEmail;
 
-    String userAddress;
-
-    public String getUserAddress() { return userAddress; }
-
-    public void setUserAddress(String userAddress) { this.userAddress = userAddress; }
-
     public String getUserName() {
         return userName;
     }
