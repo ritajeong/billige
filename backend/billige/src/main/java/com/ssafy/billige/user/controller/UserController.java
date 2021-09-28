@@ -89,7 +89,9 @@ public class UserController {
     @PutMapping("/modify/password")
     @ApiOperation(value = "비밀번호 수정")
     public Object modifyPassword(@RequestBody Map<String, String> modifyRequest){
+        logger.info(modifyRequest.get("userEmail") + " : request modify password");
         userService.modifyPassword(modifyRequest);
+        logger.info(modifyRequest.get("userEmail") + " : modify password success");
         return ResponseEntity.ok().body("success");
     }
 }
