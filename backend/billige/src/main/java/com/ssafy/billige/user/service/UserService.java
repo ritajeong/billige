@@ -28,4 +28,6 @@ public interface UserService {
 	public String certificationNumberGenerator();
 
 	public void modifyPassword(Map<String, String> modifyRequest);
+
+	public void modifyProfile(String tokenEmail, String requestComment, String imageUrl);
 }

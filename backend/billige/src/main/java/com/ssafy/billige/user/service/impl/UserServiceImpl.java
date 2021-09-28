@@ -158,4 +158,16 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.save(user);
 	}
+
+	@Override
+	@Transactional
+	public void modifyProfile(String tokenEmail, String requestComment, String imageUrl){
+
+		User user = getUser(tokenEmail);
+		user.setUserComment(requestComment);
+		user.setUserImage(imageUrl);
+
+		userRepository.save(user);
+
+	}
 }

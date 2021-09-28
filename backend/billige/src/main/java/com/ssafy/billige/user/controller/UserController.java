@@ -3,6 +3,9 @@ package com.ssafy.billige.user.controller;
 import com.ssafy.billige.user.dto.request.UserSignupRequest;
 import com.ssafy.billige.user.dto.response.BasicResponse;
 import com.ssafy.billige.user.service.UserService;
+import com.ssafy.billige.utils.S3UploadUtils;
+import com.ssafy.billige.utils.TokenUtils;
+import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static com.ssafy.billige.utils.StringUtils.USER;
@@ -92,6 +97,33 @@ public class UserController {
         logger.info(modifyRequest.get("userEmail") + " : request modify password");
         userService.modifyPassword(modifyRequest);
         logger.info(modifyRequest.get("userEmail") + " : modify password success");
+        return ResponseEntity.ok().body("success");
+    }
+
+    @Autowired
+    S3UploadUtils s3UploadUtils;
+
+    @PutMapping("/modify/profile")
+    @ApiOperation("프로필 편집")
+    public Object modifyProfile(@RequestHeader Map<String, Object> requestHeader, @RequestParam(required = false, value = "userComment") String requestComment, @RequestParam(required = false, value = "userImage")MultipartFile multipartFile){
+        final String token = (String) requestHeader.get("authorization");
+        System.out.println(token);
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        String tokenEmail = (String) claims.get("userEmail");
+        System.out.println(tokenEmail);
+        String imageUrl = null;
+
+        // 프로필사진이 업데이트 된 경우 S3에 사진저장하고 url 받아오기
+        if(multipartFile != null){
+            try {
+                imageUrl = s3UploadUtils.upload(multipartFile, "profile");
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        userService.modifyProfile(tokenEmail, requestComment, imageUrl);
+
         return ResponseEntity.ok().body("success");
     }
 }
