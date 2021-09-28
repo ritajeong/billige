@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.billige.bookmark.domain.Bookmark;
 import com.ssafy.billige.bookmark.domain.BookmarkId;
-import com.ssafy.billige.bookmark.dto.response.BookmarkItemResponse;
+import com.ssafy.billige.item.dto.response.ItemListResponse;
 import com.ssafy.billige.bookmark.repository.BookmarkRepository;
 import com.ssafy.billige.bookmark.service.BookmarkService;
 
@@ -40,7 +40,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 	}
 
 	@Override
-	public List<BookmarkItemResponse> getBookmarkItems(Long uid) {
+	public List<ItemListResponse> getBookmarkItems(Long uid) {
 		List<Bookmark> bookmarks = bookmarkRepository.findAllByBookmarkId_Uid(uid);
 
 		return null;
