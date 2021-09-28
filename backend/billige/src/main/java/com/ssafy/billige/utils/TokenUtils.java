@@ -81,6 +81,7 @@ public class TokenUtils {
         claims.put("uid", user.getUid());
         claims.put("userEmail", user.getUserEmail());
         claims.put("userNickname", user.getUserNickname());
+        claims.put("userSigunguCode", user.getUserSigunguCode());
 
         return claims;
     }
@@ -105,19 +106,23 @@ public class TokenUtils {
 //    	logger.info(header);
         Claims claims = TokenUtils.getClaimsFromToken(header);
         String tokenUid = (String) claims.get("uid");
-        return tokenUid.equals(uid) ? true : false;
+        return tokenUid.equals(uid);
     }
 
     public static boolean isSameNickname(String header, String userNickname) {
 //    	logger.info(header);
         Claims claims = TokenUtils.getClaimsFromToken(header);
         String tokenUserNickname = (String) claims.get("userNickname");
-        return tokenUserNickname.equals(userNickname) ? true : false;
+        return tokenUserNickname.equals(userNickname);
     }
 
-    public static String getUidFromToken(String header) {
+    public static Long getUidFromToken(String header) {
         Claims claims = TokenUtils.getClaimsFromToken(header);
-        String tokenUid = (String) claims.get("uid");
-        return tokenUid;
+        return Long.parseLong(String.valueOf(claims.get("uid")));
+    }
+
+    public static int getSigunguCodeFromToken(String token) {
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        return Integer.parseInt(String.valueOf(claims.get("userSigunguCode")));
     }
 }

@@ -9,5 +9,5 @@ public interface ItemSearchService {
 	List<Item> myItems(long uid);
 
 	// 리스트로 뿌려줄 아이템 가져오기
-	List<ItemResponse> getItems(int page);
+	List<ItemResponse> getItems(int page, int userSigunguCode);
 }

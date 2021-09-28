@@ -6,9 +6,9 @@ import com.ssafy.billige.item.dto.request.ItemUpdateRequest;
 public interface ItemCrudService {
 	void saveItem(ItemRegistryRequest itemRegistryRequest);
 
-	void itemUpdate(ItemUpdateRequest itemRequest);
+	void itemUpdate(ItemUpdateRequest itemRequest, Long uid);
 
-	void removeItem(Long itemId);
+	void removeItem(Long itemId, Long uid);
 
-	void activeItem(Long itemId);
+	void activeItem(Long itemId, Long uid);
 }

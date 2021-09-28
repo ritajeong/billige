@@ -7,7 +7,7 @@ const CurrentPage = (props) => {
     const page = {
       "": "메인",
 
-      location: "위치 정보",
+      searchplace: "위치 정보",
 
       rent: "대여하기",
       detail: "제품 상세",

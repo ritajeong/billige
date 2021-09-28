@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ItemRepositoryCustom {
     // 대여품 목록 가져오기
-    List<ItemResponse> findAllItemResponseList(int page);
+    List<ItemResponse> findAllItemResponseList(int page, int userSigunguCode);
 }

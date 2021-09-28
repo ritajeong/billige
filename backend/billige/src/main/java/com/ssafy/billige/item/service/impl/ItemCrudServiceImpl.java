@@ -31,19 +31,29 @@ public class ItemCrudServiceImpl implements ItemCrudService {
 	}
 
 	@Override
-	public void itemUpdate(ItemUpdateRequest itemRequest) {
+	public void itemUpdate(ItemUpdateRequest itemRequest, Long uid) {
 		Item item = getItem(itemRequest.getItemId());
+		if (!item.getUser().getUid().equals(uid)) {
+			throw new IllegalArgumentException("물품을 수정할 권한이 없습니다.");
+		}
 		item.updateItem(itemRequest);
 	}
 
 	@Override
-	public void removeItem(Long itemId) {
+	public void removeItem(Long itemId, Long uid) {
+		Item item = getItem(itemId);
+		if (!item.getUser().getUid().equals(uid)) {
+			throw new IllegalArgumentException("물품을 삭제할 권한이 없습니다.");
+		}
 		itemRepository.deleteById(itemId);
 	}
 
 	@Override
-	public void activeItem(Long itemId) {
+	public void activeItem(Long itemId, Long uid) {
 		Item item = getItem(itemId);
+		if (!item.getUser().getUid().equals(uid)) {
+			throw new IllegalArgumentException("물품을 비활성화할 권한이 없습니다.");
+		}
 		item.activeItem();
 	}
 

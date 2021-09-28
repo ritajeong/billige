@@ -27,8 +27,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 
 	@Override
-	public List<ItemResponse> getItems(int page) {
+	public List<ItemResponse> getItems(int page, int userSigunguCode) {
 		int offset = (page - 1) * LIMIT;
-		return itemRepository.findAllItemResponseList(offset);
+		return itemRepository.findAllItemResponseList(offset, userSigunguCode);
 	}
 }
