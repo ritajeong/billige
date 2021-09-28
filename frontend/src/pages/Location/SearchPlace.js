@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Location from "./Location";
-import "./styles.css"
+import "./Location.css"
 import { Button } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
 
