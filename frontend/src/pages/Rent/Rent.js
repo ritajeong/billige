@@ -10,10 +10,10 @@ import Web3 from 'web3';
 // // 회원가입할 때 계저 생성할 코드. 임시로 여기에 배치해 놓았다.
 let web3 = new Web3(Web3.givenProvider || "https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390");
 var account = web3.eth.accounts.create();
-// console.log(account);
-web3.eth.getBalance(account).then(function (result) {
-	console.log(result);
-})
+console.log(account);
+// web3.eth.getBalance(account).then(function (result) {
+// 	console.log(result);
+// })
 
 const Rent = () => {
 
