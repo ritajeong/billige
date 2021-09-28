@@ -34,4 +34,6 @@ public interface UserService {
 	public void modifyAddress(String tokenEmail, Map<String, String> request);
 
 	public void createWallet(String tokenEmail, String userWallet);
+
+	public void chargeBli(String tokenEmail, int bli);
 }

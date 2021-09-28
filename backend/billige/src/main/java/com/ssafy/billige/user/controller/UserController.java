@@ -156,4 +156,17 @@ public class UserController {
         logger.info(tokenEmail + " : create wallet success");
         return ResponseEntity.ok().body("success");
     }
+
+    @PutMapping("/charge/wallet")
+    @ApiOperation(value = "빌리 충전")
+    public Object chargeBli(@RequestHeader(AUTH_HEADER) String token, @RequestParam(required = true, value = "bli") int bli){
+
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        String tokenEmail = (String) claims.get("userEmail");
+        logger.info(tokenEmail + " : request charge bli");
+
+        userService.chargeBli(tokenEmail, bli);
+        logger.info(tokenEmail + " : charge bli success");
+        return ResponseEntity.ok().body("success");
+    }
 }

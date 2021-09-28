@@ -195,4 +195,16 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.save(user);
 	}
+
+	@Override
+	@Transactional
+	public void chargeBli(String tokenEmail, int bli){
+
+		User user = getUser(tokenEmail);
+		int currentBli = user.getUserBli();
+		int resultBli = currentBli + bli;
+		user.setUserBli(resultBli);
+
+		userRepository.save(user);
+	}
 }
