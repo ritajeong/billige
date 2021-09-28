@@ -31,20 +31,21 @@ public class User implements Serializable {
 	private String userPassword;
 	@JsonIgnore
 	private String userSalt;
-
-	@JsonIgnore
-	@Enumerated(EnumType.STRING)
-	private UserStatus is_deleted;
-	@JsonIgnore
-	private String userAddress;
 	@JsonIgnore
 	private String userWallet;
+	@JsonIgnore
+	private int userBli;
+	@JsonIgnore
+	private String userAddress;
 	@JsonIgnore
 	private String userSigunguCode;
 	@JsonIgnore
 	private String userImage;
 	@JsonIgnore
 	private String userComment;
+	@JsonIgnore
+	@Enumerated(EnumType.STRING)
+	private UserStatus is_deleted;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")

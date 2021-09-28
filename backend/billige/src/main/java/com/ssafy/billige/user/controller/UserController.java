@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.ssafy.billige.utils.StringUtils.AUTH_HEADER;
 import static com.ssafy.billige.utils.StringUtils.USER;
 
 @RestController
@@ -94,6 +95,7 @@ public class UserController {
     @PutMapping("/modify/password")
     @ApiOperation(value = "비밀번호 수정")
     public Object modifyPassword(@RequestBody Map<String, String> modifyRequest){
+
         logger.info(modifyRequest.get("userEmail") + " : request modify password");
         userService.modifyPassword(modifyRequest);
         logger.info(modifyRequest.get("userEmail") + " : modify password success");
@@ -104,26 +106,54 @@ public class UserController {
     S3UploadUtils s3UploadUtils;
 
     @PutMapping("/modify/profile")
-    @ApiOperation("프로필 편집")
+    @ApiOperation(value = "프로필 편집")
     public Object modifyProfile(@RequestHeader Map<String, Object> requestHeader, @RequestParam(required = false, value = "userComment") String requestComment, @RequestParam(required = false, value = "userImage")MultipartFile multipartFile){
+
         final String token = (String) requestHeader.get("authorization");
-        System.out.println(token);
         Claims claims = TokenUtils.getClaimsFromToken(token);
         String tokenEmail = (String) claims.get("userEmail");
-        System.out.println(tokenEmail);
+        logger.info(tokenEmail + " : request modify profile");
         String imageUrl = null;
 
         // 프로필사진이 업데이트 된 경우 S3에 사진저장하고 url 받아오기
         if(multipartFile != null){
             try {
                 imageUrl = s3UploadUtils.upload(multipartFile, "profile");
+                logger.info(tokenEmail + " : profile image upload s3 success");
             } catch (IOException e){
+                logger.info(tokenEmail + " : profile image upload s3 fail");
                 e.printStackTrace();
             }
         }
 
         userService.modifyProfile(tokenEmail, requestComment, imageUrl);
+        logger.info(tokenEmail + " : modify profile success");
+        return ResponseEntity.ok().body("success");
+    }
 
+    @PutMapping("/modify/address")
+    @ApiOperation(value = "위치 변경")
+    public Object modifyAddress(@RequestHeader(AUTH_HEADER) String token, @RequestBody Map<String, String> request){
+
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        String tokenEmail = (String) claims.get("userEmail");
+        logger.info(tokenEmail + " : request modify address");
+
+        userService.modifyAddress(tokenEmail, request);
+        logger.info(tokenEmail + " : modify address success");
+        return ResponseEntity.ok().body("success");
+    }
+
+    @PostMapping("/create/wallet")
+    @ApiOperation(value = "지갑 생성")
+    public Object createWallet(@RequestHeader(AUTH_HEADER) String token, @RequestParam(required = true, value = "userWallet") String userWallet){
+
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+        String tokenEmail = (String) claims.get("userEmail");
+        logger.info(tokenEmail + " : request create wallet");
+
+        userService.createWallet(tokenEmail, userWallet);
+        logger.info(tokenEmail + " : create wallet success");
         return ResponseEntity.ok().body("success");
     }
 }

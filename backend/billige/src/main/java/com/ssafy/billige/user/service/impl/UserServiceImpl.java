@@ -58,13 +58,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailCheck(String userEmail){
+
 		if(userRepository.existsByUserEmail(userEmail)){
 			// 이메일 중복
 			return false;
 		}else {
 			return true;
 		}
-
 	}
 
 	@Override
@@ -104,7 +104,6 @@ public class UserServiceImpl implements UserService {
 		mailSend(mail);
 
 		return key;
-
 	}
 
 	@Autowired
@@ -122,6 +121,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserEmailResponse createEmail(String userEmail, String certificationNumber){
+
 		UserEmailResponse userEmailResponse = new UserEmailResponse();
 		userEmailResponse.setEmail(userEmail);
 		userEmailResponse.setTitle("Billige 인증번호 안내 관련 메일 입니다.");
@@ -132,6 +132,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String certificationNumberGenerator(){
+
 		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
 				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
@@ -148,6 +149,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void modifyPassword(Map<String, String> modifyRequest){
+
 		String requestEmail = modifyRequest.get("userEmail");
 		String requestPassword = modifyRequest.get("userPassword");
 		User user = getUser(requestEmail);
@@ -168,6 +170,29 @@ public class UserServiceImpl implements UserService {
 		user.setUserImage(imageUrl);
 
 		userRepository.save(user);
+	}
 
+	@Override
+	@Transactional
+	public void modifyAddress(String tokenEmail, Map<String, String> request){
+
+		User user = getUser(tokenEmail);
+		user.setUserAddress(request.get("userAddress"));
+		user.setUserSigunguCode(request.get("userSigunguCode"));
+
+		userRepository.save(user);
+	}
+
+	@Override
+	@Transactional
+	public void createWallet(String tokenEmail, String userWallet){
+
+		User user = getUser(tokenEmail);
+		if(user.getUserWallet() == null){
+			user.setUserWallet(userWallet);
+			user.setUserBli(30);
+		}
+
+		userRepository.save(user);
 	}
 }
