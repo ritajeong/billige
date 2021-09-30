@@ -2,6 +2,8 @@ package com.ssafy.billige.item.controller;
 
 import static com.ssafy.billige.utils.StringUtils.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,5 +34,16 @@ public class ItemSearchController {
 	public ResponseEntity<?> getItems(@RequestParam("page") int page, @RequestHeader(AUTH_HEADER) String token) {
 		int userSigunguCode = TokenUtils.getSigunguCodeFromToken(token);
 		return ResponseEntity.ok().body(itemSearchService.getItems(page, userSigunguCode));
+	}
+
+	@GetMapping("/detail/{itemId}")
+	public ResponseEntity<?> getItemDetails(@PathVariable("itemId") Long itemId,  HttpServletRequest request) {
+		String token = "";
+		Long uid = -1L;
+		try {
+			token = request.getHeader(AUTH_HEADER);
+			uid = TokenUtils.getUidFromToken(token);
+		} catch (NullPointerException e) {}
+		return ResponseEntity.ok().body(itemSearchService.getItemDetails(itemId, uid));
 	}
 }
