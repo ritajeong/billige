@@ -1,0 +1,29 @@
+.show-category {
+  display: flex;
+}
+
+.hide-category {
+  display: none;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+.table {
+  margin: 25px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.row img {
+  padding: 5px;
+}
+
+.icon-name {
+  text-align: center;
+}
