@@ -17,30 +17,30 @@ import art from "../../assets/icons/category/art.png";
 const Category = () => {
   return (
     <>
-      <div className="table">
-        <div className="row">
+      <div className="category-table">
+        <div className="category-row">
           <div>
-            <img src={art} alt="art" className="icon" />
-            <p className="icon-name">음악</p>
+            <img src={art} alt="art" className="category-icon" />
+            <p className="category-name">음악</p>
           </div>
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
         </div>
-        <div className="row">
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
+        <div className="category-row">
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
         </div>
-        <div className="row">
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
-          <img src={art} alt="art" className="icon" />
+        <div className="category-row">
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
+          <img src={art} alt="art" className="category-icon" />
         </div>
       </div>
     </>

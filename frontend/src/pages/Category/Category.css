@@ -6,24 +6,24 @@
   display: none;
 }
 
-.icon {
+.category-icon {
   width: 50px;
   height: 50px;
 }
 
-.table {
+.category-table {
   margin: 25px;
 }
 
-.row {
+.category-row {
   display: flex;
   justify-content: space-between;
 }
 
-.row img {
+.category-row img {
   padding: 5px;
 }
 
-.icon-name {
+.category-name {
   text-align: center;
 }

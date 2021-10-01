@@ -3,16 +3,36 @@ import { Input, Button, Form, TextArea, Grid } from "semantic-ui-react";
 import "./Write.css";
 import Category from "../Category/Category";
 
-const Write = () => {
+const Write = props => {
   const [isOpen, setCategory] = useState(false); // 메뉴의 초기값을 false로 설정
-
+  const [form, setForm] = useState({
+    itemname: '',
+    price: '',
+    description: '',
+  })
+  const { itemname, price, description } = form;
+  const onChange = e => {
+    const nextForm = {
+      ...form,
+      [e.target.name]: e.target.value
+    };
+    setForm(nextForm);
+  };
+  const onClick = () => {
+    alert(itemname + ': ' + price);
+    setForm({
+      itemname: '',
+      price: '',
+      description: '',
+    })
+  }
   const showCategory = () => {
     setCategory((isOpen) => !isOpen); // on,off 개념 boolean
   };
   return (
     <div className="write">
       <h4 className="item-name">상품명</h4>
-      <Input placeholder="상품명을 입력해주세요" className="item-name" />
+      <Input className="item-name" placeholder="상품명을 입력해주세요" name="itemname" value={itemname} onChange={onChange}/>
       <h4 className="item-heading-upload">이미지 업로드</h4>
       <div className="upload">
         <Button className="upload-button">
@@ -26,7 +46,7 @@ const Write = () => {
           </Grid.Column>
           <Grid.Column>
             <div className="category-choice">
-              <p>음악</p>
+              <p>{props.name}</p>
               <Button className="choice-button" onClick={showCategory}>
                 선택
               </Button>
@@ -45,7 +65,7 @@ const Write = () => {
           </Grid.Column>
           <Grid.Column className="price">
             <div className="price">
-              <Input placeholder="가격" className="price" />
+              <Input className="price" placeholder="가격" name="price" value={price} onChange={onChange}/>
               <h4 className="price">원</h4>
             </div>
           </Grid.Column>
@@ -56,10 +76,10 @@ const Write = () => {
         <h4>
           <label>상품 설명</label>
         </h4>
-        <TextArea />
+        <TextArea className="item-description" name="description" value={description} onChange={onChange}/>
       </Form>
       <div className="done">
-        <Button className="done-button">등록</Button>
+        <Button className="done-button" onClick={onClick}>등록</Button>
       </div>
     </div>
   );
