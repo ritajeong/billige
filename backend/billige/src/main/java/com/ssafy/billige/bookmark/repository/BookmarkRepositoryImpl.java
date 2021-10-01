@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.billige.bookmark.dto.response.BookmarkItemResponse;
+import com.ssafy.billige.item.dto.response.ItemListResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,8 +18,8 @@ public class BookmarkRepositoryImpl implements BookmarkRepositoryCustom {
 	private final JPAQueryFactory jpaQueryFactory;
 
 	@Override
-	public List<BookmarkItemResponse> getBookmarkItems(Long uid) {
-		return jpaQueryFactory.selectDistinct(Projections.constructor(BookmarkItemResponse.class,
+	public List<ItemListResponse> getBookmarkItems(Long uid) {
+		return jpaQueryFactory.selectDistinct(Projections.constructor(ItemListResponse.class,
 			item.itemId,
 			item.itemname,
 			item.position,

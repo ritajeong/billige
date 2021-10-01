@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.ssafy.billige.bookmark.dto.response.BookmarkItemResponse;
+import com.ssafy.billige.item.dto.response.ItemListResponse;
 
 @SpringBootTest
 class BookmarkRepositoryImplTest {
@@ -18,7 +18,7 @@ class BookmarkRepositoryImplTest {
 
 	@Test
 	public void Test() {
-		List<BookmarkItemResponse> items = repository.getBookmarkItems(1L);
+		List<ItemListResponse> items = repository.getBookmarkItems(1L);
 		assertEquals(items.size(), 2);
 
 		items = repository.getBookmarkItems(6L);

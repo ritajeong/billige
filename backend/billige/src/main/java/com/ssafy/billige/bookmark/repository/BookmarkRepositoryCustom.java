@@ -2,9 +2,9 @@ package com.ssafy.billige.bookmark.repository;
 
 import java.util.List;
 
-import com.ssafy.billige.bookmark.dto.response.BookmarkItemResponse;
+import com.ssafy.billige.item.dto.response.ItemListResponse;
 
 public interface BookmarkRepositoryCustom {
 
-	List<BookmarkItemResponse> getBookmarkItems(Long uid);
+	List<ItemListResponse> getBookmarkItems(Long uid);
 }

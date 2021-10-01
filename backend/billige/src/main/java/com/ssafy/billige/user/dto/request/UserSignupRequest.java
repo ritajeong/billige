@@ -8,16 +8,6 @@ public class UserSignupRequest {
 
     String userEmail;
 
-    String userNickname;
-
-    public String getUserNickname() {
-        return userNickname;
-    }
-
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
-    }
-
     public String getUserName() {
         return userName;
     }

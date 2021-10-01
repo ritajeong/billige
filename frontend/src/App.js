@@ -4,7 +4,7 @@ import Main from "./pages/Main/Main";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Rent from "./pages/Rent/Rent";
 import Detail from "./pages/Detail/Detail";
-import Location from "./pages/Location/Location";
+import SearchPlace from "./pages/Location/SearchPlace";
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
 
@@ -27,7 +27,7 @@ function App() {
         <Switch>
           <Layout>
             <PublicRouter path="/" component={Main} exact />
-            <PublicRouter path="/location" component={Location} exact />
+            <PublicRouter path="/searchplace" component={SearchPlace} exact />
             <PublicRouter path="/detail/:pNo" component={Detail} exact />
             <PublicRouter path="/signin" component={SignIn} exact />
             <PublicRouter path="/signup" component={SignUp} exact />

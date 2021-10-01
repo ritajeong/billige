@@ -1,4 +1,4 @@
-package com.ssafy.billige.bookmark.dto.response;
+package com.ssafy.billige.item.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BookmarkItemResponse {
+public class ItemListResponse {
 	private Long itemId;
 	private String itemname;
 	private String position;

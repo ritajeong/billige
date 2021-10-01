@@ -8,3 +8,34 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: billige2021@gmail.com
+    password: wtfaceisoirtjmcg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 3000
+          starttls:
+            enable: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAYHIMCSPGLWDNB43F
+      secretKey: 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
+    stack:
+      auto: true
+    s3:
+      bucket: billige
+      url: https://s3.ap-northeast-2.amazonaws.com/billige
+    region:
+      static: ap-northeast-2
