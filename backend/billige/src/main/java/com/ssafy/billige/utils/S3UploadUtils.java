@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,19 +24,19 @@ public class S3UploadUtils {
     @Value("${cloud.aws.s3.bucket}")
     public String bucket; // S3 버켓 이름
 
-    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+    public String upload(MultipartFile multipartFile, String dirName, String userSet) throws IOException {
         File uploadFile = convert(multipartFile) // 파일 변환할 수 없다면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
 
-        return upload(uploadFile, dirName);
+        return upload(uploadFile, dirName, userSet);
     }
 
     // S3에 파일 업로드하기
-    private String upload(File uploadFile, String dirName){
+    private String upload(File uploadFile, String dirName, String userSet){
 
         if(uploadFile.equals(null)) return "null";
 
-        String fileName = dirName + "/" + UUID.randomUUID() + uploadFile.getName(); // 저장 시 파일명 중복을 방지하기 위해 랜덤값 삽입
+        String fileName = dirName + "/" + userSet + " - " + uploadFile.getName(); // 저장 시 파일명 중복을 방지하기 위해 랜덤값 삽입
         String uploadImageUrl = putS3(uploadFile, fileName); // S3 저장
         removeNewFile(uploadFile);
 

@@ -112,13 +112,15 @@ public class UserController {
 
         Claims claims = TokenUtils.getClaimsFromToken(token);
         String tokenEmail = (String) claims.get("userEmail");
+        String userSet = (String) claims.get("userName") + "(" + tokenEmail + ")";
+
         logger.info(tokenEmail + " : request modify profile");
         String imageUrl = null;
 
         // 프로필사진이 업데이트 된 경우 S3에 사진저장하고 url 받아오기
         if(multipartFile != null){
             try {
-                imageUrl = s3UploadUtils.upload(multipartFile, "profile");
+                imageUrl = s3UploadUtils.upload(multipartFile, "profile", userSet);
                 logger.info(tokenEmail + " : profile image upload s3 success");
             } catch (IOException e){
                 logger.info(tokenEmail + " : profile image upload s3 fail");

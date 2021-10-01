@@ -14,7 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContractRequest {
-	private String token;
 	private Long uid;
 	private Long ownerId;
 	private Long itemId;
