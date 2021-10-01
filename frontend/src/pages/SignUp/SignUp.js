@@ -122,7 +122,7 @@ const SignUp = () => {
                 message: "16글자 이내로 작성해주세요",
               },
               pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*\-_=+\\|;:'",./?])/,
+                value: /^(?=.*[A-Za-z_])(?=.*\d)(?=.*[!@#$%^*\-_=+\\|;:'",./?])/,
                 message: "영문 / 숫자 / 특수문자가 반드시 포함되어야 합니다",
               },
             }}
@@ -131,7 +131,7 @@ const SignUp = () => {
               <>
                 <Input
                   type="password"
-                  placeholder="8~15자리 영문+숫자+특수문자 조합"
+                  placeholder="9~16자리 영문+숫자+특수문자 조합"
                   className={errors.pwd ? "signup-error" : ""}
                   {...field}
                 />

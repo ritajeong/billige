@@ -1,17 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Button, Modal, Input } from "semantic-ui-react"
 import profile from "../../assets/image/user.png";
 import star from "../../assets/icons/star.png";
-import eth from "../../assets/icons/eth.png";
 import arrow from "../../assets/icons/arrow-right.png";
-import trade from "../../assets/icons/trade.png";
+import product from "../../assets/icons/product.png";
+import productlist from "../../assets/icons/productlist.png";
+import fingerprint from "../../assets/icons/fingerprint.png"
 import "./MyPage.css";
 const MyPage = () => {
+  const [wallet, setWallet] = useState(true);
+  const [open, setOpen] = React.useState(false)
+  const btn = useRef();
   const user = {
     name: "SSAFY",
     email: "ssafy@ssafy.com",
     profile: profile,
     money: "4,000",
+    wallet: '',
     tradelog: [
       {
         userName: "거래한사람",
@@ -38,6 +44,10 @@ const MyPage = () => {
     ],
   };
 
+  const createWallet = () => {
+    alert("지갑주소는 쏼라쏼라")
+    setWallet(!wallet)
+  }
   return (
     <div className="mypage">
       <div className="mypage-profile">
@@ -46,26 +56,71 @@ const MyPage = () => {
           <h4>{user.name} 님 안녕하세요!</h4>
           <span>{user.email}</span>
         </div>
-        <Link to="/useredit">
+        {/* <Link to="/useredit">
           <img src={arrow} width="20px" alt="arrow" />
-        </Link>
+        </Link> */}
       </div>
+      <Link to="/useredit">
+        <button className="mypage-useredit">프로필 수정</button>
+      </Link>
+      <div className="mypage-wallet">
 
+        {wallet ?
+          <div className="mypage-wallet-create" onClick={createWallet}>
+            <img src={fingerprint} alt="fingerprint" width="60px" />
+            지갑 생성하기
+          </div>
+          : <div className="mypage-wallet-info">
+            <div>지갑 잔액
+              <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+                trigger={<button ref={btn}>충전</button>}
+              >
+                <Modal.Header>충전</Modal.Header>
+                <Modal.Content image>
+                  <Modal.Description>
+                    <div className="charge-modal-input">
+                      <span>지갑주소</span>
+                      <Input />
+                    </div>
+                    <div className="charge-modal-input">
+                      <span>보유eth</span>
+                      <Input />
+                      ETH
+                    </div>
+                  </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button primary onClick={() => setOpen(false)}>
+                    충전하기
+                  </Button>
+                </Modal.Actions>
+              </Modal>
+            </div>
+            <div>17,000원</div>
+            <div> 잔액이 부족하면 대여서비스를 이용할 수 없습니다!</div>
+
+          </div>
+        }
+
+      </div>
       <div className="mypage-user-info">
-        <Link to="/tradelog">
+        <Link to="/myproduct">
           <div className="user-info">
-            <img src={trade} width="30px" alt="eth" />
+            <img src={product} width="30px" alt="eth" />
             <p>
-              거래횟수 <span>{user.tradelog.length}</span>
+              등록한 제품
             </p>
           </div>
         </Link>
 
-        <Link to="/charge">
+        <Link to="/tradelog">
           <div className="user-info">
-            <img src={eth} width="30px" alt="eth" />
+            <img src={productlist} width="30px" alt="eth" />
             <p>
-              보유금 <span>{user.money}</span>
+              대여내역
             </p>
           </div>
         </Link>
@@ -74,7 +129,7 @@ const MyPage = () => {
           <div className="user-info">
             <img src={star} width="30px" alt="eth" />
             <p>
-              찜 <span>{user.wishlist.length}</span>
+              찜
             </p>
           </div>
         </Link>
@@ -102,7 +157,9 @@ const MyPage = () => {
           </div>
         </Link>
       </div>
-    </div>
+
+
+    </div >
   );
 };
 

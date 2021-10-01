@@ -1,6 +1,6 @@
 import React from "react";
 import profile from "../../assets/image/user.png";
-import wishOn from "../../assets/icons/wish-on.png";
+// import wishOn from "../../assets/icons/wish-on.png";
 import "./Wish.css";
 const Wish = () => {
   const wishProduct = [
@@ -23,11 +23,11 @@ const Wish = () => {
     return (
       <div key={idx}>
         <div className="wish-item-list">
-          <img src={profile} className="wish-item-icon"></img>
+          <img src={profile} className="wish-item-icon" alt="profile"></img>
           <div className="wish-item-vertical">
             <div className="wish-item-title">{product.itemname}</div>
             <span>{product.address}</span>
-            <img src={wishOn} className="wish-item-bookmark" />
+            {/* <img src={wishOn} className="wish-item-bookmark"  alt = "wishOn"/> */}
             <div className="wish-item-price">{product.price} 원</div>
           </div>
           <div>
