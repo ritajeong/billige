@@ -24,25 +24,25 @@ const MyProduct = () => {
     },
   ];
 
-  return product.map((item, idx) => {
+  return product.map((item) => {
     return (
       <div>
-        <Link to={`/rentuser/${item.itemId}`}>
-          <div className="wish-item-list">
-            <img src={profile} className="wish-item-icon" alt="profile"></img>
-            <div className="wish-item-vertical">
-              <div className="wish-item-title">{item.itemname}</div>
-              <span>{item.address}</span>
-              <div className="wish-item-price">{item.price} 원</div>
+        <div className="wish-item-list">
+          <img src={profile} className="wish-item-icon" alt="profile"></img>
+          <div className="wish-item-vertical">
+            <div className="wish-item-title">
+              <Link to={`/rentuser/${item.itemId}`}>{item.itemname}</Link>
             </div>
-            <div>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider round"></span>
-              </label>
-            </div>
+            <span>{item.address}</span>
+            <div className="wish-item-price">{item.price} 원</div>
           </div>
-        </Link>
+          <div>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
       </div>
     );
   });
