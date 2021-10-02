@@ -85,6 +85,7 @@ public class TokenUtils {
         claims.put("userTokenId", user.getUserTokenId());
         claims.put("userAddress", user.getUserAddress());
         claims.put("userSigunguCode", user.getUserSigunguCode());
+        claims.put("existWallet", (user.getUserWallet() != null));
 
         return claims;
     }

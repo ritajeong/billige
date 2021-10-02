@@ -14,7 +14,7 @@
 .wish-item-vertical {
   width: fit-content;
   margin-bottom: auto;
-  padding: 2%;
+  padding-top: 2%;
 }
 .wish-item-title {
   font-size: large;
