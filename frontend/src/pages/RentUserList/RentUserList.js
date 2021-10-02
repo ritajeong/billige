@@ -31,7 +31,7 @@ const RentUserList = () => {
     return (
       <div className="rent-user">
         <div className="rent-user-list rent-user-box">
-          <img src={profile} className="rent-user-image"></img>
+          <img src={profile} className="rent-user-image" alt="profile"></img>
           <div className="rent-user-vertical">
             <div className="rent-user-name">{user.userName}</div>
             <span>{user.userAddress}</span>
