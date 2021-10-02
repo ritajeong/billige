@@ -24,6 +24,13 @@ const Rent = () => {
 
 async function registerWeb3 () {
 
+	this.state = {
+		shopInstance: null,
+		myAccount: null,
+		myApples: 0,
+		web3: null
+	};
+
 	try{
 		console.log(1)
 		let result = await getWeb3;

@@ -1,40 +1,39 @@
-import Web3 from 'web3'
+import Web3 from "web3";
 
-let getWeb3 = new Promise(function(resolve, reject) {
-  // Wait for loading completion to avoid race conditions with web3 injection timing.
-  window.addEventListener('load', function() {
-    var results
-    var web3 = window.web3
+let getWeb3 = new Promise((resolve, reject) => {
+    // Wait for loading completion to avoid race conditions with web3 injection timing.
+    window.addEventListener("load", async () => {
 
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof web3 !== 'undefined') {
-      // Use Mist/MetaMask's provider.
-      web3 = new Web3(web3.currentProvider)
-
-      results = {
-        web3: web3
+      if (window.ethereum) {
+        // const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390'));
+        const web3 = new Web3(Web3.givenProvider || 'https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390');
+        // const web3 = new Web3(window.ethereum);
+        try {
+          // Request account access if needed
+          await window.ethereum.enable();
+          resolve(web3);
+        } catch (error) {
+          reject(error);
+        }
       }
-      console.log('Injected web3 detected.');
-      console.log(3)
-      console.log(results.web3.eth)
-      resolve(results)
-    } else {
-      // Fallback to localhost if no web3 injection. We've configured this to
-      // use the development console's port by default.
-      var provider = new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390')
-
-      web3 = new Web3(provider)
-      console.log(2)
-      console.log(web3.eth.getAccounts)
-      results = {
-        web3: web3
+      // Legacy dapp browsers...
+      else if (window.web3) {
+        // Use Mist/MetaMask's provider.
+        const web3 = window.web3;
+        console.log("Injected web3 detected.");
+        resolve(web3);
       }
+      // Fallback to localhost; use dev console port by default...
+      else {
+        console.log(3)
+        const provider = new Web3.providers.HttpProvider(
+          "http://127.0.0.1:8545"
+        );
+        const web3 = new Web3(provider);
+        console.log("No web3 instance injected, using Local web3.");
+        resolve(web3);
+      }
+    });
+  });
 
-      console.log('No web3 instance injected, using Local web3.');
-
-      resolve(results)
-    }
-  })
-})
-
-export default getWeb3
+export default getWeb3;
