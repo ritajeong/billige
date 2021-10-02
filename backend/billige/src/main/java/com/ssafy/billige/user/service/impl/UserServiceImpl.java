@@ -167,12 +167,15 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void modifyProfile(String tokenEmail, String requestPassword, String imageUrl){
 
-		String salt = RandomSaltProvider.getNextSalt().toString();
-
 		User user = getUser(tokenEmail);
-		user.setUserPassword(passwordEncoder.encode(requestPassword + salt));
-		user.setUserSalt(salt);
-		user.setUserImage(imageUrl);
+		if(requestPassword != null){
+			String salt = RandomSaltProvider.getNextSalt().toString();
+			user.setUserPassword(passwordEncoder.encode(requestPassword + salt));
+			user.setUserSalt(salt);
+		}
+		if(imageUrl != null){
+			user.setUserImage(imageUrl);
+		}
 
 		userRepository.save(user);
 	}

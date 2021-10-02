@@ -6,7 +6,7 @@ import "./styles.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import Web3 from 'web3';
-import getWeb3 from '../../utils/getWeb3'
+// import getWeb3 from '../../utils/getWeb3'
 
 
 const Rent = () => {
@@ -22,25 +22,25 @@ const Rent = () => {
 
 // ===============================================================================
 
-async function registerWeb3 () {
+// async function registerWeb3 () {
 
-	this.state = {
-		shopInstance: null,
-		myAccount: null,
-		myApples: 0,
-		web3: null
-	};
+// 	this.state = {
+// 		shopInstance: null,
+// 		myAccount: null,
+// 		myApples: 0,
+// 		web3: null
+// 	};
 
-	try{
-		console.log(1)
-		let result = await getWeb3;
-		console.log(2)
-		console.log(result.web3);
-	}catch(err){
-		console.log('registerWeb3에서의 에러',err);
-	}
-}
-registerWeb3();
+// 	try{
+// 		console.log(1)
+// 		let result = await getWeb3;
+// 		console.log(2)
+// 		console.log(result.web3);
+// 	}catch(err){
+// 		console.log('registerWeb3에서의 에러',err);
+// 	}
+// }
+// registerWeb3();
 
 const stringToNum = {
 	Jan: 1,
