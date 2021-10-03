@@ -33,7 +33,7 @@ public class UserController {
 
     @PostMapping("/signup/email-check")
     @ApiOperation(value = "email 중복체크")
-    public boolean emailCheck(@RequestParam String userEmail){
+    public boolean emailCheck(@RequestBody String userEmail){
         return userService.emailCheck(userEmail);
     }
 
