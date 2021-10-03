@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailCheck(String userEmail){
-		return userRepository.findByUserEmail(userEmail).isPresent();
+		return !userRepository.findByUserEmail(userEmail).isPresent();
 	}
 
 	@Override
