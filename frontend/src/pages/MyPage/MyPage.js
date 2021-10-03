@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Modal, Input } from "semantic-ui-react"
 import profile from "../../assets/image/user.png";
@@ -7,9 +7,12 @@ import arrow from "../../assets/icons/arrow-right.png";
 import product from "../../assets/icons/product.png";
 import productlist from "../../assets/icons/productlist.png";
 import fingerprint from "../../assets/icons/fingerprint.png"
+
+import { getFunction } from "../../utils/getFunction";
 import "./MyPage.css";
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
+  const [bliAmount, setbliAmount] = useState(0);
   const [open, setOpen] = React.useState(false)
   const btn = useRef();
   const user = {
@@ -44,10 +47,14 @@ const MyPage = () => {
     ],
   };
 
-  const createWallet = () => {
-    alert("지갑주소는 쏼라쏼라")
-    setWallet(!wallet)
+  async function createWallet () {
+    user.wallet = await getFunction.connectMetamask();
+    const getCoin = await getFunction.getBliCoin();
+    setbliAmount(Math.floor(getCoin));
+    setWallet(false);
+    //   console.log(bliAmount);
   }
+  
   return (
     <div className="mypage">
       <div className="mypage-profile">
@@ -86,9 +93,9 @@ const MyPage = () => {
                       <Input />
                     </div>
                     <div className="charge-modal-input">
-                      <span>보유eth</span>
+                      <span>충전 BLI</span>
                       <Input />
-                      ETH
+                      BLI
                     </div>
                   </Modal.Description>
                 </Modal.Content>
@@ -99,7 +106,7 @@ const MyPage = () => {
                 </Modal.Actions>
               </Modal>
             </div>
-            <div>17,000원</div>
+            <div>{bliAmount} BLI</div>
             <div> 잔액이 부족하면 대여서비스를 이용할 수 없습니다!</div>
 
           </div>

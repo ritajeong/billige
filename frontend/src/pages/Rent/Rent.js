@@ -56,7 +56,7 @@ const stringToNum = {
 	Nov: 11,
 	Dec: 12
 }
-const pricePerDay = 200000 // 나중에 상품 상세 페에지에서 props로 받을 데이터.
+const pricePerDay = 10 // 나중에 상품 상세 페에지에서 props로 받을 데이터.
 
 const today = new Date().toString().split(' ');
 const [state, setState] = useState([
@@ -131,7 +131,7 @@ const onChangeDate = (item) => {
 				</div>
 				<div className="rent-nbutton-price">
 					<div className="rent-next-button">
-						<FontAwesomeIcon icon={faArrowCircleRight} size="2x"/>
+						<FontAwesomeIcon icon={faArrowCircleRight} size="2x" onClick={()=> console.log(1)}/>
 					</div>
 					<div className="rent-price-krw">
 						<div className="rent-estimated-price">
