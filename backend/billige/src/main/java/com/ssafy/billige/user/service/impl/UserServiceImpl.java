@@ -61,7 +61,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean emailCheck(String userEmail){
-		return !userRepository.findByUserEmail(userEmail).isPresent();
+		if(!userRepository.findByUserEmail(userEmail).isEmpty()){
+			// 이메일 중복인 경우
+			return false;
+		}else return true;
 	}
 
 	@Override
