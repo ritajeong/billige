@@ -141,7 +141,8 @@ const MyPage = () => {
                 </Modal.Actions>
               </Modal>
             </div>
-            <div>{user.userBli} BLI</div>
+            <div>{bliAmount} BLI</div>
+            {/* <div>{user.userBli} BLI</div> */}
             <div> 잔액이 부족하면 대여서비스를 이용할 수 없습니다!</div>
 
           </div>
