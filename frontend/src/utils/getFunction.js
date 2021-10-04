@@ -74,8 +74,6 @@ export class getFunction {
     try{
       this.myAccount = await this.web3.eth.getAccounts();
       this.shopInstance = await shop.deployed();
-      console.log(5656)
-      console.log(this.shopInstance)
       // await this.web3.eth.getAccounts((error, accounts) => {
       //   console.log(7);
         // shop.deployed().then(instance => {

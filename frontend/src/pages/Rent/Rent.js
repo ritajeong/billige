@@ -10,14 +10,15 @@ import Web3 from 'web3';
 
 import { getFunction } from "../../utils/getFunction";
 import truffleContract from "truffle-contract";
+import BliCoin from '../../config/BliToken.json';
 
 const Rent = () => {
 
-	const user = {
-		shopInstance: null,
-		myAccount: null,
-		web3: null,
-	};
+	// const user = {
+	// 	shopInstance: null,
+	// 	myAccount: null,
+	// 	web3: null,
+	// };
 
 const stringToNum = {
 	Jan: 1,
@@ -55,17 +56,24 @@ const [rentalEndMonth, setrentalEndMonth] = useState(stringToNum[today[1]]);
 const [rentalEndDay, setrentalEndDay] = useState(today[2]);
 const [price, setPrice] = useState('0');
 
-const [smartContract, setSmartContract] = useState({
-	web3: null,
-	accounts: null,
-	contract: null,
-	address: "",
-	TesBalance: null,
-	EthBalance: null,
-	sendAmount: "",
-	sendAddress: "",
-	txList: [],
-});
+// const [smartContract, setSmartContract] = useState({
+// 	web3: null,
+// 	accounts: null,
+// 	contract: null,
+// 	address: "",
+// 	TesBalance: null,
+// 	EthBalance: null,
+// 	sendAmount: "",
+// 	sendAddress: "",
+// 	txList: [],
+// });
+
+const [web3, setWeb3] = useState('')
+const [accounts, setAccounts] = useState('')
+const [contract, setContract] = useState('')
+const [bliContract, setBliContract] = useState('')
+const [address, setAddress] = useState('')
+
 
 const onChangeDate = (item) => {
 	setState([item.selection]);
@@ -91,25 +99,82 @@ const onChangeDate = (item) => {
 }
 
 const buyProduct = () => {
-	console.log(111)
-	console.log(window.web3)
-	getFunction.connectMetamask()
-    // .then(result =>{
-    //   setCurrentUserWallet(result[0]);
-		// })
+	let minABI = [
+		// transfer
+		{
+				"constant": false,
+				"inputs": [
+						{
+								"name": "_to",
+								"type": "address"
+						},
+						{
+								"name": "_value",
+								"type": "uint256"
+						}
+				],
+				"name": "transfer",
+				"outputs": [
+						{
+								"name": "success",
+								"type": "bool"
+						}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+		}
+		];
+		let contractAddress="0x14CDEab2be4b34364BB866320d5BF129B1727C4A";
+		let contract = new web3.eth.Contract(minABI, contractAddress);
+		let value = web3.utils.toWei("10", "ether");
+		contract.methods.transfer("0xF683ffC5A39a92827F3A6a69b9f11F12B9abFc7e", value).send({from: accounts[0]});
 }
 
+
 useEffect(() => {
-	setSmartContract(() => {
-		return {web3: window.web3}
-	});
+	setWeb3(new Web3(Web3.givenProvider))
 }, [])
 
 useEffect(() => {
-	setSmartContract(() => {
-		return {accounts: smartContract.web3.eth.getAccounts()}
-	});
-}, [smartContract.web3])
+	if (web3 !== ''){
+		getFunction.connectMetamask()
+    .then(result =>{
+			setAccounts(result)
+		})
+
+	// setBliContract(truffleContract(BliCoin));
+
+	// await instance.balanceOf(accounts[0]).then((balance) => {
+	// 		this.setState({TesBalance: balance.c[0] * 0.01});
+	// })
+	// await web3.eth.getBalance(accounts[0]).then((balance) => {
+	// 		this.setState({EthBalance: balance * 0.000000000000000001});
+	// });
+	}
+}, [web3])
+
+useEffect(() => {
+	if (bliContract !== '') {
+		console.log(2323)
+		console.log(bliContract)
+		// bliContract.setProvider(web3.currentProvider);
+		// bliContract.deployed()
+		// .then(result => {
+		// 	setContract(result)
+		// })
+	}
+}, [bliContract])
+
+useEffect(() => {
+	if (contract !== '') {
+		contract.balanceOf(accounts)
+		.then(result => {
+			console.log(1111)
+			console.log(result)
+		})
+	}
+}, [contract])
 
 // componentDidMount = async () => {
 // 	try{
