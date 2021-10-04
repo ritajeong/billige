@@ -30,6 +30,7 @@ const MyPage = () => {
       })
       .then((response) => {
         setUser(response.data)
+        dispatch(allActions.userActions.loginUser(response.data));
         console.log(response);
       })
       .catch((error) => {
