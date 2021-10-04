@@ -11,36 +11,11 @@ import Web3 from 'web3';
 
 const Rent = () => {
 
-	
-// // // 회원가입할 때 계저 생성할 코드. 임시로 여기에 배치해 놓았다.
-// let web3 = new Web3(Web3.givenProvider || "https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390");
-// var account = web3.eth.accounts.create();
-// console.log(account);
-// // web3.eth.getBalance(account).then(function (result) {
-// // 	console.log(result);
-// // })
-
-// ===============================================================================
-
-// async function registerWeb3 () {
-
-// 	this.state = {
-// 		shopInstance: null,
-// 		myAccount: null,
-// 		myApples: 0,
-// 		web3: null
-// 	};
-
-// 	try{
-// 		console.log(1)
-// 		let result = await getWeb3;
-// 		console.log(2)
-// 		console.log(result.web3);
-// 	}catch(err){
-// 		console.log('registerWeb3에서의 에러',err);
-// 	}
-// }
-// registerWeb3();
+	const user = {
+		shopInstance: null,
+		myAccount: null,
+		web3: null,
+	};
 
 const stringToNum = {
 	Jan: 1,
@@ -101,6 +76,10 @@ const onChangeDate = (item) => {
 	setPrice((elapsedDay*pricePerDay).toLocaleString());
 }
 
+const buyProduct = () => {
+	console.log(111)
+}
+
   return (
 		<div>
 			<div className="calendar">
@@ -131,7 +110,7 @@ const onChangeDate = (item) => {
 				</div>
 				<div className="rent-nbutton-price">
 					<div className="rent-next-button">
-						<FontAwesomeIcon icon={faArrowCircleRight} size="2x" onClick={()=> console.log(1)}/>
+						<FontAwesomeIcon icon={faArrowCircleRight} size="2x" onClick={buyProduct}/>
 					</div>
 					<div className="rent-price-krw">
 						<div className="rent-estimated-price">

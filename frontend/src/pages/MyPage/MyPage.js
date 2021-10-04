@@ -13,8 +13,9 @@ import "./MyPage.css";
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
   const [bliAmount, setbliAmount] = useState(0);
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
   const btn = useRef();
+  
   const user = {
     name: "SSAFY",
     email: "ssafy@ssafy.com",
@@ -47,13 +48,18 @@ const MyPage = () => {
     ],
   };
 
+  
+  // useEffect(() => {
+  //   console.log(11111)
+  // }, [user.wallet.length]);
+
   async function createWallet () {
     user.wallet = await getFunction.connectMetamask();
     const getCoin = await getFunction.getBliCoin();
     setbliAmount(Math.floor(getCoin));
     setWallet(false);
-    //   console.log(bliAmount);
   }
+  // console.log(user.wallet)
   
   return (
     <div className="mypage">
