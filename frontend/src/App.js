@@ -22,6 +22,7 @@ import "./App.css";
 import MyProduct from "./pages/MyProduct/MyProduct";
 import RentUserList from "./pages/RentUserList/RentUserList";
 import axios from 'axios';
+import TradeDetail from './pages/TradeDetail/TradeDetail';
 function App() {
   return (
     <div className="App">
@@ -45,6 +46,7 @@ function App() {
             <PrivateRouter path="/write" component={Write} exact />
             <PrivateRouter path="/chat" component={Chat} exact />
             <PrivateRouter path="/rentuser/:pNo" component={RentUserList} exact />
+            <PrivateRouter path="/tradedetail/:cNo" component={TradeDetail} exact />
           </Layout>
         </Switch>
       </Router>
