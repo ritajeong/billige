@@ -10,13 +10,54 @@ import productlist from "../../assets/icons/productlist.png";
 import fingerprint from "../../assets/icons/fingerprint.png"
 import "./MyPage.css";
 import axios from 'axios';
+import { createWallet } from "../../api/user"
 import allActions from '../../redux/actions';
+import { getFunction } from "../../utils/getFunction";
+
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
-  const [open, setOpen] = useState(false)
+  const [currentUserWallet, setCurrentUserWallet] = useState('');
+  const [bliAmount, setbliAmount] = useState('');
+  const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({})
   const btn = useRef();
   const dispatch = useDispatch();
+
+  async function onCreateWallet () {
+    getFunction.connectMetamask()
+    .then(result =>{
+      setCurrentUserWallet(result[0]);
+      axios
+      .post(`http://localhost:8080/api/user/create/wallet`, {
+        userWallet: result[0]
+      })
+      .then((response) => {
+        window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
+        console.log(response)
+      })
+      .catch(() => {
+        alert("아이디 혹은 비밀번호를 확인해주세요")
+      })
+    })
+  }
+  
+  useEffect(() => {
+    if (currentUserWallet !== ''){
+      getFunction.getBliCoin()
+      .then(result => {
+        setbliAmount(Math.floor(result))
+      })
+    }
+  }, [currentUserWallet])
+  
+  useEffect(() => {
+    // if (bliAmount !== ''){
+    //   setUser(() => {
+    //     return {existWallet: true}
+    //   });
+    // }
+  }, [bliAmount])
+
   useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem('token'));
     console.log("Bearer " + token);
@@ -30,6 +71,12 @@ const MyPage = () => {
       })
       .then((response) => {
         setUser(response.data)
+        if (response.data.existWallet === true){
+          getFunction.connectMetamask()
+          .then(result =>{
+            setCurrentUserWallet(result[0]);
+          })
+        }
         dispatch(allActions.userActions.loginUser(response.data));
         console.log(response);
       })
@@ -61,7 +108,7 @@ const MyPage = () => {
       <div className="mypage-wallet">
 
         {!user.existWallet ?
-          <div className="mypage-wallet-create" onClick={createWallet}>
+          <div className="mypage-wallet-create" onClick={onCreateWallet}>
             <img src={fingerprint} alt="fingerprint" width="60px" />
             지갑 생성하기
           </div>

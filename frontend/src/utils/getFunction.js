@@ -61,6 +61,9 @@ export class getFunction {
     const results = await getWeb3;
     this.web3 = results;
     await this.instantiateContract();
+    // render() {
+    //     return (this.myAccount)
+    // }
     return this.myAccount;
 	}
 
@@ -71,6 +74,8 @@ export class getFunction {
     try{
       this.myAccount = await this.web3.eth.getAccounts();
       this.shopInstance = await shop.deployed();
+      console.log(5656)
+      console.log(this.shopInstance)
       // await this.web3.eth.getAccounts((error, accounts) => {
       //   console.log(7);
         // shop.deployed().then(instance => {
@@ -117,13 +122,13 @@ export class getFunction {
     var web3 = window.web3
     const Web3Client = new Web3(web3.currentProvider)
     const tokenAddress = bliTokenAddress;
+    // const walletAddress = myAccount;
     const walletAddress = this.myAccount;
     const coinContract = new Web3Client.eth.Contract(minABI, tokenAddress);
 
     async function getBalance() {
       const bli_result = await coinContract.methods.balanceOf(walletAddress[0]).call();
       const format = Web3Client.utils.fromWei(bli_result);
-      console.log(format);
       return format;
     }
     return getBalance();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
@@ -8,6 +8,8 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import Web3 from 'web3';
 // import getWeb3 from '../../utils/getWeb3'
 
+import { getFunction } from "../../utils/getFunction";
+import truffleContract from "truffle-contract";
 
 const Rent = () => {
 
@@ -31,8 +33,8 @@ const stringToNum = {
 	Nov: 11,
 	Dec: 12
 }
-const pricePerDay = 10 // 나중에 상품 상세 페에지에서 props로 받을 데이터.
 
+const pricePerDay = 10 // 나중에 상품 상세 페에지에서 props로 받을 데이터.
 const today = new Date().toString().split(' ');
 const [state, setState] = useState([
 	{
@@ -42,7 +44,7 @@ const [state, setState] = useState([
 		color: '#C5D3CC',
 		preview: {
 			color: '#C5D3CC',
-		}
+		},
 	}
 ]);
 const [rentalStartYear, setrentalStartYear] = useState(today[3]);
@@ -52,6 +54,18 @@ const [rentalEndYear, setrentalEndYear] = useState(today[3]);
 const [rentalEndMonth, setrentalEndMonth] = useState(stringToNum[today[1]]);
 const [rentalEndDay, setrentalEndDay] = useState(today[2]);
 const [price, setPrice] = useState('0');
+
+const [smartContract, setSmartContract] = useState({
+	web3: null,
+	accounts: null,
+	contract: null,
+	address: "",
+	TesBalance: null,
+	EthBalance: null,
+	sendAmount: "",
+	sendAddress: "",
+	txList: [],
+});
 
 const onChangeDate = (item) => {
 	setState([item.selection]);
@@ -78,7 +92,49 @@ const onChangeDate = (item) => {
 
 const buyProduct = () => {
 	console.log(111)
+	console.log(window.web3)
+	getFunction.connectMetamask()
+    // .then(result =>{
+    //   setCurrentUserWallet(result[0]);
+		// })
 }
+
+useEffect(() => {
+	setSmartContract(() => {
+		return {web3: window.web3}
+	});
+}, [])
+
+useEffect(() => {
+	setSmartContract(() => {
+		return {accounts: smartContract.web3.eth.getAccounts()}
+	});
+}, [smartContract.web3])
+
+// componentDidMount = async () => {
+// 	try{
+// 			const web3 = await getWeb3();
+// 			const accounts = await web3.eth.getAccounts();
+// 			const Contract = truffleContract(TesCoin);
+// 			Contract.setProvider(web3.currentProvider);
+// 			const instance = await Contract.deployed();
+// 			this.setState({web3, accounts, contract: instance, address: String(accounts[0])});
+// 			await instance.balanceOf(accounts[0]).then((balance) => {
+// 					this.setState({TesBalance: balance.c[0] * 0.01});
+// 			})
+// 			await web3.eth.getBalance(accounts[0]).then((balance) => {
+// 					this.setState({EthBalance: balance * 0.000000000000000001});
+// 			});
+// 			// await instance.Transfer().watch((error, result) => this.watchTransfer(error, result));
+// 			// await instance.Approval().watch((error, result) => this.watchApproval(error, result));
+// 			// let {address, privateKey} = await web3.eth.accounts.create();
+// 			// console.log(address, privateKey);
+// 			console.log(instance.address);
+// 	} catch (error) {
+// 			alert("Failed to load web3, accounts, or contract. Check console for details.");
+// 			console.log(error);
+// 	}
+// }
 
   return (
 		<div>
