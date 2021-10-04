@@ -5,11 +5,14 @@ import check from "../../assets/icons/check.png";
 import checkOn from "../../assets/icons/check-on.png";
 import "./SignUp.css";
 import axios from 'axios';
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const [option1, setOption1] = useState(false);
   const [option2, setOption2] = useState(false);
   const [option3, setOption3] = useState(false);
+  const [emailLoading, setEmailLoading] = useState(false);
   const [sendEmail, setSendEmail] = useState(false);
+  const [isCert, setIsCert] = useState(false);
+  const [code, setCode] = useState('wqrqw124124')
   const pwd = useRef();
   const pwdConfirm = useRef();
   const cert = useRef();
@@ -26,20 +29,22 @@ const SignUp = () => {
   cert.current = watch("cert", "");
 
   const signup = () => {
-    alert("회원가입");
     const formData = {
       userEmail: watch('email', ''),
       userName: watch('name', ''),
       userPassword: watch('pwd', ''),
     }
-    console.log(formData)
 
     axios
       .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/signup`, formData)
       .then((response) => {
         console.log(response);
+        alert("회원가입에 성공하였습니다.")
+        history.push('/signin')
+
       }).catch((error) => {
         console.log(error)
+        alert("회원가입에 실패하였습니다.")
       }
       )
   };
@@ -54,20 +59,22 @@ const SignUp = () => {
         userEmail: watch('email', ''),
       })
       .then((response) => {
+
         if (response.data) {
+          setEmailLoading(true)
           axios
             .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/email-certification`, {
               userEmail: watch('email', ''),
             })
             .then((response) => {
-              console.log(response);
+              setCode(response.data.object);
               setSendEmail(true);
               alert("인증번호 전송");
+              console.log(code, response.data.object)
+              setEmailLoading(false)
             }).catch((error) => {
               console.log(error);
             })
-        } else {
-
         }
         console.log(response)
       }).catch((error) => {
@@ -77,8 +84,10 @@ const SignUp = () => {
   };
 
   const confirmCert = () => {
-    if (+cert.current === 123) {
+    console.log()
+    if (cert.current === code) {
       alert("인증 성공");
+      setIsCert(true);
     } else {
       alert("인증 실패");
     }
@@ -240,7 +249,7 @@ const SignUp = () => {
                   {...field}
                 />
                 <Button onClick={sendCert} type="button">
-                  인증 발송
+                  {emailLoading ? "메일 발송중" : "인증 발송"}
                 </Button>
               </div>
             )}
@@ -257,6 +266,7 @@ const SignUp = () => {
             control={control}
             rules={{
               required: { value: true, message: "필수 항목입니다" },
+
             }}
             altValue=""
             render={({ field }) => (
@@ -266,7 +276,7 @@ const SignUp = () => {
                   className={errors.cert ? "signup-error" : ""}
                   {...field}
                 />
-                {sendEmail ? (
+                {sendEmail && !emailLoading ? (
                   <Button onClick={confirmCert} type="button">
                     인증 확인
                   </Button>
@@ -331,13 +341,17 @@ const SignUp = () => {
         </div>
 
         <div className="signup-submit">
-          {checkAllOptions() ? (
-            <Button type="submit">회원가입</Button>
-          ) : (
-            <Button type="submit" disabled>
-              필수 항목을 전부 체크해주세요
-            </Button>
-          )}
+          {
+            !isCert ? <Button type="submit" disabled>
+              이메일 인증을 진행해주세요
+            </Button> :
+              checkAllOptions() ? (
+                <Button type="submit">회원가입</Button>
+              ) : (
+                <Button type="submit" disabled>
+                  필수 항목을 전부 체크해주세요
+                </Button>
+              )}
         </div>
       </form>
     </div>

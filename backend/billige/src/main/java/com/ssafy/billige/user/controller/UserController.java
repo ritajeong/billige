@@ -135,10 +135,11 @@ public class UserController {
 
     @PostMapping("/create/wallet")
     @ApiOperation(value = "지갑 생성")
-    public Object createWallet(@RequestHeader(AUTH_HEADER) String token, @RequestParam(required = true, value = "userWallet") String userWallet){
+    public Object createWallet(@RequestHeader(AUTH_HEADER) String token, @RequestBody Map<String, String> request){
 
         Claims claims = TokenUtils.getClaimsFromToken(token);
         String tokenEmail = (String) claims.get("userEmail");
+        String userWallet = request.get("userWallet");
         logger.info(tokenEmail + " : request create wallet");
 
         userService.createWallet(tokenEmail, userWallet);
@@ -148,10 +149,11 @@ public class UserController {
 
     @PutMapping("/charge/wallet")
     @ApiOperation(value = "빌리 충전")
-    public Object chargeBli(@RequestHeader(AUTH_HEADER) String token, @RequestParam(required = true, value = "bli") int bli){
+    public Object chargeBli(@RequestHeader(AUTH_HEADER) String token, @RequestBody Map<String, Integer> request){
 
         Claims claims = TokenUtils.getClaimsFromToken(token);
         String tokenEmail = (String) claims.get("userEmail");
+        int bli = request.get("bli");
         logger.info(tokenEmail + " : request charge bli");
 
         userService.chargeBli(tokenEmail, bli);
