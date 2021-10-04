@@ -29,6 +29,7 @@ public class ItemCrudController {
 	@PostMapping
 	public ResponseEntity<?> createItem(@RequestBody ItemRegistryRequest itemRegistryRequest, @RequestHeader(AUTH_HEADER) String token) {
 		itemRegistryRequest.setUid(TokenUtils.getUidFromToken(token));
+		itemRegistryRequest.setItemSigunguCode(TokenUtils.getSigunguCodeFromToken(token));
 		itemCrudService.saveItem(itemRegistryRequest);
 		return ResponseEntity.ok().body(SUCCESS);
 	}
