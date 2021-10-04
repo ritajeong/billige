@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import logo from "../../assets/image/billige.PNG";
 import { Button, Input } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -6,21 +7,41 @@ import kakao from "../../assets/icons/kakao-talk.png";
 
 import "./SignIn.css";
 import axios from 'axios';
+import allActions from '../../redux/actions';
 
 const SignIn = ({ history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const dispatch = useDispatch();
 
   const signin = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:8080/api/user/login`, {
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`, {
         userEmail: email,
         userPassword: password,
       })
       .then((response) => {
-        window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
-        history.push('/mypage')
+        const token = response.headers.authentication.split(" ")[1]
+        window.localStorage.setItem("token", JSON.stringify(token));
+        axios
+          .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/mypage`, {
+            headers: {
+              Authentication:
+                "Bearer " + token,
+            },
+
+          })
+          .then((response) => {
+            dispatch(allActions.userActions.loginUser(response.data));
+            window.localStorage.setItem("login", JSON.stringify(true));
+
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+        history.push('/')
       })
       .catch(() => {
         alert("아이디 혹은 비밀번호를 확인해주세요")

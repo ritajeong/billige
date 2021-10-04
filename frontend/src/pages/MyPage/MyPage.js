@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Button, Modal, Input } from "semantic-ui-react"
 import profile from "../../assets/image/user.png";
@@ -7,63 +8,15 @@ import arrow from "../../assets/icons/arrow-right.png";
 import product from "../../assets/icons/product.png";
 import productlist from "../../assets/icons/productlist.png";
 import fingerprint from "../../assets/icons/fingerprint.png"
-
-import { getFunction } from "../../utils/getFunction";
 import "./MyPage.css";
 import axios from 'axios';
+import allActions from '../../redux/actions';
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
-  const [currentUserWallet, setCurrentUserWallet] = useState('');
-  const [bliAmount, setbliAmount] = useState(0);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false)
   const [user, setUser] = useState({})
   const btn = useRef();
-  
-  // const user = {
-  //   name: "SSAFY",
-  //   email: "ssafy@ssafy.com",
-  //   profile: profile,
-  //   money: "4,000",
-  //   wallet: '',
-  //   tradelog: [
-  //     {
-  //       userName: "거래한사람",
-  //       date: "2021-09-24 16:00:00",
-  //       pName: "a",
-  //       pPrice: "2,000",
-  //     },
-  //     {
-  //       userName: "거래한사람2",
-  //       date: "2021-09-25 16:00:00",
-  //       pName: "b",
-  //       pPrice: "3,000",
-  //     },
-  //   ],
-  //   wishlist: [
-  //     {
-  //       pName: "a",
-  //       pPrice: "2,000",
-  //     },
-  //     {
-  //       pName: "b",
-  //       pPrice: "3,000",
-  //     },
-  //   ],
-  // };
-
-  
-  // useEffect(() => {
-  //   console.log(11111)
-  // }, [user.wallet.length]);
-
-  async function createWallet () {
-    const tmpWallet = await getFunction.connectMetamask();
-    setCurrentUserWallet(tmpWallet)
-    const getCoin = await getFunction.getBliCoin();
-    setbliAmount(Math.floor(getCoin));
-    setWallet(false);
-  }
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem('token'));
     console.log("Bearer " + token);
@@ -83,8 +36,15 @@ const MyPage = () => {
         console.log(error)
       })
   }, [])
-  // console.log(user.wallet)
-  
+  const createWallet = () => {
+    alert("지갑주소는 쏼라쏼라")
+    setWallet(!wallet)
+  }
+
+  const logout = () => {
+    dispatch(allActions.userActions.logoutUser());
+    alert("로그아웃 되었습니다")
+  }
   return (
     <div className="mypage">
       <div className="mypage-profile">
@@ -120,7 +80,7 @@ const MyPage = () => {
                       <Input />
                     </div>
                     <div className="charge-modal-input">
-                      <span>충전 BLI</span>
+                      <span>보유BLI</span>
                       <Input />
                       BLI
                     </div>
@@ -133,7 +93,7 @@ const MyPage = () => {
                 </Modal.Actions>
               </Modal>
             </div>
-            <div>{bliAmount} BLI</div>
+            <div>{user.userBli} BLI</div>
             <div> 잔액이 부족하면 대여서비스를 이용할 수 없습니다!</div>
 
           </div>
@@ -186,7 +146,7 @@ const MyPage = () => {
         </Link>
 
         <Link to="/">
-          <div className="mypage-option">
+          <div className="mypage-option" onClick={logout}>
             <p>로그아웃</p> <img src={arrow} width="20px" alt="arrow" />
           </div>
         </Link>
