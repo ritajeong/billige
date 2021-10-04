@@ -19,7 +19,7 @@ const ThumbNail = (props) => {
         <p>
           <span>{props.product.itemname}</span>
           <br />
-          {props.product.price}
+          {props.product.price} Bli
         </p>
       </Link>
     </div>
