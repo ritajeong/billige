@@ -27,7 +27,6 @@ const Wish = () => {
           <div className="wish-item-vertical">
             <div className="wish-item-title">{product.itemname}</div>
             <span>{product.address}</span>
-            {/* <img src={wishOn} className="wish-item-bookmark"  alt = "wishOn"/> */}
             <div className="wish-item-price">{product.price} 원</div>
           </div>
           <div>

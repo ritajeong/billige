@@ -10,43 +10,46 @@ import fingerprint from "../../assets/icons/fingerprint.png"
 
 import { getFunction } from "../../utils/getFunction";
 import "./MyPage.css";
+import axios from 'axios';
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
+  const [currentUserWallet, setCurrentUserWallet] = useState('');
   const [bliAmount, setbliAmount] = useState(0);
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = useState({})
   const btn = useRef();
   
-  const user = {
-    name: "SSAFY",
-    email: "ssafy@ssafy.com",
-    profile: profile,
-    money: "4,000",
-    wallet: '',
-    tradelog: [
-      {
-        userName: "거래한사람",
-        date: "2021-09-24 16:00:00",
-        pName: "a",
-        pPrice: "2,000",
-      },
-      {
-        userName: "거래한사람2",
-        date: "2021-09-25 16:00:00",
-        pName: "b",
-        pPrice: "3,000",
-      },
-    ],
-    wishlist: [
-      {
-        pName: "a",
-        pPrice: "2,000",
-      },
-      {
-        pName: "b",
-        pPrice: "3,000",
-      },
-    ],
-  };
+  // const user = {
+  //   name: "SSAFY",
+  //   email: "ssafy@ssafy.com",
+  //   profile: profile,
+  //   money: "4,000",
+  //   wallet: '',
+  //   tradelog: [
+  //     {
+  //       userName: "거래한사람",
+  //       date: "2021-09-24 16:00:00",
+  //       pName: "a",
+  //       pPrice: "2,000",
+  //     },
+  //     {
+  //       userName: "거래한사람2",
+  //       date: "2021-09-25 16:00:00",
+  //       pName: "b",
+  //       pPrice: "3,000",
+  //     },
+  //   ],
+  //   wishlist: [
+  //     {
+  //       pName: "a",
+  //       pPrice: "2,000",
+  //     },
+  //     {
+  //       pName: "b",
+  //       pPrice: "3,000",
+  //     },
+  //   ],
+  // };
 
   
   // useEffect(() => {
@@ -54,11 +57,32 @@ const MyPage = () => {
   // }, [user.wallet.length]);
 
   async function createWallet () {
-    user.wallet = await getFunction.connectMetamask();
+    const tmpWallet = await getFunction.connectMetamask();
+    setCurrentUserWallet(tmpWallet)
     const getCoin = await getFunction.getBliCoin();
     setbliAmount(Math.floor(getCoin));
     setWallet(false);
   }
+
+  useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem('token'));
+    console.log("Bearer " + token);
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/mypage`, {
+        headers: {
+          Authentication:
+            "Bearer " + token,
+        },
+
+      })
+      .then((response) => {
+        setUser(response.data)
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
   // console.log(user.wallet)
   
   return (
@@ -66,19 +90,16 @@ const MyPage = () => {
       <div className="mypage-profile">
         <img src={profile} alt="product" className="mypage-user-icon" />
         <div className="mypage-profile-desc">
-          <h4>{user.name} 님 안녕하세요!</h4>
-          <span>{user.email}</span>
+          <h4>{user.userName} 님 안녕하세요!</h4>
+          <span>{user.userEmail}</span>
         </div>
-        {/* <Link to="/useredit">
-          <img src={arrow} width="20px" alt="arrow" />
-        </Link> */}
       </div>
       <Link to="/useredit">
         <button className="mypage-useredit">프로필 수정</button>
       </Link>
       <div className="mypage-wallet">
 
-        {wallet ?
+        {!user.existWallet ?
           <div className="mypage-wallet-create" onClick={createWallet}>
             <img src={fingerprint} alt="fingerprint" width="60px" />
             지갑 생성하기
@@ -170,7 +191,6 @@ const MyPage = () => {
           </div>
         </Link>
       </div>
-
 
     </div >
   );

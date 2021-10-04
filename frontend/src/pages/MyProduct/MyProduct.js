@@ -37,9 +37,9 @@ const MyProduct = () => {
             <div className="wish-item-price">{item.price} 원</div>
           </div>
           <div>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
           </div>
         </div>

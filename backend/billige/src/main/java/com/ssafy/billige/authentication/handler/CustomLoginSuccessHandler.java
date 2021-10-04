@@ -6,6 +6,7 @@ import com.ssafy.billige.utils.StringUtils;
 import com.ssafy.billige.utils.TokenUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
@@ -24,6 +25,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         final User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
         final String token = TokenUtils.generateJwtToken(user);
         response.addHeader(StringUtils.AUTH_HEADER, StringUtils.TOKEN_TYPE + " " + token);
+        response.getWriter().write("success");
 //		getRedirectStrategy().sendRedirect(request, response, "/");
 
     }

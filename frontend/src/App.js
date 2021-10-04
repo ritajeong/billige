@@ -21,7 +21,7 @@ import Charge from "./pages/Charge/Charge";
 import "./App.css";
 import MyProduct from "./pages/MyProduct/MyProduct";
 import RentUserList from "./pages/RentUserList/RentUserList";
-
+import axios from 'axios';
 function App() {
   return (
     <div className="App">

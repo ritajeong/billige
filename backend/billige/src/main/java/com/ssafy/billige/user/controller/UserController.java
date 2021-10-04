@@ -33,8 +33,10 @@ public class UserController {
 
     @PostMapping("/signup/email-check")
     @ApiOperation(value = "email 중복체크")
-    public boolean emailCheck(@RequestParam String userEmail){
-        return userService.emailCheck(userEmail);
+    public Object emailCheck(@RequestBody Map<String, String> request){
+        String userEmail = request.get("userEmail");
+        return ResponseEntity.ok().body(userService.emailCheck(userEmail));
+
     }
 
     @PostMapping("/signup")
@@ -44,7 +46,7 @@ public class UserController {
         final BasicResponse result = new BasicResponse();
         HttpStatus status = HttpStatus.CONFLICT;
 
-        if(emailCheck(userSignupRequest.getUserEmail())){
+        if(userService.emailCheck(userSignupRequest.getUserEmail())){
             // 사용가능한 email 인 경우
             int signupResult = userService.signup(userSignupRequest);
 
@@ -66,30 +68,15 @@ public class UserController {
     public Object certificateEmail(@RequestBody Map<String, String> request){
 
         final BasicResponse result = new BasicResponse();
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        HttpStatus status = HttpStatus.OK;
 
         String requestEmail = request.get("userEmail");
         logger.info(requestEmail + " : request email certification");
-        if(!emailCheck(requestEmail)){
-            // email 중복 : 존재하는 회원인 경우
-            String key = userService.certificateEmail(requestEmail);
-            if(key.equals(null)){
-                // email 전송 오류
-                result.data = "send email failed";
-                result.status = false;
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-                logger.error(requestEmail + " : send email failed");
-            }else{
-                result.data = "success";
-                result.status = true;
-                result.object = key;
-                status = HttpStatus.OK;
-                logger.info(requestEmail + " : send email success");
-            }
-        }else{
-            result.data = "non-existent user";
-            result.status = false;
-        }
+        String key = userService.certificateEmail(requestEmail);
+        result.data = "success";
+        result.status = true;
+        result.object = key;
+        logger.info(requestEmail + " : send email success");
         return new ResponseEntity<>(result, status);
     }
 

@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import check from "../../assets/icons/check.png";
 import checkOn from "../../assets/icons/check-on.png";
 import "./SignUp.css";
+import axios from 'axios';
 const SignUp = () => {
   const [option1, setOption1] = useState(false);
   const [option2, setOption2] = useState(false);
@@ -26,11 +27,53 @@ const SignUp = () => {
 
   const signup = () => {
     alert("회원가입");
+    const formData = {
+      userEmail: watch('email', ''),
+      userName: watch('name', ''),
+      userPassword: watch('pwd', ''),
+    }
+    console.log(formData)
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/signup`, formData)
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error)
+      }
+      )
   };
 
   const sendCert = () => {
-    setSendEmail(true);
-    alert("인증번호 전송");
+    console.log(watch('email', ''))
+    console.log(typeof (watch('email', '')))
+
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/signup/email-check`, {
+        userEmail: watch('email', ''),
+      })
+      .then((response) => {
+        if (response.data) {
+          axios
+            .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/email-certification`, {
+              userEmail: watch('email', ''),
+            })
+            .then((response) => {
+              console.log(response);
+              setSendEmail(true);
+              alert("인증번호 전송");
+            }).catch((error) => {
+              console.log(error);
+            })
+        } else {
+
+        }
+        console.log(response)
+      }).catch((error) => {
+        console.log(error);
+      })
+
   };
 
   const confirmCert = () => {

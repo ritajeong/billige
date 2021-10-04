@@ -1,6 +1,8 @@
 .mypage {
   position: relative;
+  height: 100%;
 }
+
 .mypage-profile {
   display: flex;
   align-items: center;
