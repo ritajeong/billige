@@ -18,11 +18,13 @@ export const chargeWallet = async (bli) => {
 
 //POST
 export const createWallet = async (userWallet) => {
-  const url = `/api/user/create/wallet`
+  const url = `/api/user/create/wallet/`
   formData = {
     userWallet,
   }
   const response = await axiosInstance.post(url, formData, { headers: { headers } });
+  console.log(4343)
+  console.log(response);
   return response
 
 }
