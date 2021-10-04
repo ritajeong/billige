@@ -193,10 +193,12 @@ public class UserServiceImpl implements UserService {
 	public void createWallet(String tokenEmail, String userWallet){
 
 		User user = getUser(tokenEmail);
-		if(user.getUserWallet() == null){
+		if(user.getUserWallet() == null && userWallet != null){ // 지갑이 없는 회원이 지갑을 생성한 경우
 			user.setUserWallet(userWallet);
 			user.setUserBli(30);
 		}
+
+
 
 		userRepository.save(user);
 	}
