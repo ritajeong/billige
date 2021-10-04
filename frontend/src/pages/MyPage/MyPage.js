@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Button, Modal, Input } from "semantic-ui-react"
 import profile from "../../assets/image/user.png";
@@ -8,64 +9,58 @@ import product from "../../assets/icons/product.png";
 import productlist from "../../assets/icons/productlist.png";
 import fingerprint from "../../assets/icons/fingerprint.png"
 import "./MyPage.css";
+import axios from 'axios';
+import allActions from '../../redux/actions';
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
+  const [user, setUser] = useState({})
   const btn = useRef();
-  const user = {
-    name: "SSAFY",
-    email: "ssafy@ssafy.com",
-    profile: profile,
-    money: "4,000",
-    wallet: '',
-    tradelog: [
-      {
-        userName: "거래한사람",
-        date: "2021-09-24 16:00:00",
-        pName: "a",
-        pPrice: "2,000",
-      },
-      {
-        userName: "거래한사람2",
-        date: "2021-09-25 16:00:00",
-        pName: "b",
-        pPrice: "3,000",
-      },
-    ],
-    wishlist: [
-      {
-        pName: "a",
-        pPrice: "2,000",
-      },
-      {
-        pName: "b",
-        pPrice: "3,000",
-      },
-    ],
-  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem('token'));
+    console.log("Bearer " + token);
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/mypage`, {
+        headers: {
+          Authentication:
+            "Bearer " + token,
+        },
 
+      })
+      .then((response) => {
+        setUser(response.data)
+        dispatch(allActions.userActions.loginUser(response.data));
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
   const createWallet = () => {
     alert("지갑주소는 쏼라쏼라")
     setWallet(!wallet)
+  }
+
+  const logout = () => {
+    dispatch(allActions.userActions.logoutUser());
+    alert("로그아웃 되었습니다")
   }
   return (
     <div className="mypage">
       <div className="mypage-profile">
         <img src={profile} alt="product" className="mypage-user-icon" />
         <div className="mypage-profile-desc">
-          <h4>{user.name} 님 안녕하세요!</h4>
-          <span>{user.email}</span>
+          <h4>{user.userName} 님 안녕하세요!</h4>
+          <span>{user.userEmail}</span>
         </div>
-        {/* <Link to="/useredit">
-          <img src={arrow} width="20px" alt="arrow" />
-        </Link> */}
       </div>
       <Link to="/useredit">
         <button className="mypage-useredit">프로필 수정</button>
       </Link>
       <div className="mypage-wallet">
 
-        {wallet ?
+        {!user.existWallet ?
           <div className="mypage-wallet-create" onClick={createWallet}>
             <img src={fingerprint} alt="fingerprint" width="60px" />
             지갑 생성하기
@@ -86,9 +81,9 @@ const MyPage = () => {
                       <Input />
                     </div>
                     <div className="charge-modal-input">
-                      <span>보유eth</span>
+                      <span>보유BLI</span>
                       <Input />
-                      ETH
+                      BLI
                     </div>
                   </Modal.Description>
                 </Modal.Content>
@@ -99,7 +94,7 @@ const MyPage = () => {
                 </Modal.Actions>
               </Modal>
             </div>
-            <div>17,000원</div>
+            <div>{user.userBli} BLI</div>
             <div> 잔액이 부족하면 대여서비스를 이용할 수 없습니다!</div>
 
           </div>
@@ -152,12 +147,11 @@ const MyPage = () => {
         </Link>
 
         <Link to="/">
-          <div className="mypage-option">
+          <div className="mypage-option" onClick={logout}>
             <p>로그아웃</p> <img src={arrow} width="20px" alt="arrow" />
           </div>
         </Link>
       </div>
-
 
     </div >
   );
