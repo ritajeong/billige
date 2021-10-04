@@ -11,58 +11,50 @@ import fingerprint from "../../assets/icons/fingerprint.png"
 import { getFunction } from "../../utils/getFunction";
 import "./MyPage.css";
 import axios from 'axios';
+import { createWallet } from "../../api/user"
+
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
   const [currentUserWallet, setCurrentUserWallet] = useState('');
-  const [bliAmount, setbliAmount] = useState(0);
+  const [bliAmount, setbliAmount] = useState('');
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({})
   const btn = useRef();
-  
-  // const user = {
-  //   name: "SSAFY",
-  //   email: "ssafy@ssafy.com",
-  //   profile: profile,
-  //   money: "4,000",
-  //   wallet: '',
-  //   tradelog: [
-  //     {
-  //       userName: "거래한사람",
-  //       date: "2021-09-24 16:00:00",
-  //       pName: "a",
-  //       pPrice: "2,000",
-  //     },
-  //     {
-  //       userName: "거래한사람2",
-  //       date: "2021-09-25 16:00:00",
-  //       pName: "b",
-  //       pPrice: "3,000",
-  //     },
-  //   ],
-  //   wishlist: [
-  //     {
-  //       pName: "a",
-  //       pPrice: "2,000",
-  //     },
-  //     {
-  //       pName: "b",
-  //       pPrice: "3,000",
-  //     },
-  //   ],
-  // };
 
-  
-  // useEffect(() => {
-  //   console.log(11111)
-  // }, [user.wallet.length]);
-
-  async function createWallet () {
-    const tmpWallet = await getFunction.connectMetamask();
-    setCurrentUserWallet(tmpWallet)
-    const getCoin = await getFunction.getBliCoin();
-    setbliAmount(Math.floor(getCoin));
-    setWallet(false);
+  async function onCreateWallet () {
+    getFunction.connectMetamask()
+    .then(result =>{
+      setCurrentUserWallet(result[0]);
+      axios
+      .post(`http://localhost:8080/api/user/create/wallet`, {
+        userWallet: result[0]
+      })
+      .then((response) => {
+        window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
+        console.log(response)
+      })
+      .catch(() => {
+        alert("아이디 혹은 비밀번호를 확인해주세요")
+      })
+    })
   }
+  
+  useEffect(() => {
+    if (currentUserWallet !== ''){
+      getFunction.getBliCoin()
+      .then(result => {
+        setbliAmount(Math.floor(result))
+      })
+    }
+  }, [currentUserWallet])
+  
+  useEffect(() => {
+    // if (bliAmount !== ''){
+    //   setUser(() => {
+    //     return {existWallet: true}
+    //   });
+    // }
+  }, [bliAmount])
 
   useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem('token'));
@@ -77,6 +69,12 @@ const MyPage = () => {
       })
       .then((response) => {
         setUser(response.data)
+        if (response.data.existWallet === true){
+          getFunction.connectMetamask()
+          .then(result =>{
+            setCurrentUserWallet(result[0]);
+          })
+        }
         console.log(response);
       })
       .catch((error) => {
@@ -100,7 +98,7 @@ const MyPage = () => {
       <div className="mypage-wallet">
 
         {!user.existWallet ?
-          <div className="mypage-wallet-create" onClick={createWallet}>
+          <div className="mypage-wallet-create" onClick={onCreateWallet}>
             <img src={fingerprint} alt="fingerprint" width="60px" />
             지갑 생성하기
           </div>
