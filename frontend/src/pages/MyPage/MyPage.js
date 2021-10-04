@@ -23,33 +23,33 @@ const MyPage = () => {
   const btn = useRef();
   const dispatch = useDispatch();
 
-  async function onCreateWallet () {
+  async function onCreateWallet() {
     getFunction.connectMetamask()
-    .then(result =>{
-      setCurrentUserWallet(result[0]);
-      axios
-      .post(`http://localhost:8080/api/user/create/wallet`, {
-        userWallet: result[0]
-      })
-      .then((response) => {
-        window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
-        console.log(response)
-      })
-      .catch(() => {
-        alert("아이디 혹은 비밀번호를 확인해주세요")
-      })
-    })
-  }
-  
-  useEffect(() => {
-    if (currentUserWallet !== ''){
-      getFunction.getBliCoin()
       .then(result => {
-        setbliAmount(Math.floor(result))
+        setCurrentUserWallet(result[0]);
+        axios
+          .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/create/wallet`, {
+            userWallet: result[0]
+          })
+          .then((response) => {
+            window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
+            console.log(response)
+          })
+          .catch(() => {
+            alert("아이디 혹은 비밀번호를 확인해주세요")
+          })
       })
+  }
+
+  useEffect(() => {
+    if (currentUserWallet !== '') {
+      getFunction.getBliCoin()
+        .then(result => {
+          setbliAmount(Math.floor(result))
+        })
     }
   }, [currentUserWallet])
-  
+
   useEffect(() => {
     // if (bliAmount !== ''){
     //   setUser(() => {
@@ -71,11 +71,11 @@ const MyPage = () => {
       })
       .then((response) => {
         setUser(response.data)
-        if (response.data.existWallet === true){
+        if (response.data.existWallet === true) {
           getFunction.connectMetamask()
-          .then(result =>{
-            setCurrentUserWallet(result[0]);
-          })
+            .then(result => {
+              setCurrentUserWallet(result[0]);
+            })
         }
         dispatch(allActions.userActions.loginUser(response.data));
         console.log(response);

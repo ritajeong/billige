@@ -1,12 +1,52 @@
-import React from "react";
+
+import React, { useState } from "react";
+import axios from 'axios';
 import { Input, Button, Form, TextArea, Grid } from "semantic-ui-react";
 import "./Write.css";
 
 const Write = () => {
+  const [itemname, setItemName] = useState()
+  const [description, setDescription] = useState()
+  const [category, setCategory] = useState('test');
+
+  const writeProduct = () => {
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    axios
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item`, {
+        category,
+        description,
+        itemSigunguCode: 11110,
+        itemname,
+        position: "서울특별시 강남구",
+        price: 0,
+      }, {
+        headers: {
+          Authentication:
+            "Bearer " + token
+        },
+
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  const onChangeItemName = (e) => {
+    setItemName(e.target.value);
+  }
+
+  const onChangeDesc = (e) => {
+    setDescription(e.target.value)
+  }
   return (
     <div className="write">
       <h4 className="item-name">상품명</h4>
-      <Input placeholder="상품명을 입력해주세요" className="item-name" />
+
+      <Input placeholder="상품명을 입력해주세요" className="item-name" onChange={onChangeItemName} />
+
       <h4 className="item-heading-upload">이미지 업로드</h4>
       <div className="upload">
         <Button className="upload-button"><h2>+</h2></Button>
@@ -39,10 +79,10 @@ const Write = () => {
         <h4>
           <label>상품 설명</label>
         </h4>
-        <TextArea />
+        <TextArea onChange={onChangeDesc} />
       </Form>
       <div className="done">
-        <Button className="done-button">등록</Button>
+        <Button className="done-button" onClick={writeProduct}>등록</Button>
       </div>
     </div>
   );

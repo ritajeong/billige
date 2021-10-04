@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { Input } from "semantic-ui-react";
@@ -7,8 +7,30 @@ import "./Main.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ThumbNail from "../../components/ThumbNail/ThumbNail";
+import axios from 'axios';
 
 const Main = () => {
+  const [nearProduct, setNearProduct] = useState([])
+
+  useEffect(() => {
+
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    axios
+      .get(`http://localhost:8080/api/item/list`, {
+        headers: {
+          Authentication:
+            "Bearer " + token,
+        }
+      }
+      )
+      .then((response) => {
+        setNearProduct(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+  }, [])
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -49,50 +71,50 @@ const Main = () => {
     ],
   };
 
-  const nearProduct = [
-    {
-      pThumbNail: "",
-      pName: "강아지 먹이",
-      pPrice: "10,000원",
-      pNo: "1",
-      isRent: "false",
-    },
-    {
-      pThumbNail: "",
-      pName: "고양이 먹이",
-      pPrice: "11,000원",
-      pNo: "2",
-      isRent: "true",
-    },
-    {
-      pThumbNail: "",
-      pName: "거북이 먹이",
-      pPrice: "12,000원",
-      pNo: "3",
-      isRent: "false",
-    },
-    {
-      pThumbNail: "",
-      pName: "옆집 강아지 먹이",
-      pPrice: "13,000원",
-      pNo: "4",
-      isRent: "true",
-    },
-    {
-      pThumbNail: "",
-      pName: "옆집 고양이 먹이",
-      pPrice: "14,000원",
-      pNo: "5",
-      isRent: "false",
-    },
-    {
-      pThumbNail: "",
-      pName: "옆집 거북이 먹이",
-      pPrice: "15,000원",
-      pNo: "6",
-      isRent: "false",
-    },
-  ];
+  // const nearProduct = [
+  //   {
+  //     pThumbNail: "",
+  //     pName: "강아지 먹이",
+  //     pPrice: "10,000원",
+  //     pNo: "1",
+  //     isRent: "false",
+  //   },
+  //   {
+  //     pThumbNail: "",
+  //     pName: "고양이 먹이",
+  //     pPrice: "11,000원",
+  //     pNo: "2",
+  //     isRent: "true",
+  //   },
+  //   {
+  //     pThumbNail: "",
+  //     pName: "거북이 먹이",
+  //     pPrice: "12,000원",
+  //     pNo: "3",
+  //     isRent: "false",
+  //   },
+  //   {
+  //     pThumbNail: "",
+  //     pName: "옆집 강아지 먹이",
+  //     pPrice: "13,000원",
+  //     pNo: "4",
+  //     isRent: "true",
+  //   },
+  //   {
+  //     pThumbNail: "",
+  //     pName: "옆집 고양이 먹이",
+  //     pPrice: "14,000원",
+  //     pNo: "5",
+  //     isRent: "false",
+  //   },
+  //   {
+  //     pThumbNail: "",
+  //     pName: "옆집 거북이 먹이",
+  //     pPrice: "15,000원",
+  //     pNo: "6",
+  //     isRent: "false",
+  //   },
+  // ];
   const productCarousel = () => {
     return nearProduct.map((product, idx) => {
       return (
@@ -140,6 +162,7 @@ const Main = () => {
 
         <Slider {...responsiveSettings}>{productCarousel()}</Slider>
       </div>
+
     </div>
   );
 };

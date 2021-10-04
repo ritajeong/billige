@@ -1,6 +1,6 @@
 const loginUser = (user) => {
   console.log('이것이 data ', user)
-  window.localStorage.setItem("user", JSON.stringify(user));
+
   return {
     type: "LOGIN",
     user
