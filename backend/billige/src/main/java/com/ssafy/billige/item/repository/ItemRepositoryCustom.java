@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ItemRepositoryCustom {
     // 대여품 목록 가져오기
-    List<ItemResponse> findAllItemResponseList(int offset, int userSigunguCode);
+    List<ItemResponse> findAllItemResponseList(int userSigunguCode);
 
     // 카테고리 검색
     List<ItemListResponse> findByCategory(String category, int offset);

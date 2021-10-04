@@ -37,9 +37,12 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	}
 
 	@Override
-	public List<ItemResponse> getItems(int page, int userSigunguCode) {
-		int offset = (page - 1) * LIMIT;
-		return itemRepository.findAllItemResponseList(offset, userSigunguCode);
+	public List<ItemResponse> getItems(int userSigunguCode) {
+		List<ItemResponse> response = itemRepository.findAllItemResponseList(userSigunguCode);
+		for (ItemResponse itemResponse : response) {
+			itemResponse.setBookmarkCount(bookmarkRepository.countByItemId(itemResponse.getItemId()));
+		}
+		return response;
 	}
 
 	@Override

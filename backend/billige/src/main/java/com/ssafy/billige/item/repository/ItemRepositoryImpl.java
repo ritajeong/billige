@@ -22,23 +22,18 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 
 	@Override
-	public List<ItemResponse> findAllItemResponseList(int offset, int userSigunguCode) {
+	public List<ItemResponse> findAllItemResponseList(int userSigunguCode) {
 		return queryFactory
 			.select(Projections.constructor(ItemResponse.class,
 				item.itemId,
 				item.itemname,
 				item.position,
 				item.price,
-				item.modifiedTime,
-				bookmark.count().as("item_id")))
+				item.modifiedTime))
 			.from(item)
-			.leftJoin(bookmark).on(item.itemId.eq(bookmark.bookmarkId.itemId))
 			.where(item.isActive.eq(ActiveStatus.Y)
 				.and(item.itemSigunguCode.eq(userSigunguCode)))
-			.groupBy(bookmark.bookmarkId.itemId)
 			.orderBy(item.modifiedTime.desc())
-			.limit(LIMIT)
-			.offset(offset)
 			.fetch();
 	}
 

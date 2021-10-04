@@ -31,13 +31,13 @@ public class ItemSearchController {
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<?> getItems(@RequestParam("page") int page, HttpServletRequest request) {
+	public ResponseEntity<?> getItems(HttpServletRequest request) {
 		int userSigunguCode = 11110;
 		try {
 			String token = request.getHeader(AUTH_HEADER);
 			userSigunguCode = TokenUtils.getSigunguCodeFromToken(token);
 		} catch (Exception e) {	}
-		return ResponseEntity.ok().body(itemSearchService.getItems(page, userSigunguCode));
+		return ResponseEntity.ok().body(itemSearchService.getItems(userSigunguCode));
 	}
 
 	@GetMapping("/detail/{itemId}")
