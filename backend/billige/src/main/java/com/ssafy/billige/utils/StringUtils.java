@@ -21,5 +21,5 @@ public class StringUtils {
 
 	// Address, SiGunGu Code
 	public static final String DEFAULT_ADDRESS = "서울특별시 강남구 역삼동 언주로 508";
-	public static final String DEFAULT_CODE = "06220";
+	public static final String DEFAULT_CODE = "11110";
 }
