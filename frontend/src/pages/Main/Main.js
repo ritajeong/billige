@@ -16,13 +16,7 @@ const Main = () => {
 
     const token = JSON.parse(window.localStorage.getItem('token'))
     axios
-      .get(`http://localhost:8080/api/item/list`, {
-        headers: {
-          Authentication:
-            "Bearer " + token,
-        }
-      }
-      )
+      .get(`http://localhost:8080/api/item/list`)
       .then((response) => {
         setNearProduct(response.data)
       })
