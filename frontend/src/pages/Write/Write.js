@@ -1,11 +1,14 @@
 
 import React, { useState } from "react";
 import axios from 'axios';
+import { useHistory } from 'react-router';
 import { Input, Button, Form, TextArea, Grid } from "semantic-ui-react";
 import "./Write.css";
 
 const Write = () => {
+  const history = useHistory();
   const [itemname, setItemName] = useState()
+  const [itembli, setItemBli] = useState()
   const [description, setDescription] = useState()
   const [category, setCategory] = useState('test');
 
@@ -18,7 +21,7 @@ const Write = () => {
         itemSigunguCode: 11110,
         itemname,
         position: "서울특별시 강남구",
-        price: 0,
+        price: itembli,
       }, {
         headers: {
           Authentication:
@@ -28,6 +31,7 @@ const Write = () => {
       })
       .then((response) => {
         console.log(response);
+        history.push('/');
       })
       .catch((error) => {
         console.log(error)
@@ -36,6 +40,10 @@ const Write = () => {
 
   const onChangeItemName = (e) => {
     setItemName(e.target.value);
+  }
+
+  const onChangeItemBli = (e) => {
+    setItemBli(e.target.value);
   }
 
   const onChangeDesc = (e) => {
@@ -70,7 +78,10 @@ const Write = () => {
             <h4 className="item-heading">대여 가격(1일)</h4>
           </Grid.Column>
           <Grid.Column>
-            <h4 className="price">200,000원</h4>
+            <div className="item-bli">
+          <Input placeholder="가격을 입력해주세요" className="write-bli" onChange={onChangeItemBli} />
+            BLI
+            </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
