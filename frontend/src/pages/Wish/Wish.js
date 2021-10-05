@@ -1,36 +1,109 @@
-import React from "react";
-import profile from "../../assets/image/user.png";
-// import wishOn from "../../assets/icons/wish-on.png";
+import React, { useEffect, useState } from "react";
+import likeIcon from "../../assets/icons/wish-on.png";
+import unlikeIcon from "../../assets/icons/wish.png";
+import noImage from "../../assets/image/no-image.jpg";
+import axios from "axios";
+
 import "./Wish.css";
-const Wish = () => {
-  const wishProduct = [
-    {
-      itemname: "비모 피규어",
-      price: "4000",
-      address: "서울특별시 강남구",
-      image: "",
-      book: true,
-    },
-    {
-      itemname: "버즈 플러스",
-      price: "4000",
-      address: "서울특별시 강남구",
-      image: "",
-      book: true,
-    },
-  ];
+const Wish = ({ history }) => {
+  const [wishProduct, setWishProduct] = useState([]);
+  const token = JSON.parse(window.localStorage.getItem("token"));
+  let [likeList, setLikeList] = useState([]);
+  // like = new Array(wishProduct.length).fill(true);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/bookmark`, {
+        headers: {
+          Authentication: "BEARER " + token,
+        },
+      })
+      .then((response) => {
+        setWishProduct(response.data);
+        setLikeList(new Array(response.data.length).fill(true));
+        console.log(likeList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const addBookmark = (itemId, idx) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/api/bookmark/${itemId}`,
+        {},
+        {
+          headers: {
+            Authentication: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
+        likeList[idx] = !likeList[idx];
+        console.log("add");
+        console.log(likeList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const cancelBookmark = (itemId, idx) => {
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_BASE_URL}/api/bookmark/${itemId}`, {
+        headers: {
+          Authentication: "BEARER " + token,
+        },
+      })
+      .then((response) => {
+        likeList[idx] = !likeList[idx];
+        console.log("cancel");
+        console.log(likeList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const goToDetail = (itemId) => {
+    history.push(`/detail/${itemId}`);
+  };
+
+  const goToRent = () => {
+    history.push(`/rent`);
+  };
+
   return wishProduct.map((product, idx) => {
     return (
       <div key={idx}>
         <div className="wish-item-list">
-          <img src={profile} className="wish-item-icon" alt="profile"></img>
-          <div className="wish-item-vertical">
+          <img src={product.image ? product.image : noImage} className="wish-item-icon" alt="product-image"></img>
+          <div
+            className="wish-item-vertical"
+            onClick={() => {
+              goToDetail(product.itemId);
+            }}
+          >
             <div className="wish-item-title">{product.itemname}</div>
-            <span>{product.address}</span>
+            <span>{product.position}</span>
             <div className="wish-item-price">{product.price} 원</div>
           </div>
           <div>
-            <button className="wish-item-borrow">대여하기</button>
+            {likeList[idx] ? (
+              <img src={likeIcon} className="wish-item-bookmark" alt="like" onClick={() => cancelBookmark(product.itemId, idx)}></img>
+            ) : (
+              <img src={unlikeIcon} className="wish-item-bookmark" alt="unlike" onClick={() => addBookmark(product.itemId, idx)}></img>
+            )}
+
+            <button
+              className="wish-item-borrow"
+              onClick={() => {
+                goToRent();
+              }}
+            >
+              대여하기
+            </button>
           </div>
         </div>
       </div>
