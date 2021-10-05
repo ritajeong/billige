@@ -90,7 +90,10 @@ export const Detail = () => {
 		<div>
 			{loading ? <>loading...</> :
 				<>
-					<img src={Product} alt="product" className="detail-product" />
+				{/* <Button style={{ backgroundColor: "#497C5F", color: "white" }} className="detail-mayment" onClick={onSelectProduct}>
+								삭제
+							</Button> */}
+					<img src={detail.src[0]} alt="product" className="detail-product" />
 					<div className="detail-profile">
 						<img src={User} alt="product" className="detail-user-icon" />
 						<div className="detail-user-info">

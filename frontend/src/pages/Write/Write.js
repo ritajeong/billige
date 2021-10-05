@@ -11,18 +11,25 @@ const Write = () => {
   const [itembli, setItemBli] = useState()
   const [description, setDescription] = useState()
   const [category, setCategory] = useState('test');
+  const [file, setFile] = useState('');
+  const [previewURL, setPreviewURL] = useState('');
+
+  let profile_preview = null;
+  if(file !=='') {
+    profile_preview = <img className='profile_preview' src={previewURL}></img>
+  }
 
   const writeProduct = () => {
+    const formData = new FormData();
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("images", file);
+    formData.append("itemname", itemname);
+    formData.append("position", "서울특별시 강남구");
+    formData.append("price", itembli);
     const token = JSON.parse(window.localStorage.getItem('token'))
     axios
-      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item`, {
-        category,
-        description,
-        itemSigunguCode: 11110,
-        itemname,
-        position: "서울특별시 강남구",
-        price: itembli,
-      }, {
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item`, formData, {
         headers: {
           Authentication:
             "Bearer " + token
@@ -49,6 +56,21 @@ const Write = () => {
   const onChangeDesc = (e) => {
     setDescription(e.target.value)
   }
+
+  const handleFileOnChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    console.log(111)
+    console.log(file)
+    reader.onloadend = () => {
+      setFile(file);
+      setPreviewURL(reader.result);
+    }
+    reader.readAsDataURL(file);
+  }
+
+
   return (
     <div className="write">
       <h4 className="item-name">상품명</h4>
@@ -57,7 +79,14 @@ const Write = () => {
 
       <h4 className="item-heading-upload">이미지 업로드</h4>
       <div className="upload">
-        <Button className="upload-button"><h2>+</h2></Button>
+        {/* <Button className="upload-button"><h2>+</h2></Button> */}
+        {profile_preview}
+        <input type='file' 
+          accept='image/jpg,impge/png,image/jpeg,image/gif' 
+          name='profile_img' 
+          onChange={handleFileOnChange}
+          >
+      </input>
       </div>
       <Grid divided="vertically">
         <Grid.Row columns={2}>
