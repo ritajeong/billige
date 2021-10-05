@@ -24,10 +24,10 @@ public class ItemCrudServiceImpl implements ItemCrudService {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public void saveItem(ItemRegistryRequest itemRegistryRequest) {
+	public Item saveItem(ItemRegistryRequest itemRegistryRequest) {
 		Item item = modelMapper.map(itemRegistryRequest, Item.class);
 		item.setUser(userService.getUser(itemRegistryRequest.getUid()));
-		itemRepository.save(item);
+		return itemRepository.save(item);
 	}
 
 	@Override
