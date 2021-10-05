@@ -1,0 +1,10 @@
+.filter {
+  margin: 20px;
+}
+.price-range {
+  width: 40%;
+}
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+}

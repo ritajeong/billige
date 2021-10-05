@@ -4,7 +4,7 @@ import "./Write.css";
 import Category from "../Category/Category";
 
 const Write = props => {
-  const [isOpen, setCategory] = useState(false); // 메뉴의 초기값을 false로 설정
+  const [visible, setVisible] = useState(true);
   const [form, setForm] = useState({
     itemname: '',
     price: '',
@@ -27,7 +27,7 @@ const Write = props => {
     })
   }
   const showCategory = () => {
-    setCategory((isOpen) => !isOpen); // on,off 개념 boolean
+    setVisible(!visible);
   };
   return (
     <div className="write">
@@ -46,7 +46,7 @@ const Write = props => {
           </Grid.Column>
           <Grid.Column>
             <div className="category-choice">
-              <p>{props.name}</p>
+              <p>음악</p>
               <Button className="choice-button" onClick={showCategory}>
                 선택
               </Button>
@@ -55,8 +55,7 @@ const Write = props => {
         </Grid.Row>
       </Grid>
       <div>
-        <p className={isOpen ? "show-category" : "hide-category"}>카테고리</p>
-        <Category className={isOpen ? "show-category" : "hide-category"}>카테고리</Category>
+        {visible && <Category/>}
       </div>
       <Grid divided="vertically">
         <Grid.Row columns={2}>
