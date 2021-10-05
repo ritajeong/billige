@@ -91,4 +91,23 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 			.fetch();
 	}
 
+	@Override
+	public List<ItemListResponse> findBookmarkItem(Long uid) {
+		return queryFactory
+			.select(Projections.constructor(ItemListResponse.class,
+				item.itemId,
+				item.itemname,
+				item.position,
+				item.price,
+				image.imgSrc))
+			.from(item).leftJoin(image).on(item.itemId.eq(image.item.itemId))
+			.where(item.itemId.in(
+				queryFactory.select(bookmark.bookmarkId.itemId)
+				.from(bookmark)
+				.where(bookmark.bookmarkId.uid.eq(uid))
+			))
+			.groupBy(item.itemId)
+			.fetch();
+	}
+
 }
