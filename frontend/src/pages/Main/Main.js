@@ -16,7 +16,7 @@ const Main = () => {
 
     const token = JSON.parse(window.localStorage.getItem('token'))
     axios
-      .get(`http://localhost:8080/api/item/list`)
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/list`)
       .then((response) => {
         setNearProduct(response.data)
       })

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import Product from '../../assets/image/product.png'
 import User from '../../assets/image/user.png'
 import './Detail.css'
-import likeIcon from '../../assets/icons/wish.png'
+import unlikeIcon from '../../assets/icons/wish.png'
+import likeIcon from '../../assets/icons/wish-on.png'
 import { useHistory } from 'react-router';
 import { Button } from "semantic-ui-react";
 import axios from 'axios';
@@ -13,11 +14,13 @@ export const Detail = () => {
 	const { pNo } = useParams();
 	const [detail, setDetail] = useState({})
 	const [loading, setLoading] = useState(true);
+	const [like, setLike] = useState(false);
+
 	useEffect(() => {
 
 		const token = JSON.parse(window.localStorage.getItem('token'))
 		axios
-			.get(`http://localhost:8080/api/item/detail/${pNo}`, {
+			.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/detail/${pNo}`, {
 				headers: {
 					Authentication:
 						"Bearer " + token,
@@ -28,6 +31,7 @@ export const Detail = () => {
 				setDetail(response.data);
 				console.log(response);
 				setLoading(false);
+				setLike(response.data.bookmark);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -38,6 +42,42 @@ export const Detail = () => {
 	const onSelectProduct = () => {
 		history.push('/rent');
 	}
+
+	const onLike = (e) => {
+		setLike(true)
+		const token = JSON.parse(window.localStorage.getItem('token'))
+		axios
+			.post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/bookmark/${detail.itemId}`, {}, {
+				headers: {
+					Authentication:
+						"Bearer " + token,
+				},
+			})
+			.then((response) => {
+				console.log(response)
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+  }
+
+	const onUnLike = (e) => {
+		setLike(false)
+		const token = JSON.parse(window.localStorage.getItem('token'))
+		axios
+			.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/api/bookmark/${detail.itemId}`, {
+				headers: {
+					Authentication:
+						"Bearer " + token,
+				},
+			})
+			.then((response) => {
+				console.log(response)
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+  }
 
 	return (
 		<div>
@@ -51,7 +91,10 @@ export const Detail = () => {
 							<div className="detail-user-address">{detail.position}</div>
 						</div>
 						<div className="detail-like">
-							<img src={likeIcon} alt="likeIcon" className="detail-like-icon" />
+							{like ?
+							<img src={likeIcon} alt="likeIcon" className="detail-like-icon" onClick={onUnLike}/>
+							:
+							<img src={unlikeIcon} alt="likeIcon" className="detail-like-icon" onClick={onLike}/>}
 							<div>관심 등록</div>
 						</div>
 					</div>
@@ -69,7 +112,7 @@ export const Detail = () => {
 					</div>
 					<div className="detail-inquire-buy">
 						<div className="detail-oneday-price">
-							<div className="detail-price">{detail.price} 원</div>
+							<div className="detail-price">{detail.price} BLI</div>
 							<div className="detail-day">1일 기준</div>
 						</div>
 						<div className="detail-button">

@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 
 import com.ssafy.billige.item.domain.Item;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class Image {
 
 	@Id
@@ -32,4 +31,9 @@ public class Image {
 	private Item item;
 
 	private String imgSrc;
+
+	public Image(Item item, String imgSrc) {
+		this.item = item;
+		this.imgSrc = imgSrc;
+	}
 }
