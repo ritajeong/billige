@@ -83,9 +83,12 @@ public class ContractServiceImpl implements ContractService {
 	@Transactional
 	public ContractUnavailableResponse getUnavailableDate(String tokenEmail, Long itemId){
 		Long uid = userRepository.findByUserEmail(tokenEmail).get().getUid();
-		if(itemRepository.findItemIdByUser_Uid(uid) == itemId){
-			// 본인 물건 대여 불가
-			throw new IllegalArgumentException("본인의 물건은 대여할 수 없습니다.");
+
+		List<Item> itemList = itemRepository.findByUser_Uid(uid);
+		for (int i = 0; i < itemList.size(); i++) {
+			if(itemList.get(i).getItemId() == itemId){
+				throw new IllegalArgumentException("본인의 물건은 대여할 수 없습니다.");
+			}
 		}
 
 		int currentMonth = LocalDate.now().getMonthValue();
