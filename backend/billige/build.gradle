@@ -55,6 +55,9 @@ dependencies {
 	// Amazon AWS S3
 	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.25'
 
+	// Slack bot
+	implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
+
 }
 
 test {
