@@ -15,7 +15,7 @@ const TradeLog = () => {
   const test2 = () => {
     const token = JSON.parse(window.localStorage.getItem('token'))
     axios
-      .get(`http://localhost:8080/api/item/list`,
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/list`,
       // headers: {
       //   Authentication:
       //     "Bearer " + `eyJyZWdEYXRlIjoxNjMyNzMwMDkzMzU2LCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjgsInVzZXJTaWd1bmd1Q29kZSI6MTExMTAsInVzZXJOaWNrbmFtZSI6Inp6IiwidXNlckVtYWlsIjoienpAenouY20iLCJleHAiOjE2MzUzMjIwOTN9.26q-erHmV9dLFLoQAxlHzFC_J9ZJFeU44lmsrSBEPb4`,
@@ -32,7 +32,7 @@ const TradeLog = () => {
   const test3 = () => {
 
     axios
-      .post(`http://localhost:8080/api/user/login`, {
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`, {
         userEmail: 'test@test.com',
         userPassword: 'test'
       })
