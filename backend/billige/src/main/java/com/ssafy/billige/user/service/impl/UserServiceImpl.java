@@ -198,8 +198,6 @@ public class UserServiceImpl implements UserService {
 			user.setUserBli(30);
 		}
 
-
-
 		userRepository.save(user);
 	}
 

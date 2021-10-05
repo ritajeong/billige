@@ -137,8 +137,7 @@ public class UserController {
     @ApiOperation(value = "지갑 생성")
     public Object createWallet(@RequestHeader(AUTH_HEADER) String token, @RequestBody Map<String, String> request){
 
-        Claims claims = TokenUtils.getClaimsFromToken(token);
-        String tokenEmail = (String) claims.get("userEmail");
+        String tokenEmail = TokenUtils.getUserEmailFromToken(token);
         String userWallet = request.get("userWallet");
         logger.info(tokenEmail + " : request create wallet");
 
