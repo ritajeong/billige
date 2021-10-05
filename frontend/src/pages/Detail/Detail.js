@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import Product from '../../assets/image/product.png'
 import User from '../../assets/image/user.png'
 import './Detail.css'
 import unlikeIcon from '../../assets/icons/wish.png'
