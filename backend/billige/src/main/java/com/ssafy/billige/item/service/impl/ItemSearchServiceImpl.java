@@ -67,6 +67,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 			ItemDetailResponse.Owner.builder()
 				.uid(owner.getUid())
 				.username(owner.getUserName())
+				.wallet(owner.getUserWallet())
 				.address(owner.getUserAddress())
 				.image(owner.getUserImage())
 				.build()

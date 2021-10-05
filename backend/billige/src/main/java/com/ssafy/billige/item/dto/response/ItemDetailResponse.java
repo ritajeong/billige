@@ -36,5 +36,6 @@ public class ItemDetailResponse {
 		private String username;
 		private String address;
 		private String image;
+		private String wallet;
 	}
 }
