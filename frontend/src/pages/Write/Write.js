@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import { Input, Button, Form, TextArea, Grid } from "semantic-ui-react";
 import "./Write.css";
+import Category from "../Category/Category";
 
 const Write = () => {
   const history = useHistory();
@@ -19,6 +20,9 @@ const Write = () => {
     profile_preview = <img className='profile_preview' src={previewURL}></img>
   }
 
+  const getCategory = (category) => {
+    setCategory(category);
+  };
   const writeProduct = () => {
     const formData = new FormData();
     formData.append("category", category);
@@ -88,19 +92,8 @@ const Write = () => {
           >
       </input>
       </div>
-      <Grid divided="vertically">
-        <Grid.Row columns={2}>
-          <Grid.Column>
-            <h4 className="item-heading">카테고리 설정</h4>
-          </Grid.Column>
-          <Grid.Column>
-            <div className="category-choice">
-              <p>음악</p>
-              <Button className="choice-button">선택</Button>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      {/* <p>카테고리 : {category}</p> */}
+      <Category category={category} getCategory={getCategory} />
       <Grid divided="vertically">
         <Grid.Row columns={2}>
           <Grid.Column>
