@@ -36,8 +36,7 @@ const Filter = () => {
           <Radio
             id="radio1"
             label="대여순"
-            name="radioGroup"
-            value="this"
+            name="radioGroup" 
             checked={inputStatus === "대여순"}
             onClick={() => handleClickRadioButton("대여순")}
           />
@@ -46,8 +45,7 @@ const Filter = () => {
           <Radio
             id="radio2"
             label="북마크순"
-            name="radioGroup"
-            value="that"
+            name="radioGroup" 
             checked={inputStatus === "북마크순"}
             onClick={() => handleClickRadioButton("북마크순")}
           />
@@ -57,7 +55,6 @@ const Filter = () => {
             id="radio3"
             label="최신순"
             name="radioGroup"
-            value="that"
             checked={inputStatus === "최신순"}
             onClick={() => handleClickRadioButton("최신순")}
           />
