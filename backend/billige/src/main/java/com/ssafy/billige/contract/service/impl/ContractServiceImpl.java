@@ -8,6 +8,7 @@ import com.ssafy.billige.contract.service.ContractService;
 import com.ssafy.billige.item.domain.ActiveStatus;
 import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.repository.ItemRepository;
+import com.ssafy.billige.user.domain.User;
 import com.ssafy.billige.user.repository.UserRepository;
 
 import org.modelmapper.ModelMapper;
@@ -33,27 +34,35 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	@Transactional
 	public void contractSave(ContractRequest contractRequest) {
-		Contract contract = modelMapper.map(contractRequest, Contract.class);
-		contract.setUser(userRepository.findById(contractRequest.getUid())
-			.orElseThrow(() -> new IllegalArgumentException("대여하는 회원의 정보를 확인해주세요.")));
+		// Contract contract = modelMapper.map(contractRequest, Contract.class);
+		User user = userRepository.findById(contractRequest.getUid())
+			.orElseThrow(() -> new IllegalArgumentException("대여하는 회원의 정보를 확인해주세요."));
 		Item item = itemRepository.findById(contractRequest.getItemId())
 			.orElseThrow(() -> new IllegalArgumentException("대여하려는 제품을 확인해주세요."));
 		if (item.getIsActive().equals(ActiveStatus.N)) {
 			throw new IllegalArgumentException("대여가 비활성화된 제품입니다.");
 		}
+		Contract contract = Contract.builder()
+			.item(item)
+			.ownerId(contractRequest.getOwnerId())
+			.startDate(contractRequest.getStartDate())
+			.endDate(contractRequest.getStartDate())
+			.user(user)
+			.totalPrice(contractRequest.getTotalPrice())
+			.build();
 		// 금액 확인
-		int holdingBalance = contract.getUser().getUserBli();
-		if(holdingBalance < contract.getTotalPrice()){
-			throw new IllegalArgumentException("잔액이 부족합니다.");
-		}
+		// int holdingBalance = contract.getUser().getUserBli();
+		// if(holdingBalance < contract.getTotalPrice()){
+		// 	throw new IllegalArgumentException("잔액이 부족합니다.");
+		// }
 		// 동시 대여처리
 
 		// 금액에 대해서 대여하는사람의 잔액처리
-		contract.getUser().setUserBli(contract.getUser().getUserBli() - contract.getTotalPrice());
+		// contract.getUser().setUserBli(contract.getUser().getUserBli() - contract.getTotalPrice());
 		// 금액에 대해서 대여해주는 사람의 잔액 처리
-		int amount = userRepository.findById(contract.getOwnerId()).get().getUserBli();
-		amount += contract.getTotalPrice();
-		userRepository.findById(contract.getOwnerId()).get().setUserBli(amount);
+		// int amount = userRepository.findById(contract.getOwnerId()).get().getUserBli();
+		// amount += contract.getTotalPrice();
+		// userRepository.findById(contract.getOwnerId()).get().setUserBli(amount);
 		// userRepo.save 해야되는지 확인할 것
 		// 저장 전 기간 확인
 		if(!lastCheck(contractRequest)){
