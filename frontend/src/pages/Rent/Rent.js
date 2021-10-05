@@ -176,7 +176,7 @@ useEffect(() => {
 			})
 
 	}
-}, [contractSuccess])
+}, [contractSuccess]) 
 
   return (
 		<div>
