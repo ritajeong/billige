@@ -9,6 +9,7 @@ import com.ssafy.billige.bookmark.domain.BookmarkId;
 import com.ssafy.billige.item.dto.response.ItemListResponse;
 import com.ssafy.billige.bookmark.repository.BookmarkRepository;
 import com.ssafy.billige.bookmark.service.BookmarkService;
+import com.ssafy.billige.item.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class BookmarkServiceImpl implements BookmarkService {
 
 	private final BookmarkRepository bookmarkRepository;
+	private final ItemRepository itemRepository;
 
 	@Override
 	public void addBookmark(Long uid, Long itemId) {
@@ -41,8 +43,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
 	@Override
 	public List<ItemListResponse> getBookmarkItems(Long uid) {
-		List<Bookmark> bookmarks = bookmarkRepository.findAllByBookmarkId_Uid(uid);
-
-		return null;
+		// List<Bookmark> bookmarks = bookmarkRepository.findAllByBookmarkId_Uid(uid);
+		return itemRepository.findBookmarkItem(uid);
 	}
 }
