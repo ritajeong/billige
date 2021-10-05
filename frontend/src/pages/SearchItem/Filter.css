@@ -8,3 +8,14 @@
   display: flex;
   justify-content: space-between;
 }
+
+.inputForm {
+  margin-top: 20px;
+}
+.input-price {
+  width: 30%;
+  margin: 20px;
+}
+.input-price input {
+  border-radius: 20px !important;
+}

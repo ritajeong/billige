@@ -28,7 +28,7 @@ const Category = () => {
   return (
     <>
       <div className="category-table">
-        <div className="category-row">
+        {/* <div className="category-row">
           {imgData}
         </div>
         <div className="category-row">
@@ -43,7 +43,7 @@ const Category = () => {
           <img src={art} alt="art" className="category-icon" />
           <img src={art} alt="art" className="category-icon" />
           <img src={art} alt="art" className="category-icon" />
-        </div>
+        </div> */}
         <div className="category-row">
           <img src={art} alt="art" className="category-icon" />
           <img src={art} alt="art" className="category-icon" />

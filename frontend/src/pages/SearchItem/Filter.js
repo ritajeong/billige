@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import Category from "../Category/Category";
-import { Form, Radio } from "semantic-ui-react";
+import { Form, Radio, Input } from "semantic-ui-react";
 import "./Filter.css";
 const Filter = () => {
   const [inputStatus, setInputStatus] = useState("");
@@ -13,7 +13,14 @@ const Filter = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("확인");
+    setInputText("");
   };
+
+  const [inputText, setInputText] = useState("");
+  const onChange = (e) => {
+    setInputText(e.target.value);
+  };
+
   return (
     <div className="filter">
       <h4>카테고리</h4>
@@ -76,6 +83,28 @@ const Filter = () => {
           />
         </Form.Field> */}
       </Form>
+      <hr></hr>
+      <form className="inputForm" onSubmit={handleSubmit}>
+        <h4>가격범위</h4>
+        <Input
+          className="input-price"
+          icon="search"
+          iconPosition="left"
+          placeholder="0"
+          onChange={onChange}
+          value={inputText}
+        />
+        ~
+        <Input
+          className="input-price"
+          icon="search"
+          iconPosition="left"
+          placeholder="제한없음"
+          onChange={onChange}
+          value={inputText}
+        />
+        <br />
+      </form>
       <hr />
     </div>
   );
