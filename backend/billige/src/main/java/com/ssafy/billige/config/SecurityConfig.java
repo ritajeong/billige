@@ -3,7 +3,9 @@ package com.ssafy.billige.config;
 import com.ssafy.billige.authentication.filter.CustomAuthenticationFilter;
 import com.ssafy.billige.authentication.handler.CustomLoginSuccessHandler;
 import com.ssafy.billige.authentication.provider.CustomAuthenticationProvider;
+
 import lombok.RequiredArgsConstructor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -30,22 +32,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// 정적 자원에 대해서는 Security 설정을 적용하지 않음.
 	@Override
 	public void configure(WebSecurity web) {
-//        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+		//        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
-				// 토큰을 활용하는 경우 모든 요청에 대해 접근이 가능하도록 함
-				.anyRequest().permitAll()
-				.and()
-				// 토큰을 활용하면 세션이 필요 없으므로 STATELESS로 설정하여 Session을 사용하지 않는다.
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-				.and()
-				// form 기반의 로그인에 대해 비활성화 한다.
-				.formLogin()
-				.disable()
-				.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.cors()
+			.and()
+			.csrf().disable().authorizeRequests()
+			// 토큰을 활용하는 경우 모든 요청에 대해 접근이 가능하도록 함
+			.anyRequest().permitAll()
+			.and()
+			// 토큰을 활용하면 세션이 필요 없으므로 STATELESS로 설정하여 Session을 사용하지 않는다.
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+			.and()
+			// form 기반의 로그인에 대해 비활성화 한다.
+			.formLogin()
+			.disable()
+			.addFilterBefore(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Bean
@@ -59,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		customAuthenticationFilter.setAuthenticationManager(this.authenticationManagerBean());
 		customAuthenticationFilter.setFilterProcessesUrl("/api/user/login");
 		customAuthenticationFilter.setAuthenticationSuccessHandler(customLoginSuccessHandler());
-//        customAuthenticationFilter.setAuthenticationFailureHandler(customLoginFailureHandler());
+		//        customAuthenticationFilter.setAuthenticationFailureHandler(customLoginFailureHandler());
 
 		customAuthenticationFilter.afterPropertiesSet();
 		logger.info("Here is Set Filter");
@@ -69,14 +73,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CustomLoginSuccessHandler customLoginSuccessHandler() {
 		CustomLoginSuccessHandler handler = new CustomLoginSuccessHandler();
-//    	handler.setDefaultTargetUrl("/user/login");
+		//    	handler.setDefaultTargetUrl("/user/login");
 		return handler;
 	}
 
-//    @Bean
-//    public CustomLoginFailureHandler customLoginFailureHandler() {
-//        return new CustomLoginFailureHandler();
-//    }
+	//    @Bean
+	//    public CustomLoginFailureHandler customLoginFailureHandler() {
+	//        return new CustomLoginFailureHandler();
+	//    }
 
 	@Bean
 	public CustomAuthenticationProvider customAuthenticationProvider() {

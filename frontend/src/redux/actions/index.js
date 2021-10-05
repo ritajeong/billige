@@ -1,7 +1,7 @@
-import exampleAction from "./exampleAction";
+import userActions from "./userAction";
 
 const allActions = {
-  exampleAction,
+  userActions,
 };
 
 export default allActions;

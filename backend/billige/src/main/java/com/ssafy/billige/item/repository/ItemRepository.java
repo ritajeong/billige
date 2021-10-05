@@ -8,4 +8,6 @@ import com.ssafy.billige.item.domain.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom {
 	List<Item> findAllByUser_UidOrderByModifiedTimeDesc(Long uid);
+
+	List<Item> findByUser_Uid(Long uid);
 }

@@ -38,7 +38,7 @@ public class TokenUtils {
             Claims claims = getClaimsFromToken(token);
             logger.info("expireTime :" + claims.getExpiration());
             logger.info("email :" + claims.get("userEmail"));
-            logger.info("nickname :" + claims.get("userNickname"));
+            logger.info("name :" + claims.get("userName"));
             return true;
 
         } catch (ExpiredJwtException exception) {
@@ -81,7 +81,11 @@ public class TokenUtils {
         claims.put("uid", user.getUid());
         claims.put("userEmail", user.getUserEmail());
         claims.put("userNickname", user.getUserNickname());
+        claims.put("userName", user.getUserName());
+        claims.put("userTokenId", user.getUserTokenId());
+        claims.put("userAddress", user.getUserAddress());
         claims.put("userSigunguCode", user.getUserSigunguCode());
+        claims.put("existWallet", (user.getUserWallet() != null));
 
         return claims;
     }
@@ -99,7 +103,7 @@ public class TokenUtils {
 
     public static String getUserEmailFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
-        return (String) claims.get("email");
+        return (String) claims.get("userEmail");
     }
 
     public static boolean isSameUid(String header, String uid) {
@@ -124,5 +128,10 @@ public class TokenUtils {
     public static int getSigunguCodeFromToken(String token) {
         Claims claims = TokenUtils.getClaimsFromToken(token);
         return Integer.parseInt(String.valueOf(claims.get("userSigunguCode")));
+    }
+
+    public static String getUserNameFromToken(String token) {
+        Claims claims = TokenUtils.getClaimsFromToken(token);
+       return (String) claims.get("userName");
     }
 }

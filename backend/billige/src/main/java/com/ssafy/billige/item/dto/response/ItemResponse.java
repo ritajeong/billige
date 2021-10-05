@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class ItemResponse {
     private Long itemId;
     private String itemname;
@@ -17,4 +16,12 @@ public class ItemResponse {
     private int price;
     private LocalDateTime modifiedTime;
     private Long bookmarkCount;
+
+    public ItemResponse(Long itemId, String itemname, String position, int  price, LocalDateTime modifiedTime) {
+        this.itemId = itemId;
+        this.itemname = itemname;
+        this.position = position;
+        this.price = price;
+        this.modifiedTime = modifiedTime;
+    }
 }

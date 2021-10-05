@@ -20,7 +20,10 @@ const CurrentPage = (props) => {
       signup: "회원 가입",
       findpwd: "비밀번호 찾기",
       tradelog: "거래내역",
+      myproduct: "등록한 대여제품",
       charge: "충전하기",
+      rentuser: "대여자목록",
+      tradedetail: "거래내역"
     };
     setPageName(page[props.url.split("/")[1]]);
   }, [props.url]);

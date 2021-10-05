@@ -5,7 +5,7 @@ import "./ThumbNail.css";
 const ThumbNail = (props) => {
   return (
     <div>
-      <Link to={`/detail/${props.product.pNo}`}>
+      <Link to={`/detail/${props.product.itemId}`}>
         <div className="thumbnail">
           {props.product.isRent === "true" ? (
             <span className="ribbon-angle">
@@ -17,9 +17,9 @@ const ThumbNail = (props) => {
           썸네일
         </div>
         <p>
-          <span>{props.product.pName}</span>
+          <span>{props.product.itemname}</span>
           <br />
-          {props.product.pPrice}
+          {props.product.price} Bli
         </p>
       </Link>
     </div>

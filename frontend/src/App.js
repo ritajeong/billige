@@ -20,7 +20,10 @@ import UserEdit from "./pages/UserEdit/UserEdit";
 import TradeLog from "./pages/TradeLog/TradeLog";
 import Charge from "./pages/Charge/Charge";
 import "./App.css";
-
+import MyProduct from "./pages/MyProduct/MyProduct";
+import RentUserList from "./pages/RentUserList/RentUserList";
+import axios from 'axios';
+import TradeDetail from './pages/TradeDetail/TradeDetail';
 function App() {
   return (
     <div className="App">
@@ -39,10 +42,13 @@ function App() {
             <PrivateRouter path="/mypage" component={MyPage} exact />
             <PrivateRouter path="/useredit" component={UserEdit} exact />
             <PrivateRouter path="/tradelog" component={TradeLog} exact />
+            <PrivateRouter path="/myproduct" component={MyProduct} exact />
             <PrivateRouter path="/charge" component={Charge} exact />
             <PrivateRouter path="/wish" component={Wish} exact />
             <PrivateRouter path="/write" component={Write} exact />
             <PrivateRouter path="/chat" component={Chat} exact />
+            <PrivateRouter path="/rentuser/:pNo" component={RentUserList} exact />
+            <PrivateRouter path="/tradedetail/:cNo" component={TradeDetail} exact />
           </Layout>
         </Switch>
       </Router>

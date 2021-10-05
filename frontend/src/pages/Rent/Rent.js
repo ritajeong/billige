@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {useLocation} from "react-router";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
@@ -6,16 +7,17 @@ import "./styles.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import Web3 from 'web3';
+// import getWeb3 from '../../utils/getWeb3'
 
-// // 회원가입할 때 계저 생성할 코드. 임시로 여기에 배치해 놓았다.
-let web3 = new Web3(Web3.givenProvider || "https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390");
-var account = web3.eth.accounts.create();
-console.log(account);
-// web3.eth.getBalance(account).then(function (result) {
-// 	console.log(result);
-// })
+import { getFunction } from "../../utils/getFunction";
+import truffleContract from "truffle-contract";
+import BliCoin from '../../config/BliToken.json';
+import axios from 'axios';
 
 const Rent = () => {
+	const location = useLocation();
+	const historyState = location.state;
+	// console.log(historyState)
 
 const stringToNum = {
 	Jan: 1,
@@ -31,8 +33,8 @@ const stringToNum = {
 	Nov: 11,
 	Dec: 12
 }
-const pricePerDay = 200000 // 나중에 상품 상세 페에지에서 props로 받을 데이터.
 
+const pricePerDay = historyState.price;
 const today = new Date().toString().split(' ');
 const [state, setState] = useState([
 	{
@@ -42,7 +44,7 @@ const [state, setState] = useState([
 		color: '#C5D3CC',
 		preview: {
 			color: '#C5D3CC',
-		}
+		},
 	}
 ]);
 const [rentalStartYear, setrentalStartYear] = useState(today[3]);
@@ -52,6 +54,15 @@ const [rentalEndYear, setrentalEndYear] = useState(today[3]);
 const [rentalEndMonth, setrentalEndMonth] = useState(stringToNum[today[1]]);
 const [rentalEndDay, setrentalEndDay] = useState(today[2]);
 const [price, setPrice] = useState('0');
+const [axiosPrice, setAxiosPrice] = useState('0');
+
+const [web3, setWeb3] = useState('')
+const [accounts, setAccounts] = useState('')
+const [contract, setContract] = useState('')
+const [bliContract, setBliContract] = useState('')
+const [address, setAddress] = useState('')
+const [contractSuccess, setContractSuccess] = useState(false)
+
 
 const onChangeDate = (item) => {
 	setState([item.selection]);
@@ -74,7 +85,98 @@ const onChangeDate = (item) => {
 	const elapsedMSec = date2.getTime() - date1.getTime();
 	const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24;
 	setPrice((elapsedDay*pricePerDay).toLocaleString());
+	setAxiosPrice(elapsedDay*pricePerDay);
+
 }
+
+const buyProduct = () => {
+	let minABI = [
+		// transfer
+		{
+				"constant": false,
+				"inputs": [
+						{
+								"name": "_to",
+								"type": "address"
+						},
+						{
+								"name": "_value",
+								"type": "uint256"
+						}
+				],
+				"name": "transfer",
+				"outputs": [
+						{
+								"name": "success",
+								"type": "bool"
+						}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+		}
+		];
+		let contractAddress="0x14CDEab2be4b34364BB866320d5BF129B1727C4A";
+		let contract = new web3.eth.Contract(minABI, contractAddress);
+		let value = web3.utils.toWei(String(axiosPrice), "ether");
+		contract.methods.transfer(historyState.ownerWallet, value).send({from: accounts[0]})
+		.then(result => {
+			setContractSuccess(true);
+		})
+		.catch(err => {
+			alert("결제 실패");
+		})
+
+}
+
+
+useEffect(() => {
+	setWeb3(new Web3(Web3.givenProvider))
+}, [])
+
+useEffect(() => {
+	if (web3 !== ''){
+		getFunction.connectMetamask()
+    .then(result =>{
+			setAccounts(result)
+		})
+	}
+}, [web3])
+
+useEffect(() => {
+	if (contract !== '') {
+		contract.balanceOf(accounts)
+		.then(result => {
+		})
+	}
+}, [contract])
+
+useEffect(() => {
+	if (contractSuccess === true) {
+
+		const token = JSON.parse(window.localStorage.getItem('token'))
+		axios
+			.post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/contract/save`, {
+				endDate: String(rentalEndYear) + "-" + ("0" + String(rentalEndMonth)).slice(-2) + "-" + ("0" + String(rentalEndDay)).slice(-2),
+				itemId: historyState.itemId,
+				ownerId: historyState.ownerId,
+				startDate: String(rentalStartYear) + "-" + ("0" + String(rentalStartMonth)).slice(-2) + "-" + ("0" + String(rentalStartDay)).slice(-2),
+				totalPrice: price,
+		}, {
+				headers: {
+					Authentication:
+						"Bearer " + token,
+				},
+			})
+			.then((response) => {
+				console.log(response)
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+
+	}
+}, [contractSuccess]) 
 
   return (
 		<div>
@@ -106,14 +208,14 @@ const onChangeDate = (item) => {
 				</div>
 				<div className="rent-nbutton-price">
 					<div className="rent-next-button">
-						<FontAwesomeIcon icon={faArrowCircleRight} size="2x"/>
+						<FontAwesomeIcon icon={faArrowCircleRight} size="2x" onClick={buyProduct}/>
 					</div>
 					<div className="rent-price-krw">
 						<div className="rent-estimated-price">
 							{price}&nbsp;
 						</div>
 						<div className="rent-estimated-krw">
-							원
+							BLI
 						</div>
 					</div>
 				</div>

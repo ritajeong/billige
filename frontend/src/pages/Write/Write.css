@@ -5,6 +5,15 @@
   width: 100%;
   padding: 10px 10px 0px 10px;
 }
+.item-bli {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.write-bli {
+  /* width: 10%; */
+}
 .item-name input {
   border-radius: 20px !important;
 }

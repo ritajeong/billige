@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface ContractRepository extends JpaRepository<Contract, Long> {
 	 List<Contract> findAllByUser_Uid(Long uid);
 	 List<Contract> findAllByOwnerIdAndItem_ItemId(Long ownerId, Long itemId);
+	List<Contract> findAllByItem_ItemId(Long itemId);
 }
