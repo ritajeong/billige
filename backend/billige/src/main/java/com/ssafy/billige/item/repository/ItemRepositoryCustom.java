@@ -18,4 +18,7 @@ public interface ItemRepositoryCustom {
 
     // 필터 검색
     List<ItemListResponse> findByFilter(SearchFilter searchFilter, int offset);
+
+    // 북마크 아이템 가져오기
+    List<ItemListResponse> findBookmarkItem(Long uid);
 }
