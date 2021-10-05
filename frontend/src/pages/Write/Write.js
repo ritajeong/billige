@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import { Input, Button, Form, TextArea, Grid } from "semantic-ui-react";
 import "./Write.css";
+import Category from "../Category/Category";
 
 const Write = () => {
   const history = useHistory();
@@ -11,7 +12,9 @@ const Write = () => {
   const [itembli, setItemBli] = useState()
   const [description, setDescription] = useState()
   const [category, setCategory] = useState('test');
-
+  const getCategory = (category) => {
+    setCategory(category);
+  };
   const writeProduct = () => {
     const token = JSON.parse(window.localStorage.getItem('token'))
     axios
@@ -57,21 +60,12 @@ const Write = () => {
 
       <h4 className="item-heading-upload">이미지 업로드</h4>
       <div className="upload">
-        <Button className="upload-button"><h2>+</h2></Button>
+        <Button className="upload-button">
+          <h2>+</h2>
+        </Button>
       </div>
-      <Grid divided="vertically">
-        <Grid.Row columns={2}>
-          <Grid.Column>
-            <h4 className="item-heading">카테고리 설정</h4>
-          </Grid.Column>
-          <Grid.Column>
-            <div className="category-choice">
-              <p>음악</p>
-              <Button className="choice-button">선택</Button>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      {/* <p>카테고리 : {category}</p> */}
+      <Category category={category} getCategory={getCategory} />
       <Grid divided="vertically">
         <Grid.Row columns={2}>
           <Grid.Column>

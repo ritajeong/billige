@@ -1,0 +1,21 @@
+.filter {
+  margin: 20px;
+}
+.price-range {
+  width: 40%;
+}
+.radio-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.inputForm {
+  margin-top: 20px;
+}
+.input-price {
+  width: 30%;
+  margin: 20px;
+}
+.input-price input {
+  border-radius: 20px !important;
+}
