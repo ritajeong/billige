@@ -40,7 +40,14 @@ export const Detail = () => {
 	}, [])
 	const history = useHistory();
 	const onSelectProduct = () => {
-		history.push('/rent');
+		history.push({
+			pathname: '/rent',
+			state: {
+				itemId: detail.itemId,
+				ownerWallet: detail.owner.wallet,
+				ownerId: detail.owner.uid,
+				price: detail.price,
+			}});
 	}
 
 	const onLike = (e) => {
