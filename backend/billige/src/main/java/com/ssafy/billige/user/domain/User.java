@@ -34,7 +34,7 @@ public class User implements Serializable {
 	private String userPassword;
 	@JsonIgnore
 	private String userSalt;
-	@JsonIgnore
+	// @JsonIgnore
 	private String userWallet;
 	@JsonIgnore
 	private int userBli;
