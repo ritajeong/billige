@@ -24,19 +24,26 @@ const MyPage = () => {
   const dispatch = useDispatch();
 
   async function onCreateWallet() {
+		const token = JSON.parse(window.localStorage.getItem('token'))
     getFunction.connectMetamask()
       .then(result => {
         setCurrentUserWallet(result[0]);
         axios
           .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/create/wallet`, {
+            
             userWallet: result[0]
+          }, {
+            headers: {
+              Authentication:
+                "Bearer " + token,
+            },
           })
           .then((response) => {
             window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
             console.log(response)
           })
           .catch(() => {
-            alert("아이디 혹은 비밀번호를 확인해주세요")
+            alert("메타마스크에 연결해 주세요.")
           })
       })
   }
