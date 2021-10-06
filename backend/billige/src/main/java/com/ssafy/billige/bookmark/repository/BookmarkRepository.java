@@ -2,12 +2,12 @@ package com.ssafy.billige.bookmark.repository;
 
 import java.util.List;
 
-import com.ssafy.billige.bookmark.domain.BookmarkId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ssafy.billige.bookmark.domain.Bookmark;
+import com.ssafy.billige.bookmark.domain.BookmarkId;
 
 public interface BookmarkRepository extends JpaRepository<Bookmark, BookmarkId>, BookmarkRepositoryCustom{
 

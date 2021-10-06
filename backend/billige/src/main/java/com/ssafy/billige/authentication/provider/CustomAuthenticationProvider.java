@@ -1,7 +1,5 @@
 package com.ssafy.billige.authentication.provider;
 
-import com.ssafy.billige.user.domain.CustomUserDetails;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,6 +8,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.ssafy.billige.user.domain.CustomUserDetails;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider{

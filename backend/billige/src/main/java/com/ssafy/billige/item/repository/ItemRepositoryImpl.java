@@ -1,20 +1,20 @@
 package com.ssafy.billige.item.repository;
 
+import static com.ssafy.billige.bookmark.domain.QBookmark.*;
+import static com.ssafy.billige.image.domain.QImage.*;
+import static com.ssafy.billige.item.domain.ActiveStatus.*;
+import static com.ssafy.billige.item.domain.QItem.*;
+import static com.ssafy.billige.utils.StringUtils.*;
+
+import java.util.List;
+
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.billige.item.domain.ActiveStatus;
 import com.ssafy.billige.item.dto.response.ItemListResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
 import com.ssafy.billige.search.dto.request.SearchFilter;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
-import static com.ssafy.billige.image.domain.QImage.*;
-import static com.ssafy.billige.item.domain.QItem.*;
-import static com.ssafy.billige.bookmark.domain.QBookmark.*;
-import static com.ssafy.billige.utils.StringUtils.*;
 
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepositoryCustom {
@@ -29,10 +29,12 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 				item.itemname,
 				item.position,
 				item.price,
-				item.modifiedTime))
-			.from(item)
-			.where(item.isActive.eq(ActiveStatus.Y)
+				item.modifiedTime,
+				image.imgSrc))
+			.from(item).leftJoin(image).on(item.itemId.eq(image.item.itemId))
+			.where(item.isActive.eq(Y)
 				.and(item.itemSigunguCode.eq(userSigunguCode)))
+			.groupBy(item.itemId)
 			.orderBy(item.modifiedTime.desc())
 			.fetch();
 	}

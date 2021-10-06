@@ -1,61 +1,61 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Modal, Input } from "semantic-ui-react"
+import { Button, Modal, Input } from "semantic-ui-react";
 import profile from "../../assets/image/user.png";
 import star from "../../assets/icons/star.png";
 import arrow from "../../assets/icons/arrow-right.png";
 import product from "../../assets/icons/product.png";
 import productlist from "../../assets/icons/productlist.png";
-import fingerprint from "../../assets/icons/fingerprint.png"
+import fingerprint from "../../assets/icons/fingerprint.png";
 import "./MyPage.css";
-import axios from 'axios';
-import { createWallet } from "../../api/user"
-import allActions from '../../redux/actions';
+import axios from "axios";
+import { createWallet } from "../../api/user";
+import allActions from "../../redux/actions";
 import { getFunction } from "../../utils/getFunction";
 
 const MyPage = () => {
   const [wallet, setWallet] = useState(true);
-  const [currentUserWallet, setCurrentUserWallet] = useState('');
-  const [bliAmount, setbliAmount] = useState('');
+  const [currentUserWallet, setCurrentUserWallet] = useState("");
+  const [bliAmount, setbliAmount] = useState("");
   const [open, setOpen] = React.useState(false);
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const btn = useRef();
   const dispatch = useDispatch();
 
   async function onCreateWallet() {
-		const token = JSON.parse(window.localStorage.getItem('token'))
-    getFunction.connectMetamask()
-      .then(result => {
-        setCurrentUserWallet(result[0]);
-        axios
-          .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/create/wallet`, {
-            
-            userWallet: result[0]
-          }, {
+    const token = JSON.parse(window.localStorage.getItem("token"));
+    getFunction.connectMetamask().then((result) => {
+      setCurrentUserWallet(result[0]);
+      axios
+        .post(
+          `${process.env.REACT_APP_SERVER_BASE_URL}/api/user/create/wallet`,
+          {
+            userWallet: result[0],
+          },
+          {
             headers: {
-              Authentication:
-                "Bearer " + token,
+              Authentication: "Bearer " + token,
             },
-          })
-          .then((response) => {
-            window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', '')));
-            console.log(response)
-          })
-          .catch(() => {
-            alert("메타마스크에 연결해 주세요.")
-          })
-      })
+          }
+        )
+        .then((response) => {
+          window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', "")));
+          console.log(response);
+        })
+        .catch(() => {
+          alert("메타마스크에 연결해 주세요.");
+        });
+    });
   }
 
   useEffect(() => {
-    if (currentUserWallet !== '') {
-      getFunction.getBliCoin()
-        .then(result => {
-          setbliAmount(Math.floor(result))
-        })
+    if (currentUserWallet !== "") {
+      getFunction.getBliCoin().then((result) => {
+        setbliAmount(Math.floor(result));
+      });
     }
-  }, [currentUserWallet])
+  }, [currentUserWallet]);
 
   useEffect(() => {
     // if (bliAmount !== ''){
@@ -63,43 +63,40 @@ const MyPage = () => {
     //     return {existWallet: true}
     //   });
     // }
-  }, [bliAmount])
+  }, [bliAmount]);
 
   useEffect(() => {
-    const token = JSON.parse(window.localStorage.getItem('token'));
+    const token = JSON.parse(window.localStorage.getItem("token"));
     console.log("Bearer " + token);
     axios
       .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/mypage`, {
         headers: {
-          Authentication:
-            "Bearer " + token,
+          Authentication: "Bearer " + token,
         },
-
       })
       .then((response) => {
-        setUser(response.data)
+        setUser(response.data);
         if (response.data.existWallet === true) {
-          getFunction.connectMetamask()
-            .then(result => {
-              setCurrentUserWallet(result[0]);
-            })
+          getFunction.connectMetamask().then((result) => {
+            setCurrentUserWallet(result[0]);
+          });
         }
         dispatch(allActions.userActions.loginUser(response.data));
         console.log(response);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }, [])
+        console.log(error);
+      });
+  }, []);
   const createWallet = () => {
-    alert("지갑주소는 쏼라쏼라")
-    setWallet(!wallet)
-  }
+    alert("지갑주소는 쏼라쏼라");
+    setWallet(!wallet);
+  };
 
   const logout = () => {
     dispatch(allActions.userActions.logoutUser());
-    alert("로그아웃 되었습니다")
-  }
+    alert("로그아웃 되었습니다");
+  };
   return (
     <div className="mypage">
       <div className="mypage-profile">
@@ -113,20 +110,16 @@ const MyPage = () => {
         <button className="mypage-useredit">프로필 수정</button>
       </Link>
       <div className="mypage-wallet">
-
-        {!user.existWallet ?
+        {!user.existWallet ? (
           <div className="mypage-wallet-create" onClick={onCreateWallet}>
             <img src={fingerprint} alt="fingerprint" width="60px" />
             지갑 생성하기
           </div>
-          : <div className="mypage-wallet-info">
-            <div>지갑 잔액
-              <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-                trigger={<button ref={btn}>충전</button>}
-              >
+        ) : (
+          <div className="mypage-wallet-info">
+            <div>
+              지갑 잔액
+              <Modal open={open} onClose={() => setOpen(false)} onOpen={() => setOpen(true)} trigger={<button ref={btn}>충전</button>}>
                 <Modal.Header>충전</Modal.Header>
                 <Modal.Content image>
                   <Modal.Description>
@@ -151,36 +144,28 @@ const MyPage = () => {
             <div>{bliAmount} BLI</div>
             {/* <div>{user.userBli} BLI</div> */}
             <div> 잔액이 부족하면 대여서비스를 이용할 수 없습니다!</div>
-
           </div>
-        }
-
+        )}
       </div>
       <div className="mypage-user-info">
         <Link to="/myproduct">
           <div className="user-info">
             <img src={product} width="30px" alt="eth" />
-            <p>
-              등록한 제품
-            </p>
+            <p>등록한 제품</p>
           </div>
         </Link>
 
         <Link to="/tradelog">
           <div className="user-info">
             <img src={productlist} width="30px" alt="eth" />
-            <p>
-              대여내역
-            </p>
+            <p>대여내역</p>
           </div>
         </Link>
 
         <Link to="/wish">
           <div className="user-info">
             <img src={star} width="30px" alt="eth" />
-            <p>
-              찜
-            </p>
+            <p>찜</p>
           </div>
         </Link>
       </div>
@@ -207,8 +192,7 @@ const MyPage = () => {
           </div>
         </Link>
       </div>
-
-    </div >
+    </div>
   );
 };
 

@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
@@ -19,8 +21,6 @@ import com.ssafy.billige.user.service.UserService;
 import com.ssafy.billige.utils.TokenUtils;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor

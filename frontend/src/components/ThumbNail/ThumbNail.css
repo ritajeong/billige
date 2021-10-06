@@ -9,6 +9,11 @@
   align-items: center;
   justify-content: center;
 }
+.thumbnail > img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
 
 .ribbon-angle {
   position: absolute;

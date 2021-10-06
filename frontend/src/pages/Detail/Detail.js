@@ -34,8 +34,9 @@ export const Detail = () => {
 			.catch((error) => {
 				console.log(error);
 			})
-
+			console.log(detail)
 	}, [])
+
 	const history = useHistory();
 	const onSelectProduct = () => {
 		history.push({
@@ -90,7 +91,7 @@ export const Detail = () => {
 				{/* <Button style={{ backgroundColor: "#497C5F", color: "white" }} className="detail-mayment" onClick={onSelectProduct}>
 								삭제
 							</Button> */}
-					<img src={detail.src[0]} alt="product" className="detail-product" />
+					<img src={detail.imgSrc[0]} alt="product" className="detail-product" />
 					<div className="detail-profile">
 						<img src={User} alt="product" className="detail-user-icon" />
 						<div className="detail-user-info">

@@ -7,14 +7,15 @@ const ThumbNail = (props) => {
     <div>
       <Link to={`/detail/${props.product.itemId}`}>
         <div className="thumbnail">
-          {props.product.isRent === "true" ? (
+          <img src={props.product.image}></img>
+          {/* {props.product.isRent === "true" ? (
             <span className="ribbon-angle">
               <small className="card-ribbon">{"대여중"}</small>
             </span>
           ) : (
             ""
           )}
-          썸네일
+          썸네일 */}
         </div>
         <p>
           <span>{props.product.itemname}</span>

@@ -1,21 +1,18 @@
 package com.ssafy.billige.item.service.impl;
 
-import static com.ssafy.billige.utils.StringUtils.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.billige.bookmark.domain.BookmarkId;
 import com.ssafy.billige.bookmark.repository.BookmarkRepository;
 import com.ssafy.billige.image.domain.Image;
 import com.ssafy.billige.image.repository.ImageRepository;
+import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.dto.response.ItemDetailResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.repository.ItemRepository;
 import com.ssafy.billige.item.service.ItemSearchService;
 import com.ssafy.billige.user.domain.User;
@@ -72,7 +69,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 				.image(owner.getUserImage())
 				.build()
 		);
-		response.setSrc(
+		response.setImgSrc(
 			images.stream()
 				.map(Image::getImgSrc)
 				.collect(Collectors.toList())

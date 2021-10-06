@@ -1,10 +1,10 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
+	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
 
 	// querydsl
 	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-	id 'java'
 }
 
 group = 'com.ssafy'
@@ -57,7 +57,6 @@ dependencies {
 
 	// Slack bot
 	implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
-
 }
 
 test {

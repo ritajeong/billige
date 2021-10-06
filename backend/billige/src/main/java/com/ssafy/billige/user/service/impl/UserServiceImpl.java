@@ -1,14 +1,9 @@
 package com.ssafy.billige.user.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.billige.authentication.provider.RandomSaltProvider;
-import com.ssafy.billige.user.domain.User;
-import com.ssafy.billige.user.domain.UserStatus;
-import com.ssafy.billige.user.dto.request.UserSignupRequest;
-import com.ssafy.billige.user.dto.response.UserEmailResponse;
-import com.ssafy.billige.user.dto.response.UserProfileResponse;
-import com.ssafy.billige.user.repository.UserRepository;
-import com.ssafy.billige.user.service.UserService;
+import static com.ssafy.billige.utils.StringUtils.*;
+
+import java.util.Map;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +13,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.billige.authentication.provider.RandomSaltProvider;
+import com.ssafy.billige.user.domain.User;
+import com.ssafy.billige.user.domain.UserStatus;
+import com.ssafy.billige.user.dto.request.UserSignupRequest;
+import com.ssafy.billige.user.dto.response.UserEmailResponse;
+import com.ssafy.billige.user.dto.response.UserProfileResponse;
+import com.ssafy.billige.user.repository.UserRepository;
+import com.ssafy.billige.user.service.UserService;
+
 import lombok.RequiredArgsConstructor;
-
-import java.util.Map;
-import java.util.UUID;
-
-import static com.ssafy.billige.utils.StringUtils.*;
 
 @Service
 @RequiredArgsConstructor

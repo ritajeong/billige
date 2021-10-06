@@ -3,7 +3,6 @@ package com.ssafy.billige.item.dto.response;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +26,7 @@ public class ItemDetailResponse {
 	private LocalDateTime modifiedTime;
 	private Owner owner;
 	private boolean isBookmark;
-	private List<String> src = new ArrayList<>();
+	private List<String> imgSrc = new ArrayList<>();
 
 	@Data
 	@Builder
