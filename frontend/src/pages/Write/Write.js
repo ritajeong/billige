@@ -8,9 +8,9 @@ import Category from "../Category/Category";
 
 const Write = () => {
   const history = useHistory();
-  const [itemname, setItemName] = useState()
-  const [itembli, setItemBli] = useState()
-  const [description, setDescription] = useState()
+  const [itemname, setItemName] = useState('')
+  const [itembli, setItemBli] = useState('')
+  const [description, setDescription] = useState('')
   const [category, setCategory] = useState('test');
   const [file, setFile] = useState('');
   const [previewURL, setPreviewURL] = useState('');
@@ -26,7 +26,24 @@ const Write = () => {
   const writeProduct = () => {
     if (file === ''){
       alert('사진은 필수입니다.');
-    } else {
+      return;
+    }
+    if (category === 'test') {
+      alert('카테고리는 필수입니다.');
+      return;
+    }
+    if (itemname === ''){
+      alert('상품명은 필수입니다.');
+      return;
+    }
+    if (itembli === ''){
+      alert('상품 가격은 필수입니다.');
+      return;
+    }
+    if (description === '') {
+      alert('상품 설명은 필수입니다.');
+      return;
+    }
       const formData = new FormData();
       formData.append("category", category);
       formData.append("description", description);
@@ -41,7 +58,6 @@ const Write = () => {
             Authentication:
               "Bearer " + token
           },
-  
         })
         .then((response) => {
           console.log(response);
@@ -50,7 +66,6 @@ const Write = () => {
         .catch((error) => {
           console.log(error)
         })
-    }
   }
 
   const onChangeItemName = (e) => {
