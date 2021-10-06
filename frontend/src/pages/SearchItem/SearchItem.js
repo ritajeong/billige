@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import noImage from "../../assets/image/no-image.jpg";
+import SearchInput from '../../components/SearchInput/SearchInput';
 const SearchItem = ({ location, match }) => {
   //Main.js의 SearchInput에서 넘어온 검색어(text)
   const query = queryString.parse(location.search);
@@ -20,11 +21,11 @@ const SearchItem = ({ location, match }) => {
   const onChange = (e) => {
     setInputText(e.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setWord(inputText);
-    setInputText("");
-  };
+    setInputText(e.target.value);
+  }; 
 
   //검색목록
   const [searchItem, setSearchItem] = useState([]);
@@ -56,17 +57,7 @@ const SearchItem = ({ location, match }) => {
 
   return (
     <>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        {/* <p>검색어 : {text}</p> */}
-        <Input
-          className="main-search"
-          icon="search"
-          iconPosition="left"
-          onChange={onChange}
-          value={inputText}
-        />
-        <br />
-      </form>
+      <SearchInput/>
       {!visible && (
         <div className="search-result">
           <h4 onClick={onClickFilter}><FontAwesomeIcon icon={faFilter}/> 검색필터</h4>

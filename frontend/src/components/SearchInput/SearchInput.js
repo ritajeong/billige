@@ -10,6 +10,7 @@ const SearchInput = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     history.push(`/searchitem?text=${inputText}`);
+    window.location.replace(`/searchitem?text=${inputText}`); //새로고침
   }; 
   return <>
     <form className="inputForm" onSubmit={handleSubmit}>
