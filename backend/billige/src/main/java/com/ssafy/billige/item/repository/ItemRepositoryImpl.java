@@ -12,6 +12,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.billige.item.dto.response.ItemListResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
+import com.ssafy.billige.item.dto.response.MyItemResponse;
 import com.ssafy.billige.search.dto.request.SearchFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,24 @@ import lombok.RequiredArgsConstructor;
 public class ItemRepositoryImpl implements ItemRepositoryCustom {
 
 	private final JPAQueryFactory queryFactory;
+
+	@Override
+	public List<MyItemResponse> findByUidOrderByCreatedTimeDesc(Long uid) {
+		return queryFactory
+			.select(Projections.constructor(MyItemResponse.class,
+				item.itemId,
+				item.itemname,
+				item.position,
+				item.price,
+				item.modifiedTime,
+				image.imgSrc,
+				item.isActive))
+			.from(item).leftJoin(image).on(item.itemId.eq(image.item.itemId))
+			.where(item.user.uid.eq(uid))
+			.groupBy(item.itemId)
+			.orderBy(item.createdTime.desc())
+			.fetch();
+	}
 
 	@Override
 	public List<ItemResponse> findAllItemResponseList(int userSigunguCode) {
