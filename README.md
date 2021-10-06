@@ -27,3 +27,31 @@
 ![StyleCI](https://img.shields.io/badge/ec2(ubuntu)-20.0.4-orange) 
 ![StyleCI](https://img.shields.io/badge/s3-2012.10.17-orange)  
 
+<br/>
+
+## Git Convention
+> [세부사항](https://elastic-carbon-574.notion.site/Convention-824ff805c9334a6e828da256dff44f44)
+
+### 1. Commit types
+
+- **Init**: 새로운 프로젝트 초기 설정
+- **Feat**: 새로운 기능을 추가할 경우
+- **Fix**: 버그를 고친 경우
+- **Design**: CSS 등 디자인 변경
+- **Docs**: 문서를 수정한 경우 (제품 코드 수정 X)
+- **Rename:** 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우
+- **Remove**: 파일을 삭제하는 작업만 수행한 경우sts
+
+```bash
+type: subject(제목)
+Docs: Update project Readme.md
+
+body(본문)
+프로젝트 markdown 파일 업데이트
+
+footer(푸터)
+Resolves: #231
+```
+
+## DB
+
