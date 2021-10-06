@@ -1,62 +1,94 @@
-import React, { useState } from "react";
-import SearchResult from "./SearchResult";
+import React, { useState, useEffect } from "react";
 import "./SearchItem.css";
-import close from "../../assets/icons/close.png";
+import "./SearchResult.css";
 import { Input } from "semantic-ui-react";
-const SearchItem = () => {
-  const recentSearchList = [
-    "방탈출",
-    "노트10",
-    "강아지 사료",
-    "우산",
-    "보조배터리",
-    "노트북",
-    "헤드셋",
-  ];
+import queryString from "query-string";
+import Filter from "./Filter";
+import "./Filter.css";
+// import product from "../../assets/image/product.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import noImage from "../../assets/image/no-image.jpg";
+import SearchInput from "../../components/SearchInput/SearchInput";
+const SearchItem = ({ location, match }) => {
+  //Main.js의 SearchInput에서 넘어온 검색어(text)
+  const query = queryString.parse(location.search);
+  const text = query.text;
+
+  //검색 Input tag관련
   const [inputText, setInputText] = useState("");
   const [word, setWord] = useState("");
   const onChange = (e) => {
     setInputText(e.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setWord(inputText);
-    setInputText("");
+    setInputText(e.target.value);
   };
+
+  //검색목록
+  const [searchItem, setSearchItem] = useState([]);
+  let [searchList, setSearchList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/search/keyword`, {
+        params: {
+          keyword: text,
+          page: 1,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setSearchItem(response.data);
+        setSearchList(new Array(response.data.length).fill(true));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [inputText]);
+
+  //검색필터 토글
+  const [visible, setVisible] = useState(false);
+  const onClickFilter = () => {
+    setVisible(!visible);
+  };
+
   return (
     <>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        <Input
-          className="main-search"
-          icon="search"
-          iconPosition="left"
-          onChange={onChange}
-          value={inputText}
-        />
-        <br />
-      </form>
-
-      {word === "" ? (
-        <>
-          <div className="recent-search-top">
-            <h3>최근 검색어</h3>
-            <p>모두 지우기</p>
-          </div>
-          <div className="recent-search-list">
-            {recentSearchList.map((data, index) => (
-              <div className="recent-search-item" key={index}>
-                <div className="recent-search-word">
-                  <p>{data}</p>
-                  <img src={close} width="10px" height="10px" alt="close" />
+      <SearchInput />
+      <div className="filter">
+        <h4 onClick={onClickFilter}>
+          <FontAwesomeIcon icon={faFilter} /> 검색필터
+        </h4>
+        <hr></hr>
+      </div>
+      {!visible && (
+        <div className="search-result">
+          {searchItem &&
+            searchItem.map((item, idx) => {
+              return (
+                <div key={idx} className="search-result-item">
+                  <div>
+                    <img
+                      src={item.image ? item.image : noImage}
+                      className="wish-item-icon"
+                      alt="product"
+                    ></img>
+                  </div>
+                  <div>
+                    <h3>{item.itemname}</h3>
+                    <p>{item.position}</p>
+                    <h4>{item.price} BLI</h4>
+                  </div>
                 </div>
-                <hr></hr>
-              </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        <SearchResult searcWord={word} />
+              );
+            })}
+        </div>
       )}
+      {visible && <Filter />}
     </>
   );
 };

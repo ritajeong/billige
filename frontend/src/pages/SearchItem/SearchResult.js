@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import Filter from "./Filter";
 import "./SearchResult.css";
 import product from "../../assets/image/product.png";
-const SearchResult = ({ searchPlace }) => {
+const SearchResult = ({ text }) => {
   const [visible, setVisible] = useState(false);
   const onClickFilter = () => {
     setVisible(!visible);
   };
+  console.log(text);
   return (
     <>
       {!visible && (
         <div className="search-result">
           <h3>최근 검색어</h3>
+          <p>{text}</p>
           <hr></hr>
           <h4 onClick={onClickFilter}>검색필터</h4>
           <hr></hr>

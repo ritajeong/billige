@@ -1,3 +1,6 @@
+.filter hr {
+  color: #e2e2e2;
+}
 .recent-search-top {
   display: flex;
   justify-content: space-between;
