@@ -1,48 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import profile from "../../assets/image/defaultuser.png";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import "./RentUserList.css";
 
-const RentUserList = ({history}) => {
-  const rentUser = [
-    {
-      uid: 1,
-      contractId: 1,
-      userName: "지노진호",
-      userAddress: "서울특별시 강남구",
-      startDate: "2021-09-03",
-      endDate: "2021-09-09",
-    },
-    {
-      uid: 2,
-      contractId: 2,
-      userName: "민재민잼",
-      userAddress: "서울특별시 강남구",
-      startDate: "2021-08-17",
-      endDate: "2021-08-18",
-    },
-    {
-      uid: 3,
-      contractId: 3,
-      userName: "동욱우기",
-      userAddress: "서울특별시 강남구",
-      startDate: "2021-08-11",
-      endDate: "2021-08-12",
-    },
-  ];
+const RentUserList = ({ history }) => {
+  const { pNo } = useParams();
+  const [rentUser, setRentUser] = useState([]);
+  const token = JSON.parse(window.localStorage.getItem("token"));
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/contract/my/${pNo}`, {
+        headers: {
+          Authentication: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        setRentUser(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const goToTradeDetail = (contractId) => {
     history.push(`/tradedetail/${contractId}`);
-  }
+  };
 
   return rentUser.map((user) => {
     return (
       <div className="rent-user">
         <div className="rent-user-list rent-user-box">
-          <img src={profile} className="rent-user-image" alt="profile"></img>
+          <img src={user.userImage} className="rent-user-image" alt="profile"></img>
           <div className="rent-user-vertical">
-            <div className="rent-user-name">{user.userName}</div>
-            <span>{user.userAddress}</span>
+            <div className="rent-user-name">{user.username}</div>
+            <span>{user.position}</span>
             <br />
             <span className="rent-user-period">
               {user.startDate.replaceAll("-", ".")} ~ {user.endDate.replaceAll("-", ".")}
@@ -50,7 +44,7 @@ const RentUserList = ({history}) => {
           </div>
         </div>
         <div className="rent-user-box">
-          <button onClick={() => goToTradeDetail(user.contractId)}>대여상세</button>
+          <button onClick={() => goToTradeDetail(user.contract_id)}>대여상세</button>
           <button>채팅하기</button>
         </div>
       </div>

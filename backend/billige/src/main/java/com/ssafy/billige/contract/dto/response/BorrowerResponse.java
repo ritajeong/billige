@@ -2,9 +2,6 @@ package com.ssafy.billige.contract.dto.response;
 
 import java.time.LocalDate;
 
-import com.ssafy.billige.item.domain.Item;
-import com.ssafy.billige.user.domain.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,10 +13,13 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyItemContractResponse {
-	private User borrower;
-	private Item item;
+public class BorrowerResponse {
+	private Long contract_id;
+	private Long borrower_id;
+	private String username;
+	private String userImage;
+	private Long itemId;
+	private String position;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	private int totalPrice;
 }

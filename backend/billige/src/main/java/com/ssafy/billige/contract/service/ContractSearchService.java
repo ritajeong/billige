@@ -2,8 +2,7 @@ package com.ssafy.billige.contract.service;
 
 import java.util.List;
 
-import com.ssafy.billige.contract.dto.response.MyContractResponse;
-import com.ssafy.billige.contract.dto.response.MyItemContractResponse;
+import com.ssafy.billige.contract.dto.response.BorrowerResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
 
 public interface ContractSearchService {
@@ -11,5 +10,5 @@ public interface ContractSearchService {
 	List<ItemResponse> myContracts(long uid);
 
 	// 등록한 대여품 조회
-	List<MyItemContractResponse> myItemContracts(long ownerId, long itemId);
+	List<BorrowerResponse> myItemContracts(long ownerId, long itemId);
 }

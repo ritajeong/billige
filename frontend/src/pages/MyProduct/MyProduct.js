@@ -8,7 +8,7 @@ import axios from "axios";
 const MyProduct = (props) => {
   const [product, setProduct] = useState([]);
   const [checked, setChecked] = useState(false);
-
+  const [radioGroups, setRadioGroups] = useState({});
   const token = JSON.parse(window.localStorage.getItem("token"));
 
   useEffect(() => {
@@ -20,6 +20,11 @@ const MyProduct = (props) => {
       })
       .then((response) => {
         setProduct(response.data);
+        const groups = {};
+        response.data.forEach(p => {
+          groups[p.itemId] = p.status === 'Y' ? true : false
+        })
+        setRadioGroups(groups);
         console.log(response.data);
       })
       .catch((err) => {
@@ -27,11 +32,19 @@ const MyProduct = (props) => {
       });
   }, []);
 
+
+
   const isActive = (idx) => {
-    if (product[idx].status == "Y") product[idx].status = "N";
-    else product[idx].status = "Y";
+    const p = product[idx]
+    console.log(p)
+    setRadioGroups({ ...radioGroups, [p.itemId]: !radioGroups[p.itemId] });
+    // console.log(product[idx])
+    // if (product[idx].status == "Y")
+    //   product[idx].status = "N";
+    // else product[idx].status = "Y";
     itemOnOff(idx);
-    console.log(product);
+    // console.log(product);
+    console.log(radioGroups)
   };
 
   const itemOnOff = (idx) => {
@@ -67,12 +80,9 @@ const MyProduct = (props) => {
           </div>
           <div>
             <label className="switch">
-              {item.status == "Y" ? (
-                <input type="checkbox" onClick={() => isActive(idx)} />
-              ) : (
-                <input type="checkbox" checked onClick={() => isActive(idx)} />
-              )}
-              {/* <input type="checkbox" onClick={() => isActive(idx)} checked={item.status == "Y"} /> */}
+
+              <input type="checkbox" onClick={() => isActive(idx)} checked={radioGroups[item.itemId]} />
+
               <span className="slider round"></span>
             </label>
           </div>
