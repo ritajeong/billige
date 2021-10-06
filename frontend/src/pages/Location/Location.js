@@ -6,22 +6,48 @@ const Location = ({ searchPlace }) => {
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([]);
   const [address, setAddress] = useState("");
-  const [locationObj, setLocationObj] = useState();
-  const handleClick = (address) => {
-    setAddress(address)
-    
-      axios
-        .get(`https://dapi.kakao.com/v2/local/search/address.json?query=${address}`, {
-          headers: { Authorization: 'KakaoAK 3c8ffe0fda9423ae3d4595085463213e' },
-        })
-        .then((res) => {
-          console.log(address)
-          const location = res.data.documents[0];
-          console.log(location?.address?.b_code);
-        });
-    
-  }
-  
+  let sigungu;
+
+  const handleClick = async (address) => {
+    setAddress(address);
+    const data = await axios
+      .get(`https://dapi.kakao.com/v2/local/search/address.json?query=${address}`, {
+        headers: { Authorization: "KakaoAK 3c8ffe0fda9423ae3d4595085463213e" },
+      })
+      .then((res) => {
+        console.log(address)
+        const location = res.data.documents[0];
+        // console.log(location);
+        // console.log(location?.address?.b_code);
+        sigungu =
+          location?.address?.b_code !== undefined ? location?.address?.b_code.slice(0, 5) : null;
+        console.log(sigungu);
+      });
+    // console.log(data);
+    // console.log(sigungu);
+    const token = JSON.parse(window.localStorage.getItem("token"));
+    const second = await axios
+      .put(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/api/user/modify/address`,
+        {
+          userAddress: address,
+          userSigunguCode: sigungu,
+        },
+        {
+          headers: {
+            Authentication: "Bearer " + token,
+          },
+        }
+      )
+      .then((response) => {
+        // console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      // console.log(second);
+  };
+
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
 
@@ -69,21 +95,22 @@ const Location = ({ searchPlace }) => {
 
   return (
     <div>
-      <p>{address}</p>
-      <p> {locationObj}</p>
       <div id="result-list" className="result-list">
         {Places.map((item, i) => (
           <div key={i} style={{ marginTop: "20px" }}>
             {/* <span>{i + 1}</span> */}
             <div>
-              <h5>{item.place_name}</h5>
-              {item.road_address_name ?  (
+              <h5 onClick={() => handleClick(item.address_name)}>{item.place_name}</h5>
+              {item.road_address_name ? (
                 <div>
-                  <span onClick={() => handleClick(item.road_address_name)}>{item.road_address_name}</span><br/>
+                  <span onClick={() => handleClick(item.road_address_name)}>
+                    {item.road_address_name}
+                  </span>
+                  <br />
                   <span onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
                 </div>
               ) : (
-                  <span onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
+                <span onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
               )}
               {/* <span>{item.phone}</span> */}
             </div>
@@ -100,4 +127,3 @@ const Location = ({ searchPlace }) => {
 };
 
 export default Location;
-

@@ -18,6 +18,7 @@ const SearchInput = () => {
         className="main-search"
         icon="search"
         iconPosition="left"
+        placeholder="상품명을 입력해주세요"
         onChange={onChange}
         value={inputText}
       />
