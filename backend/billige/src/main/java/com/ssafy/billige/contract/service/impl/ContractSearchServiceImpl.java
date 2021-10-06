@@ -1,5 +1,6 @@
 package com.ssafy.billige.contract.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,11 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.billige.contract.domain.Contract;
-import com.ssafy.billige.contract.dto.response.MyContractResponse;
-import com.ssafy.billige.contract.dto.response.MyItemContractResponse;
+import com.ssafy.billige.contract.dto.response.BorrowerResponse;
 import com.ssafy.billige.contract.repository.ContractRepository;
 import com.ssafy.billige.contract.service.ContractSearchService;
+import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.dto.response.ItemResponse;
+import com.ssafy.billige.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,21 +29,27 @@ public class ContractSearchServiceImpl implements ContractSearchService {
 	@Override
 	public List<ItemResponse> myContracts(long uid) {
 		return contractRepository.contractedItem(uid);
-		// List<Contract> rentItem = contractRepository.findAllByUser_Uid(uid);
-		// return rentItem.stream()
-		// 	.map(item -> modelMapper.map(item, MyContractResponse.class))
-		// 	.collect(Collectors.toList());
 	}
 
 	@Override
-	public List<MyItemContractResponse> myItemContracts(long ownerId, long itemId) {
+	public List<BorrowerResponse> myItemContracts(long ownerId, long itemId) {
 		List<Contract> myItem = contractRepository.findAllByOwnerIdAndItem_ItemId(ownerId, itemId);
-		return myItem.stream()
-			.map(item -> {
-					MyItemContractResponse map = modelMapper.map(item, MyItemContractResponse.class);
-					map.setBorrower(item.getUser());
-					return map;
-				}
-			).collect(Collectors.toList());
+		List<BorrowerResponse> borrowers = new ArrayList<>();
+		for (Contract contract : myItem) {
+			User user = contract.getUser();
+			Item item = contract.getItem();
+			BorrowerResponse borrower = BorrowerResponse.builder()
+				.contract_id(contract.getContractId())
+				.borrower_id(user.getUid())
+				.username(user.getUserName())
+				.userImage(user.getUserImage())
+				.itemId(itemId)
+				.position(item.getPosition())
+				.startDate(contract.getStartDate())
+				.endDate(contract.getEndDate())
+				.build();
+			borrowers.add(borrower);
+		}
+		return borrowers;
 	}
 }
