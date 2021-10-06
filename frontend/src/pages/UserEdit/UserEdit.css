@@ -19,10 +19,31 @@
   border: 1px solid #e2e2e2;
 }
 .user-edit-button {
-  height: 50px;
-  width: 25%;
+  height: 36px;
+  width: 17%;
   border-radius: 24px;
   background: #497c5f;
   color: white;
   border: none;
+  margin-top: 15%;
+}
+
+.profile-title {
+  font-size: 130%;
+}
+
+.profile-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-img {
+  margin-left: 20%;
+}
+
+.profile_preview {
+  width: 40%;
+  border-radius: 30%;
 }
