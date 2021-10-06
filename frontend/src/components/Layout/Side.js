@@ -1,6 +1,7 @@
 import React from "react";
 import billige from "../../assets/image/billige.PNG";
 import eventImage from "../../assets/image/event.png";
+import mock from "../../assets/image/mock.jpg";
 import "./Layout.css";
 const Side = () => {
   return (
@@ -11,7 +12,7 @@ const Side = () => {
       <br />
 
       <div className="mock">
-        <p>이미지</p>
+      <img className="mock-image" src={mock} alt="event" width="300px" />
       </div>
     </div>
   );

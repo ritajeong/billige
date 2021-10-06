@@ -40,6 +40,11 @@
   margin-bottom: 10px;
   margin-top: 0px;
 }
+
+.profile_preview {
+  width: 80px;
+}
+
 .item-content {
   width: 100%;
   padding: 10px;
