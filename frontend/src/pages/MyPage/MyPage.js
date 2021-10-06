@@ -41,7 +41,6 @@ const MyPage = () => {
         )
         .then((response) => {
           window.localStorage.setItem("token", JSON.stringify(response.headers.authentication.split(" ")[1].replaceAll('"', "")));
-          console.log(response);
         })
         .catch(() => {
           alert("메타마스크에 연결해 주세요.");
@@ -58,16 +57,8 @@ const MyPage = () => {
   }, [currentUserWallet]);
 
   useEffect(() => {
-    // if (bliAmount !== ''){
-    //   setUser(() => {
-    //     return {existWallet: true}
-    //   });
-    // }
-  }, [bliAmount]);
-
-  useEffect(() => {
     const token = JSON.parse(window.localStorage.getItem("token"));
-    console.log("Bearer " + token);
+    // console.log("Bearer " + token);
     axios
       .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/mypage`, {
         headers: {
@@ -75,6 +66,7 @@ const MyPage = () => {
         },
       })
       .then((response) => {
+        console.log(response.data)
         setUser(response.data);
         if (response.data.existWallet === true) {
           getFunction.connectMetamask().then((result) => {
@@ -82,25 +74,21 @@ const MyPage = () => {
           });
         }
         dispatch(allActions.userActions.loginUser(response.data));
-        console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        alert("다시 로그인하세요.")
       });
   }, []);
-  const createWallet = () => {
-    alert("지갑주소는 쏼라쏼라");
-    setWallet(!wallet);
-  };
 
   const logout = () => {
     dispatch(allActions.userActions.logoutUser());
     alert("로그아웃 되었습니다");
   };
+
   return (
     <div className="mypage">
       <div className="mypage-profile">
-        <img src={profile} alt="product" className="mypage-user-icon" />
+        <img src={user.userImage} alt="product" className="mypage-user-icon" />
         <div className="mypage-profile-desc">
           <h4>{user.userName} 님 안녕하세요!</h4>
           <span>{user.userEmail}</span>

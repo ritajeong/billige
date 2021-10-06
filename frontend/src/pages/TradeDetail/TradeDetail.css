@@ -41,7 +41,10 @@
 }
 .total {
   width: 100px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
-/* .price {
-} */
+.trade-detail-price {
+  right: 0px;
+  position: absolute;
+  margin: 20px 0px;
+}

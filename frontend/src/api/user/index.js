@@ -23,8 +23,6 @@ export const createWallet = async (userWallet) => {
     userWallet,
   }
   const response = await axiosInstance.post(url, formData, { headers: { headers } });
-  console.log(4343)
-  console.log(response);
   return response
 
 }

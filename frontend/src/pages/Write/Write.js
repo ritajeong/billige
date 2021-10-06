@@ -59,7 +59,6 @@ const Write = () => {
           },
         })
         .then((response) => {
-          console.log(response);
           history.push('/');
         })
         .catch((error) => {
