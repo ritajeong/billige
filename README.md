@@ -53,5 +53,6 @@ footer(푸터)
 Resolves: #231
 ```
 
-## DB
+## DB ERD
 
+![image](https://user-images.githubusercontent.com/36289638/135795063-7ac8b784-13a4-4054-af4c-d78bd41de107.png)
