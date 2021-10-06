@@ -7,8 +7,8 @@ import axios from "axios";
 
 const MyProduct = (props) => {
   const [product, setProduct] = useState([]);
-  const [checked, setChecked] = useState(false);
   const [radioGroups, setRadioGroups] = useState({});
+  const [loading, setLoading] = useState(true);
   const token = JSON.parse(window.localStorage.getItem("token"));
 
   useEffect(() => {
@@ -26,6 +26,7 @@ const MyProduct = (props) => {
         })
         setRadioGroups(groups);
         console.log(response.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -66,30 +67,34 @@ const MyProduct = (props) => {
       });
   };
 
-  return product.map((item, idx) => {
-    return (
-      <div>
-        <div className="wish-item-list">
-          <img src={item.image == null ? noImage : item.image} className="wish-item-icon" alt="profile"></img>
-          <div className="wish-item-vertical">
-            <div className="wish-item-title">
-              <Link to={`/rentuser/${item.itemId}`}>{item.itemname}</Link>
-            </div>
-            <span>{item.position}</span>
-            <div className="wish-item-price">{item.price} 원</div>
-          </div>
-          <div>
-            <label className="switch">
-
-              <input type="checkbox" onClick={() => isActive(idx)} checked={radioGroups[item.itemId]} />
-
-              <span className="slider round"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-    );
-  });
+  return (
+    <div>
+      {loading ? <>loading...</> :
+        <>
+          {product.map((item, idx) => {
+            return (
+              <div className="wish-item-list" key={idx}>
+                <img src={item.image == null ? noImage : item.image} className="wish-item-icon" alt="profile"></img>
+                <div className="wish-item-vertical">
+                  <div className="wish-item-title">
+                    <Link to={`/rentuser/${item.itemId}`}>{item.itemname}</Link>
+                  </div>
+                  <span>{item.position}</span>
+                  <div className="wish-item-price">{item.price} 원</div>
+                </div>
+                <div>
+                  <label className="switch">
+                    <input type="checkbox" onClick={() => isActive(idx)} checked={radioGroups[item.itemId]} />
+                    <span className="slider round"></span>
+                  </label>
+                </div>
+              </div>
+            )
+          })}
+        </>
+      }
+    </div>
+  );
 };
 
 export default MyProduct;
