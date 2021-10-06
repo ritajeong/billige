@@ -46,7 +46,7 @@ public class ContractServiceImpl implements ContractService {
 			.item(item)
 			.ownerId(contractRequest.getOwnerId())
 			.startDate(contractRequest.getStartDate())
-			.endDate(contractRequest.getStartDate())
+			.endDate(contractRequest.getEndDate())
 			.user(user)
 			.totalPrice(contractRequest.getTotalPrice())
 			.build();
