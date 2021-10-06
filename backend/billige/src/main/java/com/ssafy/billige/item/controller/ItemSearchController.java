@@ -23,7 +23,7 @@ public class ItemSearchController {
 
 	private final ItemSearchService itemSearchService;
 
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<?> myItems(@RequestHeader(AUTH_HEADER) String token) {
 		Long uid = TokenUtils.getUidFromToken(token);
 		return ResponseEntity.ok().body(itemSearchService.myItems(uid));

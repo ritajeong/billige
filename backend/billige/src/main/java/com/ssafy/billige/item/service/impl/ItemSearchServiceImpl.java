@@ -13,6 +13,7 @@ import com.ssafy.billige.image.repository.ImageRepository;
 import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.dto.response.ItemDetailResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
+import com.ssafy.billige.item.dto.response.MyItemResponse;
 import com.ssafy.billige.item.repository.ItemRepository;
 import com.ssafy.billige.item.service.ItemSearchService;
 import com.ssafy.billige.user.domain.User;
@@ -29,8 +30,8 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 	private final BookmarkRepository bookmarkRepository;
 
 	@Override
-	public List<Item> myItems(long uid) {
-		return itemRepository.findAllByUser_UidOrderByModifiedTimeDesc(uid);
+	public List<MyItemResponse> myItems(long uid) {
+		return itemRepository.findByUidOrderByCreatedTimeDesc(uid);
 	}
 
 	@Override
