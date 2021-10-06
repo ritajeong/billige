@@ -24,29 +24,33 @@ const Write = () => {
     setCategory(category);
   };
   const writeProduct = () => {
-    const formData = new FormData();
-    formData.append("category", category);
-    formData.append("description", description);
-    formData.append("images", file);
-    formData.append("itemname", itemname);
-    formData.append("position", "서울특별시 강남구");
-    formData.append("price", itembli);
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    axios
-      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item`, formData, {
-        headers: {
-          Authentication:
-            "Bearer " + token
-        },
-
-      })
-      .then((response) => {
-        console.log(response);
-        history.push('/');
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if (file === ''){
+      alert('사진은 필수입니다.');
+    } else {
+      const formData = new FormData();
+      formData.append("category", category);
+      formData.append("description", description);
+      formData.append("images", file);
+      formData.append("itemname", itemname);
+      formData.append("position", "서울특별시 강남구");
+      formData.append("price", itembli);
+      const token = JSON.parse(window.localStorage.getItem('token'))
+      axios
+        .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item`, formData, {
+          headers: {
+            Authentication:
+              "Bearer " + token
+          },
+  
+        })
+        .then((response) => {
+          console.log(response);
+          history.push('/');
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 
   const onChangeItemName = (e) => {
@@ -65,8 +69,6 @@ const Write = () => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
-    console.log(111)
-    console.log(file)
     reader.onloadend = () => {
       setFile(file);
       setPreviewURL(reader.result);

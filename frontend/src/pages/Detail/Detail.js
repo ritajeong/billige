@@ -28,7 +28,6 @@ export const Detail = () => {
 			)
 			.then((response) => {
 				setDetail(response.data);
-				console.log(response);
 				setLoading(false);
 				setLike(response.data.bookmark);
 			})
@@ -60,7 +59,6 @@ export const Detail = () => {
 				},
 			})
 			.then((response) => {
-				console.log(response)
 			})
 			.catch((error) => {
 				console.log(error);
