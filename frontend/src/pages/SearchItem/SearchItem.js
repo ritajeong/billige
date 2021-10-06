@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import SearchResult from "./SearchResult";
+import React, { useState } from "react"; 
 import "./SearchItem.css";
-import close from "../../assets/icons/close.png";
+import "./SearchResult.css";
 import { Input } from "semantic-ui-react";
-const SearchItem = () => {
-  const recentSearchList = [
-    "방탈출",
-    "노트10",
-    "강아지 사료",
-    "우산",
-    "보조배터리",
-    "노트북",
-    "헤드셋",
-  ];
+import queryString from 'query-string'
+import Filter from "./Filter";
+import product from "../../assets/image/product.png";
+
+const SearchItem = ({location, match}) => {
+  const query = queryString.parse(location.search);
+  console.log(query);
+  const text = query.text;
+  
   const [inputText, setInputText] = useState("");
   const [word, setWord] = useState("");
   const onChange = (e) => {
@@ -23,9 +21,16 @@ const SearchItem = () => {
     setWord(inputText);
     setInputText("");
   };
+
+  const [visible, setVisible] = useState(false);
+  const onClickFilter = () => {
+    setVisible(!visible);
+  };
+  console.log(text);
   return (
     <>
       <form className="inputForm" onSubmit={handleSubmit}>
+        <p>검색어 : {text}</p>
         <Input
           className="main-search"
           icon="search"
@@ -35,8 +40,49 @@ const SearchItem = () => {
         />
         <br />
       </form>
-
-      {word === "" ? (
+      {!visible && (
+        <div className="search-result">
+          <h3>최근 검색어</h3>
+          <hr></hr>
+          <h4 onClick={onClickFilter}>검색필터</h4>
+          <hr></hr>
+          <div className="search-result-item">
+            <div>
+              <img src={product} alt="product" className="mypage-user-icon" />
+            </div>
+            <div>
+              <h3>유레카 노트북</h3>
+              <p>대치동</p>
+              <h4>15,000원</h4>
+            </div>
+          </div>
+          <hr></hr>
+          <div className="search-result-item">
+            <div>
+              <img src={product} alt="product" className="mypage-user-icon" />
+            </div>
+            <div>
+              <h3>유레카 노트북</h3>
+              <p>대치동</p>
+              <h4>15,000원</h4>
+            </div>
+          </div>
+          <hr></hr>
+          <div className="search-result-item">
+            <div>
+              <img src={product} alt="product" className="mypage-user-icon" />
+            </div>
+            <div>
+              <h3>유레카 노트북</h3>
+              <p>대치동</p>
+              <h4>15,000원</h4>
+            </div>
+          </div>
+          <hr></hr>
+        </div>
+      )}
+      {visible && <Filter />}
+      {/* {text === "" ? (
         <>
           <div className="recent-search-top">
             <h3>최근 검색어</h3>
@@ -55,8 +101,8 @@ const SearchItem = () => {
           </div>
         </>
       ) : (
-        <SearchResult searcWord={word} />
-      )}
+        <SearchResult searcWord={text} />
+      )} */}
     </>
   );
 };
