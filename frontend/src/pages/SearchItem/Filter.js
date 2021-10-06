@@ -1,8 +1,16 @@
 import React, { useState, useCallback } from "react";
 import Category from "../Category/Category";
-import { Form, Radio, Input } from "semantic-ui-react";
+import { Form, Radio, Input, Button } from "semantic-ui-react";
 import "./Filter.css";
+import axios from "axios";
+import { useHistory } from "react-router";
 const Filter = () => {
+  const history = useHistory();
+  const [category, setCategory] = useState();
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
+  const [order, setOrder] = useState();
+
   const [inputStatus, setInputStatus] = useState("");
   const handleClickRadioButton = useCallback(
     (radioBtnName) => {
@@ -15,17 +23,44 @@ const Filter = () => {
     alert("확인");
     setInputText("");
   };
+  const getCategory = (category) => {
+    setCategory(category);
+  };
 
   const [inputText, setInputText] = useState("");
   const onChange = (e) => {
     setInputText(e.target.value);
   };
 
+  const setFilter = () => {
+    axios
+      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/search`, {
+        body: {
+          category: { category },
+          min: { min },
+          max: { max },
+          orderBy: { order },
+          keyword: { inputStatus },
+        },
+        params: {
+          page: 1,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        history.push(`/searchitem?text=${inputText}`);
+        window.location.replace(`/searchitem?text=${inputText}`); //새로고침
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <div className="filter">
         <div className="filter-category">
-          <Category />
+          <Category category={category} getCategory={getCategory} />
         </div>
         <hr />
         <h4>정렬</h4>
@@ -62,25 +97,6 @@ const Filter = () => {
             />
           </Form.Field>
           <hr />
-          {/* <h4>가격 범위</h4>
-        <Form.Field>
-          <Input
-            className="price-range"
-            icon="search"
-            iconPosition="left"
-            onChange={onChange}
-            value={inputText}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Input
-            className="price-range"
-            icon="search"
-            iconPosition="left"
-            onChange={onChange}
-            value={inputText}
-          />
-        </Form.Field> */}
         </Form>
         <hr></hr>
         <form className="inputForm" onSubmit={handleSubmit}>
@@ -91,7 +107,7 @@ const Filter = () => {
             iconPosition="left"
             placeholder="0"
             onChange={onChange}
-            value={inputText}
+            value={min}
           />
           ~
           <Input
@@ -100,11 +116,14 @@ const Filter = () => {
             iconPosition="left"
             placeholder="제한없음"
             onChange={onChange}
-            value={inputText}
+            value={max}
           />
           <br />
         </form>
         <hr />
+        {/* <Button className="done-button" onClick={setFilter}>
+          등록
+        </Button> */}
       </div>
     </>
   );
