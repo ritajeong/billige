@@ -177,6 +177,9 @@ section {
     font-size: 12px;
   }
 }
+.mock-image {
+  border-radius: 10%;
+}
 
 @media only screen and (min-width: 400px) {
   .nav-bottom-items {
