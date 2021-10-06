@@ -33,7 +33,7 @@ const Category = ({ category, getCategory }) => {
         <p>{inputStatus}</p>
       </div>
       <div className="category-table">
-        <div class="toggle category-row">
+        <div className="toggle category-row">
           <input
             type="radio"
             id="toggle1"
@@ -42,7 +42,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("식기")}
             readOnly
           />
-          <label for="toggle1">
+          <label htmlFor="toggle1">
             <div className="toggle-category-item">
               <img src={cutlery} alt="cutlery" className="category-icon" />
               <p>식기</p>
@@ -56,7 +56,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("의복")}
             readOnly
           />
-          <label for="toggle2">
+          <label htmlFor="toggle2">
             <div className="toggle-category-item">
               <img src={clothes} alt="clothes" className="category-icon" />
               <p>의복</p>
@@ -70,7 +70,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("가전제품")}
             readOnly
           />
-          <label for="toggle3">
+          <label htmlFor="toggle3">
             <div className="toggle-category-item">
               <img src={computer} alt="computer" className="category-icon" />
               <p>가전제품</p>
@@ -84,7 +84,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("서적")}
             readOnly
           />
-          <label for="toggle4">
+          <label htmlFor="toggle4">
             <div className="toggle-category-item">
               <img src={study} alt="study" className="category-icon" />
               <p>서적</p>
@@ -98,14 +98,14 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("미용")}
             readOnly
           />
-          <label for="toggle5">
+          <label htmlFor="toggle5">
             <div className="toggle-category-item">
               <img src={hair} alt="hair" className="category-icon" />
               <p>미용</p>
             </div>
           </label>
         </div>
-        <div class="toggle category-row">
+        <div className="toggle category-row">
           <input
             type="radio"
             id="toggle6"
@@ -114,7 +114,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("사진")}
             readOnly
           />
-          <label for="toggle6">
+          <label htmlFor="toggle6">
             <div className="toggle-category-item">
               <img src={camera} alt="cutlery" className="category-icon" />
               <p>사진</p>
@@ -128,7 +128,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("공구")}
             readOnly
           />
-          <label for="toggle7">
+          <label htmlFor="toggle7">
             <div className="toggle-category-item">
               <img src={drill} alt="clothes" className="category-icon" />
               <p>공구</p>
@@ -142,7 +142,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("게임")}
             readOnly
           />
-          <label for="toggle8">
+          <label htmlFor="toggle8">
             <div className="toggle-category-item">
               <img src={gamepad} alt="gamepad" className="category-icon" />
               <p>게임</p>
@@ -156,7 +156,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("음악")}
             readOnly
           />
-          <label for="toggle9">
+          <label htmlFor="toggle9">
             <div className="toggle-category-item">
               <img src={music} alt="music " className="category-icon" />
               <p>음악</p>
@@ -170,14 +170,14 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("예술")}
             readOnly
           />
-          <label for="toggle10">
+          <label htmlFor="toggle10">
             <div className="toggle-category-item">
               <img src={art} alt="art" className="category-icon" />
               <p>예술</p>
             </div>
           </label>
         </div>
-        <div class="toggle category-row">
+        <div className="toggle category-row">
           <input
             type="radio"
             id="toggle11"
@@ -186,7 +186,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("육아")}
             readOnly
           />
-          <label for="toggle11">
+          <label htmlFor="toggle11">
             <div className="toggle-category-item">
               <img src={feeding} alt="feeding" className="category-icon" />
               <p>육아</p>
@@ -200,7 +200,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("동물")}
             readOnly
           />
-          <label for="toggle12">
+          <label htmlFor="toggle12">
             <div className="toggle-category-item">
               <img src={dog} alt="dog" className="category-icon" />
               <p>동물</p>
@@ -214,7 +214,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("야외")}
             readOnly
           />
-          <label for="toggle13">
+          <label htmlFor="toggle13">
             <div className="toggle-category-item">
               <img src={beach} alt="beach " className="category-icon" />
               <p>야외</p>
@@ -228,7 +228,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("명품")}
             readOnly
           />
-          <label for="toggle14">
+          <label htmlFor="toggle14">
             <div className="toggle-category-item">
               <img src={diamond} alt="diamond " className="category-icon" />
               <p>명품</p>
@@ -242,7 +242,7 @@ const Category = ({ category, getCategory }) => {
             onClick={() => handleClickRadioButton("기타")}
             readOnly
           />
-          <label for="toggle15">
+          <label htmlFor="toggle15">
             <div className="toggle-category-item">
               <img src={etc} alt="etc" className="category-icon" />
               <p>기타</p>
