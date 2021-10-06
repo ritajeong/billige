@@ -19,7 +19,6 @@ const Rent = () => {
   const location = useLocation();
   const historyState = location.state;
   const token = JSON.parse(window.localStorage.getItem("token"));
-  // console.log(historyState)
 
   const stringToNum = {
     Jan: 1,
@@ -145,7 +144,7 @@ const Rent = () => {
         setDisabledDates(response.data.unavailableList);
       })
       .catch((error) => {
-        console.log(error);
+        alert("메타마스크에 연결이 되지 않았습니다.");
       });
   }, []);
 
@@ -186,7 +185,7 @@ const Rent = () => {
           // alert("판매자의 이메일은 뭐입니다.")
         })
         .catch((error) => {
-          console.log(error);
+          alert("결제가 정상적으로 이뤄지지 않았습니다.");
         });
     }
   }, [contractSuccess]);

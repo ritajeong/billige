@@ -47,7 +47,6 @@ const Filter = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         history.push(`/searchitem?text=${inputText}`);
         window.location.replace(`/searchitem?text=${inputText}`); //새로고침
       })
