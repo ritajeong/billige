@@ -97,8 +97,9 @@ const Write = () => {
           >
       </input>
       </div>
-      {/* <p>카테고리 : {category}</p> */}
-      <Category category={category} getCategory={getCategory} />
+      <div className="write-category">
+        <Category category={category} getCategory={getCategory} />
+      </div>
       <Grid divided="vertically">
         <Grid.Row columns={2}>
           <Grid.Column>

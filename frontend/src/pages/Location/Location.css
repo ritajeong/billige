@@ -1,4 +1,7 @@
 /* SearchPlace.js*/
+.result-list hr {
+  border-top: 1px solid #c4c4c4;
+}
 .title {
   text-align: center;
   margin-top: 15px;

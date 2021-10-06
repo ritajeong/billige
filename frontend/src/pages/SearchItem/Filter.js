@@ -22,45 +22,47 @@ const Filter = () => {
   };
 
   return (
-    <div className="filter">
-      <h4>카테고리</h4>
-      <Category />
-      <hr />
-      <h4>정렬</h4>
-      <Form onSubmit={handleSubmit} className="radio-group">
-        {/* <Form.Field>
+    <>
+      <div className="filter">
+        <div className="filter-category">
+          <Category />
+        </div>
+        <hr />
+        <h4>정렬</h4>
+        <Form onSubmit={handleSubmit} className="radio-group">
+          {/* <Form.Field>
           Selected value: <b>{inputStatus}</b>
         </Form.Field>
          */}
-        <Form.Field>
-          <Radio
-            id="radio1"
-            label="대여순"
-            name="radioGroup" 
-            checked={inputStatus === "대여순"}
-            onClick={() => handleClickRadioButton("대여순")}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Radio
-            id="radio2"
-            label="북마크순"
-            name="radioGroup" 
-            checked={inputStatus === "북마크순"}
-            onClick={() => handleClickRadioButton("북마크순")}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Radio
-            id="radio3"
-            label="최신순"
-            name="radioGroup"
-            checked={inputStatus === "최신순"}
-            onClick={() => handleClickRadioButton("최신순")}
-          />
-        </Form.Field>
-        <hr />
-        {/* <h4>가격 범위</h4>
+          <Form.Field>
+            <Radio
+              id="radio1"
+              label="대여순"
+              name="radioGroup"
+              checked={inputStatus === "대여순"}
+              onClick={() => handleClickRadioButton("대여순")}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              id="radio2"
+              label="북마크순"
+              name="radioGroup"
+              checked={inputStatus === "북마크순"}
+              onClick={() => handleClickRadioButton("북마크순")}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              id="radio3"
+              label="최신순"
+              name="radioGroup"
+              checked={inputStatus === "최신순"}
+              onClick={() => handleClickRadioButton("최신순")}
+            />
+          </Form.Field>
+          <hr />
+          {/* <h4>가격 범위</h4>
         <Form.Field>
           <Input
             className="price-range"
@@ -79,31 +81,32 @@ const Filter = () => {
             value={inputText}
           />
         </Form.Field> */}
-      </Form>
-      <hr></hr>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        <h4>가격범위</h4>
-        <Input
-          className="input-price"
-          icon="search"
-          iconPosition="left"
-          placeholder="0"
-          onChange={onChange}
-          value={inputText}
-        />
-        ~
-        <Input
-          className="input-price"
-          icon="search"
-          iconPosition="left"
-          placeholder="제한없음"
-          onChange={onChange}
-          value={inputText}
-        />
-        <br />
-      </form>
-      <hr />
-    </div>
+        </Form>
+        <hr></hr>
+        <form className="inputForm" onSubmit={handleSubmit}>
+          <h4>가격범위</h4>
+          <Input
+            className="input-price"
+            icon="search"
+            iconPosition="left"
+            placeholder="0"
+            onChange={onChange}
+            value={inputText}
+          />
+          ~
+          <Input
+            className="input-price"
+            icon="search"
+            iconPosition="left"
+            placeholder="제한없음"
+            onChange={onChange}
+            value={inputText}
+          />
+          <br />
+        </form>
+        <hr />
+      </div>
+    </>
   );
 };
 
