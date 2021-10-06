@@ -1,102 +1,48 @@
-import React from "react";
-import axiosInstance from '../../api/axios';
-import axios from "axios"
-import { mypage, signIn } from '../../api/user';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import noImage from "../../assets/image/no-image.jpg";
+import { Link } from "react-router-dom";
+import "./TradeLog.css";
+
 const TradeLog = () => {
+  const [product, setProduct] = useState([]);
 
-  const test = () => {
-    const result = signIn(`test@test.com`, `test`)
-      .then((response) => {
-        console.log(response)
-      })
-    console.log(result)
-  }
-
-  const test2 = () => {
-    const token = JSON.parse(window.localStorage.getItem('token'))
+  useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem("token"));
     axios
-      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/list`,
-      // headers: {
-      //   Authentication:
-      //     "Bearer " + `eyJyZWdEYXRlIjoxNjMyNzMwMDkzMzU2LCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjgsInVzZXJTaWd1bmd1Q29kZSI6MTExMTAsInVzZXJOaWNrbmFtZSI6Inp6IiwidXNlckVtYWlsIjoienpAenouY20iLCJleHAiOjE2MzUzMjIwOTN9.26q-erHmV9dLFLoQAxlHzFC_J9ZJFeU44lmsrSBEPb4`,
-      // }
-    )
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
-  const test3 = () => {
-
-    axios
-      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/user/login`, {
-        userEmail: 'test@test.com',
-        userPassword: 'test'
-      })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const test4 = () => {
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    axios
-      .post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/`, {
-
-        category: "test",
-        description: "test",
-        itemSigunguCode: '11110',
-        itemname: "test",
-        position: "서울특별시 강남구",
-        price: 0,
-        uid: 0
-
-      }, {
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/contract/rent`, {
         headers: {
-          Authentication:
-            "Bearer " + token
+          Authentication: "Bearer " + token,
         },
-
       })
       .then((response) => {
-        console.log(response);
+        setProduct(response.data);
+        console.log(response.data);
       })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-  const test5 = () => {
-    const token = JSON.parse(window.localStorage.getItem('token'))
-    axios
-      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item`, {
-        headers: {
-          Authentication:
-            "Bearer " + token
-        },
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-
-  return <div >거래내역
-    <button onClick={test} >테스트</button>
-    <button onClick={test2} >테스트2</button>
-    <button onClick={test3} >테스트3</button>
-    <button onClick={test4} >테스트4</button>
-    <button onClick={test5} >아이템 리스트 불러오기</button>
-  </div>;
+  return product.map((item) => {
+    return (
+      <div>
+        <div className="wish-item-list">
+          <img src={item.image == null ? noImage : item.image} className="wish-item-icon" alt="item-image"></img>
+          <div className="wish-item-vertical">
+            <div className="wish-item-title">
+              <Link to={`/detail/${item.itemId}`}>{item.itemname}</Link>
+            </div>
+            <span>{item.address}</span>
+            <div className="wish-item-price">{item.price} 원</div>
+          </div>
+          <div>
+            <button className="trade-log-button">상세보기</button>
+          </div>
+        </div>
+      </div>
+    );
+  });
 };
 
 export default TradeLog;

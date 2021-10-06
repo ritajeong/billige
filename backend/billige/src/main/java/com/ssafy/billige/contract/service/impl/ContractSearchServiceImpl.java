@@ -12,6 +12,7 @@ import com.ssafy.billige.contract.dto.response.MyContractResponse;
 import com.ssafy.billige.contract.dto.response.MyItemContractResponse;
 import com.ssafy.billige.contract.repository.ContractRepository;
 import com.ssafy.billige.contract.service.ContractSearchService;
+import com.ssafy.billige.item.dto.response.ItemResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,11 +25,12 @@ public class ContractSearchServiceImpl implements ContractSearchService {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public List<MyContractResponse> myContracts(long uid) {
-		List<Contract> rentItem = contractRepository.findAllByUser_Uid(uid);
-		return rentItem.stream()
-			.map(item -> modelMapper.map(item, MyContractResponse.class))
-			.collect(Collectors.toList());
+	public List<ItemResponse> myContracts(long uid) {
+		return contractRepository.contractedItem(uid);
+		// List<Contract> rentItem = contractRepository.findAllByUser_Uid(uid);
+		// return rentItem.stream()
+		// 	.map(item -> modelMapper.map(item, MyContractResponse.class))
+		// 	.collect(Collectors.toList());
 	}
 
 	@Override
