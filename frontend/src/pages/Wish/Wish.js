@@ -7,6 +7,7 @@ import axios from "axios";
 import "./Wish.css";
 const Wish = ({ history }) => {
   const [wishProduct, setWishProduct] = useState([]);
+  const [likeFalg, setLikeFlag] = useState(false);
   const token = JSON.parse(window.localStorage.getItem("token"));
   let [likeList, setLikeList] = useState([]);
   // like = new Array(wishProduct.length).fill(true);
@@ -21,12 +22,12 @@ const Wish = ({ history }) => {
       .then((response) => {
         setWishProduct(response.data);
         setLikeList(new Array(response.data.length).fill(true));
-        console.log(likeList);
+        setLikeFlag(false);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [likeFalg]);
 
   const addBookmark = (itemId, idx) => {
     axios
@@ -41,8 +42,7 @@ const Wish = ({ history }) => {
       )
       .then((response) => {
         likeList[idx] = !likeList[idx];
-        console.log("add");
-        console.log(likeList);
+        setLikeFlag(true);
       })
       .catch((error) => {
         console.log(error);
@@ -58,8 +58,7 @@ const Wish = ({ history }) => {
       })
       .then((response) => {
         likeList[idx] = !likeList[idx];
-        console.log("cancel");
-        console.log(likeList);
+        setLikeFlag(true);
       })
       .catch((error) => {
         console.log(error);

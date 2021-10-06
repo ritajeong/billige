@@ -1,7 +1,5 @@
 package com.ssafy.billige.item.service.impl;
 
-import static com.ssafy.billige.utils.StringUtils.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,7 +70,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 				.image(owner.getUserImage())
 				.build()
 		);
-		response.setSrc(
+		response.setImgSrc(
 			images.stream()
 				.map(Image::getImgSrc)
 				.collect(Collectors.toList())

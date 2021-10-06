@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import Product from '../../assets/image/product.png'
 import User from '../../assets/image/user.png'
 import './Detail.css'
 import unlikeIcon from '../../assets/icons/wish.png'
@@ -29,7 +28,6 @@ export const Detail = () => {
 			)
 			.then((response) => {
 				setDetail(response.data);
-				console.log(response);
 				setLoading(false);
 				setLike(response.data.bookmark);
 			})
@@ -61,7 +59,6 @@ export const Detail = () => {
 				},
 			})
 			.then((response) => {
-				console.log(response)
 			})
 			.catch((error) => {
 				console.log(error);
@@ -90,7 +87,10 @@ export const Detail = () => {
 		<div>
 			{loading ? <>loading...</> :
 				<>
-					<img src={Product} alt="product" className="detail-product" />
+				{/* <Button style={{ backgroundColor: "#497C5F", color: "white" }} className="detail-mayment" onClick={onSelectProduct}>
+								삭제
+							</Button> */}
+					<img src={detail.src[0]} alt="product" className="detail-product" />
 					<div className="detail-profile">
 						<img src={User} alt="product" className="detail-user-icon" />
 						<div className="detail-user-info">

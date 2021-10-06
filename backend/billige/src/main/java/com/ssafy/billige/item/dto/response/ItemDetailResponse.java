@@ -27,7 +27,7 @@ public class ItemDetailResponse {
 	private LocalDateTime modifiedTime;
 	private Owner owner;
 	private boolean isBookmark;
-	private List<String> src = new ArrayList<>();
+	private List<String> imgSrc = new ArrayList<>();
 
 	@Data
 	@Builder
