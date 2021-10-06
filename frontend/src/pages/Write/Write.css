@@ -1,6 +1,9 @@
 .write {
   margin: 25px;
 }
+.write-category {
+  padding: 0px 10px 0px 10px;
+}
 .item-name {
   width: 100%;
   padding: 10px 10px 0px 10px;
@@ -12,8 +15,15 @@
   align-items: center;
 }
 .write-bli {
-  /* width: 10%; */
+  width: 60%;
 }
+.write-bli input {
+  border-radius: 20px !important;
+}
+.item-bli h4 {
+  margin: 0px !important;
+}
+
 .item-name input {
   border-radius: 20px !important;
 }

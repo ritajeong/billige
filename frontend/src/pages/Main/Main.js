@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { Input } from "semantic-ui-react";
+// import { Input } from "semantic-ui-react";
 import arrow from "../../assets/icons/next.png";
 import "./Main.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ThumbNail from "../../components/ThumbNail/ThumbNail";
 import axios from 'axios';
+import SearchInput from "../../components/SearchInput/SearchInput"
 
 const Main = () => {
   const [nearProduct, setNearProduct] = useState([])
@@ -120,8 +121,8 @@ const Main = () => {
   };
   return (
     <div className="main">
-      <Input className="main-search" icon="search" iconPosition="left" />
-
+      {/* <Input className="main-search" icon="search" iconPosition="left" /> */}
+      <SearchInput/>
       <Slider {...settings}>
         <div className="carousel-page">
           <h3>여기에</h3>

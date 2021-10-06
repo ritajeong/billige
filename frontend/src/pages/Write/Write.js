@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
-import axios from 'axios';
-import { useHistory } from 'react-router';
+import axios from "axios";
+import { useHistory } from "react-router";
 import { Input, Button, Form, TextArea, Grid } from "semantic-ui-react";
 import "./Write.css";
 import Category from "../Category/Category";
@@ -55,11 +54,11 @@ const Write = () => {
 
   const onChangeItemName = (e) => {
     setItemName(e.target.value);
-  }
+  };
 
   const onChangeItemBli = (e) => {
     setItemBli(e.target.value);
-  }
+  };
 
   const onChangeDesc = (e) => {
     setDescription(e.target.value)
@@ -81,7 +80,11 @@ const Write = () => {
     <div className="write">
       <h4 className="item-name">상품명</h4>
 
-      <Input placeholder="상품명을 입력해주세요" className="item-name" onChange={onChangeItemName} />
+      <Input
+        placeholder="상품명을 입력해주세요"
+        className="item-name"
+        onChange={onChangeItemName}
+      />
 
       <h4 className="item-heading-upload">이미지 업로드</h4>
       <div className="upload">
@@ -94,8 +97,9 @@ const Write = () => {
           >
       </input>
       </div>
-      {/* <p>카테고리 : {category}</p> */}
-      <Category category={category} getCategory={getCategory} />
+      <div className="write-category">
+        <Category category={category} getCategory={getCategory} />
+      </div>
       <Grid divided="vertically">
         <Grid.Row columns={2}>
           <Grid.Column>
@@ -103,8 +107,8 @@ const Write = () => {
           </Grid.Column>
           <Grid.Column>
             <div className="item-bli">
-          <Input placeholder="가격을 입력해주세요" className="write-bli" onChange={onChangeItemBli} />
-            BLI
+              <Input placeholder="가격" className="write-bli" onChange={onChangeItemBli} />
+              <h4>BLI</h4>
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -117,7 +121,9 @@ const Write = () => {
         <TextArea onChange={onChangeDesc} />
       </Form>
       <div className="done">
-        <Button className="done-button" onClick={writeProduct}>등록</Button>
+        <Button className="done-button" onClick={writeProduct}>
+          등록
+        </Button>
       </div>
     </div>
   );
