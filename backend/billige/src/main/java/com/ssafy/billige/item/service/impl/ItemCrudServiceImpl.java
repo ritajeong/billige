@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.billige.item.domain.ActiveStatus;
 import com.ssafy.billige.item.domain.Item;
 import com.ssafy.billige.item.dto.request.ItemRegistryRequest;
 import com.ssafy.billige.item.dto.request.ItemUpdateRequest;

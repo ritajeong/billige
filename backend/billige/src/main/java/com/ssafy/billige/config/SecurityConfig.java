@@ -1,11 +1,5 @@
 package com.ssafy.billige.config;
 
-import com.ssafy.billige.authentication.filter.CustomAuthenticationFilter;
-import com.ssafy.billige.authentication.handler.CustomLoginSuccessHandler;
-import com.ssafy.billige.authentication.provider.CustomAuthenticationProvider;
-
-import lombok.RequiredArgsConstructor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +13,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.ssafy.billige.authentication.filter.CustomAuthenticationFilter;
+import com.ssafy.billige.authentication.handler.CustomLoginSuccessHandler;
+import com.ssafy.billige.authentication.provider.CustomAuthenticationProvider;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity

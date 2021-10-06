@@ -1,5 +1,13 @@
 package com.ssafy.billige.item.repository;
 
+import static com.ssafy.billige.bookmark.domain.QBookmark.*;
+import static com.ssafy.billige.image.domain.QImage.*;
+import static com.ssafy.billige.item.domain.ActiveStatus.*;
+import static com.ssafy.billige.item.domain.QItem.*;
+import static com.ssafy.billige.utils.StringUtils.*;
+
+import java.util.List;
+
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.billige.item.dto.response.ItemListResponse;
@@ -7,14 +15,6 @@ import com.ssafy.billige.item.dto.response.ItemResponse;
 import com.ssafy.billige.search.dto.request.SearchFilter;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
-import static com.ssafy.billige.image.domain.QImage.*;
-import static com.ssafy.billige.item.domain.ActiveStatus.*;
-import static com.ssafy.billige.item.domain.QItem.*;
-import static com.ssafy.billige.bookmark.domain.QBookmark.*;
-import static com.ssafy.billige.utils.StringUtils.*;
 
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepositoryCustom {

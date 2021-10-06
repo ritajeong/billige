@@ -1,13 +1,16 @@
 package com.ssafy.billige.authentication.interceptor;
 
-import com.ssafy.billige.utils.StringUtils;
-import com.ssafy.billige.utils.TokenUtils;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.web.servlet.HandlerInterceptor;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.ssafy.billige.utils.StringUtils;
+import com.ssafy.billige.utils.TokenUtils;
+
+import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class JwtTokenInterceptor implements HandlerInterceptor {

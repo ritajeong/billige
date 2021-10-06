@@ -1,10 +1,10 @@
 package com.ssafy.billige.item.repository;
 
+import java.util.List;
+
 import com.ssafy.billige.item.dto.response.ItemListResponse;
 import com.ssafy.billige.item.dto.response.ItemResponse;
 import com.ssafy.billige.search.dto.request.SearchFilter;
-
-import java.util.List;
 
 public interface ItemRepositoryCustom {
     // 대여품 목록 가져오기

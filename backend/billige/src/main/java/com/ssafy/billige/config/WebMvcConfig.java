@@ -1,12 +1,13 @@
 package com.ssafy.billige.config;
 
-import com.ssafy.billige.authentication.filter.HeaderFilter;
-import com.ssafy.billige.authentication.interceptor.JwtTokenInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.ssafy.billige.authentication.filter.HeaderFilter;
+import com.ssafy.billige.authentication.interceptor.JwtTokenInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

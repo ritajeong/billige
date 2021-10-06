@@ -4,12 +4,7 @@ import static com.ssafy.billige.utils.StringUtils.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +38,6 @@ public class ItemCrudController {
 	private final ItemRepository itemRepository;
 	private final ImageService imageService;
 	private final S3UploadUtils s3UploadUtils;
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@PostMapping
 	public ResponseEntity<?> createItem(@RequestHeader(AUTH_HEADER) String token
@@ -68,7 +62,6 @@ public class ItemCrudController {
 		// logger.info(itemname);
 		// Item item = itemRepository.findById(1L).get();
 		for (MultipartFile image : images) {
-			logger.info(image.getOriginalFilename());
 			try {
 				String src = s3UploadUtils.upload(image, "item", itemname);
 				Image img = new Image(item, src);

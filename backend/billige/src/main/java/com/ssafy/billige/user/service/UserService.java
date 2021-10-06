@@ -1,11 +1,11 @@
 package com.ssafy.billige.user.service;
 
+import java.util.Map;
+
 import com.ssafy.billige.user.domain.User;
 import com.ssafy.billige.user.dto.request.UserSignupRequest;
 import com.ssafy.billige.user.dto.response.UserEmailResponse;
 import com.ssafy.billige.user.dto.response.UserProfileResponse;
-
-import java.util.Map;
 
 public interface UserService {
 	User getKakaoUser(User user);

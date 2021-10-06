@@ -1,6 +1,5 @@
 package com.ssafy.billige.user.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

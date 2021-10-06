@@ -1,12 +1,12 @@
 package com.ssafy.billige.bookmark.domain;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
 
 @Entity
 @Getter
