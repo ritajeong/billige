@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {useLocation} from "react-router";
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -13,10 +13,12 @@ import { getFunction } from "../../utils/getFunction";
 import truffleContract from "truffle-contract";
 import BliCoin from '../../config/BliToken.json';
 import axios from 'axios';
+import dayjs from 'dayjs'
 
 const Rent = () => {
 	const location = useLocation();
 	const historyState = location.state;
+	const token = JSON.parse(window.localStorage.getItem('token'))
 	// console.log(historyState)
 
 const stringToNum = {
@@ -61,8 +63,10 @@ const [accounts, setAccounts] = useState('')
 const [contract, setContract] = useState('')
 const [bliContract, setBliContract] = useState('')
 const [address, setAddress] = useState('')
-const [contractSuccess, setContractSuccess] = useState(false)
+const [contractSuccess, setContractSuccess] = useState(false);
 
+const [disabledDates, setDisabledDates] = useState([]);
+const [disabledDatesFlag, setDisabledDatesFlag] = useState(false);
 
 const onChangeDate = (item) => {
 	setState([item.selection]);
@@ -84,8 +88,8 @@ const onChangeDate = (item) => {
 
 	const elapsedMSec = date2.getTime() - date1.getTime();
 	const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24;
-	setPrice((elapsedDay*pricePerDay).toLocaleString());
-	setAxiosPrice(elapsedDay*pricePerDay);
+	setPrice(((elapsedDay+1)*pricePerDay).toLocaleString());
+	setAxiosPrice((elapsedDay+1)*pricePerDay);
 
 }
 
@@ -132,6 +136,19 @@ const buyProduct = () => {
 
 useEffect(() => {
 	setWeb3(new Web3(Web3.givenProvider))
+	axios
+		.get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/contract/check/${historyState.itemId}`,  {
+			headers: {
+				Authentication:
+					"Bearer " + token,
+			},
+		})
+		.then((response) => {
+			setDisabledDates(response.data.unavailableList);
+		})
+		.catch((error) => {
+			console.log(error);
+		})
 }, [])
 
 useEffect(() => {
@@ -154,7 +171,6 @@ useEffect(() => {
 useEffect(() => {
 	if (contractSuccess === true) {
 
-		const token = JSON.parse(window.localStorage.getItem('token'))
 		axios
 			.post(`${process.env.REACT_APP_SERVER_BASE_URL}/api/contract/save`, {
 				endDate: String(rentalEndYear) + "-" + ("0" + String(rentalEndMonth)).slice(-2) + "-" + ("0" + String(rentalEndDay)).slice(-2),
@@ -169,7 +185,7 @@ useEffect(() => {
 				},
 			})
 			.then((response) => {
-				console.log(response)
+				// alert("판매자의 이메일은 뭐입니다.")
 			})
 			.catch((error) => {
 				console.log(error);
@@ -177,6 +193,16 @@ useEffect(() => {
 
 	}
 }, [contractSuccess]) 
+
+useEffect(() => {
+	if (disabledDates.length !== 0 && disabledDatesFlag === false) {
+		const tmp = disabledDates.map((x) =>
+		dayjs(x).toDate()
+		)
+		setDisabledDates(tmp);
+		setDisabledDatesFlag(true);
+	}
+}, [disabledDates])
 
   return (
 		<div>
@@ -187,6 +213,8 @@ useEffect(() => {
 			// onChange={item => setState([item.selection])}
 			moveRangeOnFirstSelection={false}
 			ranges={state}
+			minDate={new Date()}
+			disabledDates={disabledDates}
 	/>
 			</div>
 			<br />
