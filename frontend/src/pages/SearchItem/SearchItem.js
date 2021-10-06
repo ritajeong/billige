@@ -1,16 +1,20 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import "./SearchItem.css";
 import "./SearchResult.css";
 import { Input } from "semantic-ui-react";
 import queryString from 'query-string'
-import Filter from "./Filter";
-import product from "../../assets/image/product.png";
-
-const SearchItem = ({location, match}) => {
+// import Filter from "./Filter";
+// import product from "../../assets/image/product.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
+import noImage from "../../assets/image/no-image.jpg";
+const SearchItem = ({ location, match }) => {
+  //Main.js의 SearchInput에서 넘어온 검색어(text)
   const query = queryString.parse(location.search);
-  console.log(query);
   const text = query.text;
   
+  //검색 Input tag관련
   const [inputText, setInputText] = useState("");
   const [word, setWord] = useState("");
   const onChange = (e) => {
@@ -22,15 +26,38 @@ const SearchItem = ({location, match}) => {
     setInputText("");
   };
 
+  //검색목록
+  const [searchItem, setSearchItem] = useState([]);
+  let [searchList, setSearchList] = useState([]);
+  
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/search/keyword`, {
+        params: {
+          keyword: text,
+          page: 1
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setSearchItem(response.data);
+        setSearchList(new Array(response.data.length).fill(true));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [inputText]);
+
+  //검색필터 토글
   const [visible, setVisible] = useState(false);
   const onClickFilter = () => {
     setVisible(!visible);
   };
-  console.log(text);
+
   return (
     <>
       <form className="inputForm" onSubmit={handleSubmit}>
-        <p>검색어 : {text}</p>
+        {/* <p>검색어 : {text}</p> */}
         <Input
           className="main-search"
           icon="search"
@@ -42,67 +69,27 @@ const SearchItem = ({location, match}) => {
       </form>
       {!visible && (
         <div className="search-result">
-          <h3>최근 검색어</h3>
+          <h4 onClick={onClickFilter}><FontAwesomeIcon icon={faFilter}/> 검색필터</h4>
           <hr></hr>
-          <h4 onClick={onClickFilter}>검색필터</h4>
-          <hr></hr>
-          <div className="search-result-item">
-            <div>
-              <img src={product} alt="product" className="mypage-user-icon" />
+
+          {searchItem &&
+          searchItem.map((item,idx) => {
+            return ( 
+              <div key={idx} className="search-result-item">
+              <div>
+              <img src={item.image ? item.image : noImage} className="wish-item-icon" alt="product"></img>
+                </div>
+              <div>
+                <h3>{item.itemname}</h3>
+                <p>{item.position}</p>
+                <h4>{item.price} BLI</h4>
+              </div>
             </div>
-            <div>
-              <h3>유레카 노트북</h3>
-              <p>대치동</p>
-              <h4>15,000원</h4>
-            </div>
-          </div>
-          <hr></hr>
-          <div className="search-result-item">
-            <div>
-              <img src={product} alt="product" className="mypage-user-icon" />
-            </div>
-            <div>
-              <h3>유레카 노트북</h3>
-              <p>대치동</p>
-              <h4>15,000원</h4>
-            </div>
-          </div>
-          <hr></hr>
-          <div className="search-result-item">
-            <div>
-              <img src={product} alt="product" className="mypage-user-icon" />
-            </div>
-            <div>
-              <h3>유레카 노트북</h3>
-              <p>대치동</p>
-              <h4>15,000원</h4>
-            </div>
-          </div>
-          <hr></hr>
+            );
+          })}
+          
         </div>
       )}
-      {visible && <Filter />}
-      {/* {text === "" ? (
-        <>
-          <div className="recent-search-top">
-            <h3>최근 검색어</h3>
-            <p>모두 지우기</p>
-          </div>
-          <div className="recent-search-list">
-            {recentSearchList.map((data, index) => (
-              <div className="recent-search-item" key={index}>
-                <div className="recent-search-word">
-                  <p>{data}</p>
-                  <img src={close} width="10px" height="10px" alt="close" />
-                </div>
-                <hr></hr>
-              </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        <SearchResult searcWord={text} />
-      )} */}
     </>
   );
 };
