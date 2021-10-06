@@ -34,7 +34,6 @@ export const Detail = () => {
 			.catch((error) => {
 				console.log(error);
 			})
-			console.log(detail)
 	}, [])
 
 	const history = useHistory();
