@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router";
 const { kakao } = window;
 
 const Location = ({ searchPlace }) => {
+  const history = useHistory();
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([]);
   const [address, setAddress] = useState("");
@@ -46,6 +48,8 @@ const Location = ({ searchPlace }) => {
         console.log(err);
       });
       // console.log(second);
+    alert('주소가 변경되었습니다.')
+    history.push('/')
   };
 
   useEffect(() => {
@@ -100,17 +104,17 @@ const Location = ({ searchPlace }) => {
           <div key={i} style={{ marginTop: "20px" }}>
             {/* <span>{i + 1}</span> */}
             <div>
-              <h5 onClick={() => handleClick(item.address_name)}>{item.place_name}</h5>
+              <h5 style={{cursor:"pointer"}} onClick={() => handleClick(item.address_name)}>{item.place_name}</h5>
               {item.road_address_name ? (
                 <div>
-                  <span onClick={() => handleClick(item.road_address_name)}>
+                  <span style={{cursor:"pointer"}} onClick={() => handleClick(item.road_address_name)}>
                     {item.road_address_name}
                   </span>
                   <br />
-                  <span onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
+                  <span style={{cursor:"pointer"}} onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
                 </div>
               ) : (
-                <span onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
+                <span style={{cursor:"pointer"}} onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
               )}
               {/* <span>{item.phone}</span> */}
             </div>
