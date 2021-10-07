@@ -83,6 +83,6 @@ Resolves: #231
 
 #### [📺 UCC]()  
 
-#### [🎬 시연영상]()
+#### [🎬 시연영상](https://user-images.githubusercontent.com/60912550/136360456-ca6e0cd4-4b26-49be-b363-b5b5eeb6a16b.mp4)
 
 
