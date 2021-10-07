@@ -77,6 +77,8 @@ Resolves: #231
 
 #### [📄 Documents]()
 
+#### [⚙️ 기능명세서](https://docs.google.com/spreadsheets/d/10elfkRQIAqbDK9UhEhUZi54sSvjVBQubSGi1udglqlk/edit#gid=0)
+
 #### [🍻 와이어프레임](https://www.figma.com/file/mPfccEI8i0yDRg6qCpwuNM/KLPC?node-id=4%3A9)
 
 #### [📺 UCC]()  
