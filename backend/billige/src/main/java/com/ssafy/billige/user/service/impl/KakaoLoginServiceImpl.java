@@ -29,7 +29,8 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 	private final String tokenUrl = "https://kauth.kakao.com/oauth/token";
 	private final String userUrl = "https://kapi.kakao.com/v2/user/me";
 	// private final String redirectUri = "http://localhost:8080/api/login/kakao";
-	private final String redirectUri = "http://j5a401.p.ssafy.com:8080/api/login/kakao";
+	// private final String redirectUri = "http://j5a401.p.ssafy.com/api/login/kakao";
+	private final String redirectUri = "http://j5a401.p.ssafy.com";
 	private final String clientId = "5d949b6a969e63a10e108f1ddf722cd3";
 	private final String grantType = "authorization_code";
 
