@@ -23,6 +23,7 @@ const Wish = ({ history }) => {
         setWishProduct(response.data);
         setLikeList(new Array(response.data.length).fill(true));
         setLikeFlag(false);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -69,8 +70,8 @@ const Wish = ({ history }) => {
     history.push(`/detail/${itemId}`);
   };
 
-  const goToRent = () => {
-    history.push(`/rent`);
+  const goToRent = (itemId) => {
+    history.push(`/rent/${itemId}`);
   };
 
   return wishProduct.map((product, idx) => {
@@ -98,7 +99,7 @@ const Wish = ({ history }) => {
             <button
               className="wish-item-borrow"
               onClick={() => {
-                goToRent();
+                goToRent(product.itemId);
               }}
             >
               대여하기

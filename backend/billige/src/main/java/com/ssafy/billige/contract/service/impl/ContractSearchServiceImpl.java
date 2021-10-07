@@ -53,7 +53,11 @@ public class ContractSearchServiceImpl implements ContractSearchService {
 
 	@Override
 	public List<ItemResponse> myContracts(long uid) {
-		return contractRepository.contractedItem(uid);
+		List<ItemResponse> itemResponses = contractRepository.contractedItem(uid);
+		for (ItemResponse response : itemResponses) {
+			response.setImage(imageRepository.findAllByItem_ItemIdLimit1(response.getItemId()).getImgSrc());
+		}
+		return itemResponses;
 	}
 
 	@Override
