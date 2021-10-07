@@ -66,50 +66,6 @@ const Main = () => {
     ],
   };
 
-  // const nearProduct = [
-  //   {
-  //     pThumbNail: "",
-  //     pName: "강아지 먹이",
-  //     pPrice: "10,000원",
-  //     pNo: "1",
-  //     isRent: "false",
-  //   },
-  //   {
-  //     pThumbNail: "",
-  //     pName: "고양이 먹이",
-  //     pPrice: "11,000원",
-  //     pNo: "2",
-  //     isRent: "true",
-  //   },
-  //   {
-  //     pThumbNail: "",
-  //     pName: "거북이 먹이",
-  //     pPrice: "12,000원",
-  //     pNo: "3",
-  //     isRent: "false",
-  //   },
-  //   {
-  //     pThumbNail: "",
-  //     pName: "옆집 강아지 먹이",
-  //     pPrice: "13,000원",
-  //     pNo: "4",
-  //     isRent: "true",
-  //   },
-  //   {
-  //     pThumbNail: "",
-  //     pName: "옆집 고양이 먹이",
-  //     pPrice: "14,000원",
-  //     pNo: "5",
-  //     isRent: "false",
-  //   },
-  //   {
-  //     pThumbNail: "",
-  //     pName: "옆집 거북이 먹이",
-  //     pPrice: "15,000원",
-  //     pNo: "6",
-  //     isRent: "false",
-  //   },
-  // ];
   const productCarousel = () => {
     return nearProduct.map((product, idx) => {
       return (
@@ -125,19 +81,19 @@ const Main = () => {
       <SearchInput/>
       <Slider {...settings}>
         <div className="carousel-page">
-          <h3>여기에</h3>
+          <h3>한 번 쓰고 말건데</h3>
         </div>
         <div className="carousel-page">
-          <h3>무엇을</h3>
+          <h3>사기는 아깝고</h3>
         </div>
         <div className="carousel-page">
-          <h3>쓰면</h3>
+          <h3>안쓰는 물건인데</h3>
         </div>
         <div className="carousel-page">
-          <h3>좋을까요</h3>
+          <h3>버리기는 아까울 때</h3>
         </div>
         <div className="carousel-page">
-          <h3>?</h3>
+          <h3>빌리지하세요</h3>
         </div>
       </Slider>
 

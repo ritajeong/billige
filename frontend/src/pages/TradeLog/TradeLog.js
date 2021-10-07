@@ -34,7 +34,7 @@ const TradeLog = () => {
               <Link to={`/detail/${item.itemId}`}>{item.itemname}</Link>
             </div>
             <span>{item.address}</span>
-            <div className="wish-item-price">{item.price} 원</div>
+            <div className="wish-item-price">{item.price} BLI</div>
           </div>
           <div>
             <button className="trade-log-button">상세보기</button>

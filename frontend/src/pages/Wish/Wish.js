@@ -86,7 +86,7 @@ const Wish = ({ history }) => {
           >
             <div className="wish-item-title">{product.itemname}</div>
             <span>{product.position}</span>
-            <div className="wish-item-price">{product.price} 원</div>
+            <div className="wish-item-price">{product.price} BLI</div>
           </div>
           <div>
             {likeList[idx] ? (

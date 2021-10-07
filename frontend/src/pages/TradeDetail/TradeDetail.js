@@ -48,13 +48,13 @@ const TradeDetail = () => {
           <div className="trade-detail-info">{contract.borrowerName}</div>
           <div className="trade-detail-info">{contract.startDate}</div>
           <div className="trade-detail-info">{contract.endDate}</div>
-          <div className="trade-detail-info">{contract.price} 원</div>
+          <div className="trade-detail-info">{contract.price} BLI</div>
         </div>
       </div>
       <hr></hr>
       <div className="trade-detail-list">
         <div className="total">Total</div>
-        <div className="trade-detail-price">{contract.totalPrice} 원</div>
+        <div className="trade-detail-price">{contract.totalPrice} BLI</div>
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ const Write = () => {
           },
         })
         .then((response) => {
-          history.push('/');
+          history.push('/myproduct');
         })
         .catch((error) => {
           console.log(error)
