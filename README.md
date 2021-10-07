@@ -13,7 +13,7 @@
 
 |[박혜빈](https://github.com/happ-in)|[이진호](https://github.com/jinho-pca)|[김민재](https://github.com/)|[최동욱](https://github.com/)|[정진주](https://github.com/)|
 |:-:|:-:|:-:|:-:|:-:|
-|<img src="https://user-images.githubusercontent.com/36289638/131222987-85622468-2594-445b-8ef9-616b24f38f07.png" width="150" height="200" />|<img src="https://user-images.githubusercontent.com/36289638/131222927-d5bb537c-2666-42c6-bd64-ba579f568adc.png" width="150" height="200" />|<img src="https://user-images.githubusercontent.com/36289638/131223029-1fafd140-9fc8-46c8-9692-5fe19235ee7d.png" width="150" height="200" />|<img src="https://user-images.githubusercontent.com/36289638/131222893-370290e9-8530-4538-b6d2-a7e158fde8a9.png" width="150" height="200"  />|<img src="https://user-images.githubusercontent.com/36289638/131222893-370290e9-8530-4538-b6d2-a7e158fde8a9.png" width="150" height="200"  />|
+|<img src="https://user-images.githubusercontent.com/60912550/136307410-8ce60980-6ac3-4d17-8c08-ebd1bdba3723.jpeg" width="150" height="200" />|<img src="https://user-images.githubusercontent.com/60912550/136307383-a06166e6-2c28-4626-9723-6696e0d7ae9d.png" width="150" height="200" />|<img src="https://user-images.githubusercontent.com/60912550/136307420-523540fe-fc04-4f9d-aa45-fbc932456f59.jpeg" width="150" height="200" />|<img src="https://user-images.githubusercontent.com/60912550/136307419-c58d30d0-11c8-4571-9f68-dc401d215710.jpeg" width="150" height="200"  />|<img src="https://user-images.githubusercontent.com/60912550/136307424-792c1f6a-af9d-4362-97af-b1310862948a.jpeg" width="150" height="200"  />|
 |Back-End <br/> |Back-End <br/>|Front-End  <br/>|Front-End <br/>|Front-End <br/>|
 
 </div>
