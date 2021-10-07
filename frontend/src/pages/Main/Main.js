@@ -13,6 +13,8 @@ import SearchInput from "../../components/SearchInput/SearchInput";
 const Main = () => {
   const [nearProduct, setNearProduct] = useState([]);
   const [rentProduct, setRentProduct] = useState([]);
+  const [nearProdcutCount, setNearProdcutCount] = useState([]);
+  const [rentProductCount, setRentProductCount] = useState([]);
   const token = JSON.parse(window.localStorage.getItem("token"));
 
   useEffect(() => {
@@ -24,7 +26,11 @@ const Main = () => {
       })
       .then((response) => {
         setNearProduct(response.data);
-        console.log(response.data);
+        if (response.data.length >= 3) {
+          setNearProdcutCount(3);
+        } else {
+          setNearProdcutCount(response.data.length);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +44,11 @@ const Main = () => {
       })
       .then((response) => {
         setRentProduct(response.data);
-        console.log(response.data);
+        if (response.data.length >= 3) {
+          setRentProductCount(3);
+        } else {
+          setRentProductCount(response.data.length);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -61,16 +71,35 @@ const Main = () => {
   const responsiveSettings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: nearProdcutCount,
+    slidesToScroll: nearProdcutCount,
     initialSlide: 0,
     nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: nearProdcutCount,
+          slidesToScroll: nearProdcutCount,
+          infinite: true,
+        },
+      },
+    ],
+  };
+
+  const responsiveSettings2 = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: rentProductCount,
+    slidesToScroll: rentProductCount,
+    initialSlide: 0,
+    nextArrow: <NextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: rentProductCount,
+          slidesToScroll: rentProductCount,
           infinite: true,
         },
       },
@@ -92,19 +121,19 @@ const Main = () => {
       <SearchInput />
       <Slider {...settings}>
         <div className="carousel-page">
-          <h3>여기에</h3>
+        <h3>한 번 쓰고 말건데</h3>
         </div>
         <div className="carousel-page">
-          <h3>무엇을</h3>
+          <h3>사기는 아깝고</h3>
         </div>
         <div className="carousel-page">
-          <h3>쓰면</h3>
+          <h3>안쓰는 물건인데</h3>
         </div>
         <div className="carousel-page">
-          <h3>좋을까요</h3>
+          <h3>버리기는 아까울 때</h3>
         </div>
         <div className="carousel-page">
-          <h3>?</h3>
+          <h3>빌리지하세요</h3>
         </div>
       </Slider>
 
@@ -122,7 +151,7 @@ const Main = () => {
           </Link>
         </div>
 
-        <Slider {...responsiveSettings}>{productCarousel(rentProduct)}</Slider>
+        <Slider {...responsiveSettings2}>{productCarousel(rentProduct)}</Slider>
       </div>
     </div>
   );
