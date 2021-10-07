@@ -6,6 +6,14 @@ import "./Write.css";
 import Category from "../Category/Category";
 
 const Write = () => {
+  const userdata = JSON.parse(window.localStorage.getItem("user"));
+  let address = userdata ? userdata.userAddress : '서울시 강남구'
+  if (address !== '서울시 강남구') {
+    let addressArray = address.split(' ');
+    address = addressArray[0] + ' ' + addressArray[1] + ' ' + addressArray[2];
+    // console.log(address)
+  }
+
   const history = useHistory();
   const [itemname, setItemName] = useState('')
   const [itembli, setItemBli] = useState('')
@@ -48,7 +56,7 @@ const Write = () => {
       formData.append("description", description);
       formData.append("images", file);
       formData.append("itemname", itemname);
-      formData.append("position", "서울특별시 강남구");
+      formData.append("position", address);
       formData.append("price", itembli);
       const token = JSON.parse(window.localStorage.getItem('token'))
       axios
