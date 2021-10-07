@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
@@ -16,6 +18,7 @@ import com.ssafy.billige.user.domain.User;
 import com.ssafy.billige.user.domain.UserStatus;
 import com.ssafy.billige.user.service.KakaoLoginService;
 import com.ssafy.billige.user.service.UserService;
+import com.ssafy.billige.utils.TokenUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,13 +28,16 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 
 	private final String tokenUrl = "https://kauth.kakao.com/oauth/token";
 	private final String userUrl = "https://kapi.kakao.com/v2/user/me";
-	private final String redirectUri = "http://localhost:8080/api/login/kakao";
+	// private final String redirectUri = "http://localhost:8080/api/login/kakao";
+	// private final String redirectUri = "http://j5a401.p.ssafy.com/api/login/kakao";
+	private final String redirectUri = "http://j5a401.p.ssafy.com";
 	private final String clientId = "5d949b6a969e63a10e108f1ddf722cd3";
 	private final String grantType = "authorization_code";
 
 	private final UserService userService;
 
 	@Override
+	@Transactional
 	public String kakaoLogin(String code) {
 
 		HttpURLConnection conn = null;
@@ -65,23 +71,28 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 
 			element = getJsonElement(conn);
 			JsonElement kakaoAccount = getJsonElementValue(element, "kakao_account");
-			Long tokenId = getJsonElementValue(element, "id").getAsLong();
-			String nickname = getJsonElementValue(getJsonElementValue(element, "properties"), "nickname").getAsString();
+			String tokenId = getJsonElementValue(element, "id").getAsString();
+			JsonElement properties = getJsonElementValue(element, "properties");
+			String nickname = getJsonElementValue(properties, "nickname").getAsString();
+			String image = getJsonElementValue(properties, "profile_image").getAsString();
 			String email = getJsonElementValue(kakaoAccount, "email").getAsString();
 
 			User user = User.builder()
-				.tokenId(tokenId)
-				.username(nickname)
-				.email(email)
+				.userTokenId(tokenId)
+				.userName(nickname)
+				.userEmail(email)
+				.userImage(image)
 				.is_deleted(UserStatus.N)
 				.build();
 
-			userService.getKakaoUser(user);
+			User kakaoUser = userService.getKakaoUser(user);
+			kakaoUser.setUserImage(image);
+
+			return TokenUtils.generateJwtToken(kakaoUser);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return accessToken;
+		throw new IllegalArgumentException("카카오 로그인에 실패했습니다.");
 	}
 
 	private JsonElement getJsonElementValue(JsonElement element, String value) {
@@ -91,13 +102,13 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 	private JsonElement getJsonElement(HttpURLConnection conn) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String line = "";
-		String result = "";
+		StringBuilder result = new StringBuilder();
 
 		while ((line = br.readLine()) != null) {
-			result += line;
+			result.append(line);
 		}
 
 		JsonParser parser = new JsonParser();
-		return parser.parse(result);
+		return parser.parse(result.toString());
 	}
 }

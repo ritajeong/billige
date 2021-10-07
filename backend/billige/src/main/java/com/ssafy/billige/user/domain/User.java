@@ -1,37 +1,64 @@
 package com.ssafy.billige.user.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import lombok.AccessLevel;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.billige.contract.domain.Contract;
+import com.ssafy.billige.item.domain.Item;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Getter
 @Builder
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class User {
+@NoArgsConstructor
+//@JsonIgnoreProperties({"userNickname", "userPassword", "userSalt", "userBli", "userSigunguCode", "userImage", "is_deleted"})
+public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long uid;
 
-	private Long tokenId;
-	private String username;
-	private String email;
-	private String password;
+
+	private String userTokenId;
+	private String userName;
+	@JsonIgnore
+	private String userNickname;
+	private String userEmail;
+	private String userPassword;
+	@JsonIgnore
+	private String userSalt;
+	// @JsonIgnore
+	private String userWallet;
+	@JsonIgnore
+	private int userBli;
+	@JsonIgnore
+	private String userAddress;
+	@JsonIgnore
+	private String userSigunguCode;
+	@JsonIgnore
+	private String userImage;
+	@JsonIgnore
 
 	@Enumerated(EnumType.STRING)
 	private UserStatus is_deleted;
 
-	private String address;
-	private String wallet;
-	private int userSigunguCode;
+
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Item> items = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Contract> contracts = new ArrayList<>();
 }

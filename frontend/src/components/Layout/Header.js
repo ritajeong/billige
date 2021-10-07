@@ -1,19 +1,30 @@
 import React from "react";
 import backIcon from "../../assets/icons/back.png";
-import { Link, useLocation, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import CurrentPage from "./CurrentPage";
+
 import "./Layout.css";
-import CurrentPage from "../CurrentPage";
 const Header = (props) => {
-  const location = useLocation();
   const beforePage = () => {
     props.history.goBack();
   };
+  const userdata = JSON.parse(window.localStorage.getItem("user"));
+  let address;
+  
+  address = userdata ? userdata.userAddress : '서울시 강남구'
+  if (address !== '서울시 강남구') {
+    let addressArray = address.split(' ');
+    address = addressArray[0] + ' ' + addressArray[1] + ' ' + addressArray[2];
+    // console.log(address)
+  }
+
 
   return (
     <div className="header">
-      {location.pathname === "/" ? (
+      {props.location.pathname === "/" ? (
         <div className="header-location">
-          <Link to="/location">서울특별시 강남구</Link>
+          <Link to="/searchplace">{address}</Link>
         </div>
       ) : (
         <div className="header-pages">
@@ -23,11 +34,11 @@ const Header = (props) => {
             className="header-icon"
             onClick={beforePage}
           />
-          <CurrentPage url={location.pathname} />
+          <CurrentPage url={props.location.pathname} />
         </div>
       )}
     </div>
   );
 };
 
-export default withRouter(Header);
+export default Header;

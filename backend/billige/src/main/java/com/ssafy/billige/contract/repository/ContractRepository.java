@@ -1,9 +1,15 @@
 package com.ssafy.billige.contract.repository;
 
-import com.ssafy.billige.contract.domain.Contract;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ssafy.billige.contract.domain.Contract;
+
 @Repository
-public interface ContractRepository extends JpaRepository<Contract, Long> {
+public interface ContractRepository extends JpaRepository<Contract, Long>, ContractRepositoryCustom {
+	List<Contract> findAllByOwnerIdAndItem_ItemId(Long ownerId, Long itemId);
+
+	List<Contract> findAllByItem_ItemId(Long itemId);
 }

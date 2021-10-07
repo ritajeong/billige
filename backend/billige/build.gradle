@@ -1,7 +1,10 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
+	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+
+	// querydsl
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.ssafy'
@@ -22,19 +25,59 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
-	// JSON parse
-	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-	implementation 'com.google.code.gson:gson:2.8.5'
-
-	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	compileOnly 'org.projectlombok:lombok'
+
+	// querydsl
+	implementation 'com.querydsl:querydsl-jpa'
+
+	// JSON parse
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'com.google.code.gson:gson:2.8.5'
+
+	// ModelMapper
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+
+	// JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// Swagger
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+
+	// MailSender
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.0.1.RELEASE'
+
+	// Amazon AWS S3
+	implementation group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.25'
+
+	// Slack bot
+	implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
 }
