@@ -121,7 +121,7 @@ const Main = () => {
       <SearchInput />
       <Slider {...settings}>
         <div className="carousel-page">
-        <h3>한 번 쓰고 말건데</h3>
+          <h3>한 번 쓰고 말건데</h3>
         </div>
         <div className="carousel-page">
           <h3>사기는 아깝고</h3>
@@ -146,7 +146,7 @@ const Main = () => {
       <div className="main-current-rent">
         <div className="main-current-rent-header">
           <h4>최근에 대여했어요 ✌🏻</h4>
-          <Link to="/mypage" className="rent-header-link">
+          <Link to="/tradelog" className="rent-header-link">
             {"대여내역 보기 >"}
           </Link>
         </div>

@@ -78,7 +78,14 @@ const Wish = ({ history }) => {
     return (
       <div key={idx}>
         <div className="wish-item-list">
-          <img src={product.image ? product.image : noImage} className="wish-item-icon" alt="product-image"></img>
+          <img
+            src={product.image ? product.image : noImage}
+            className="wish-item-icon"
+            alt="product-image"
+            onClick={() => {
+              goToDetail(product.itemId);
+            }}
+          ></img>
           <div
             className="wish-item-vertical"
             onClick={() => {
@@ -95,15 +102,6 @@ const Wish = ({ history }) => {
             ) : (
               <img src={unlikeIcon} className="wish-item-bookmark" alt="unlike" onClick={() => addBookmark(product.itemId, idx)}></img>
             )}
-
-            <button
-              className="wish-item-borrow"
-              onClick={() => {
-                goToRent(product.itemId);
-              }}
-            >
-              대여하기
-            </button>
           </div>
         </div>
       </div>
