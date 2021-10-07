@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router";
+import allActions from "../../redux/actions";
 const { kakao } = window;
 
 const Location = ({ searchPlace }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([]);
@@ -17,12 +20,11 @@ const Location = ({ searchPlace }) => {
         headers: { Authorization: "KakaoAK 3c8ffe0fda9423ae3d4595085463213e" },
       })
       .then((res) => {
-        console.log(address)
+        console.log(address);
         const location = res.data.documents[0];
         // console.log(location);
         // console.log(location?.address?.b_code);
-        sigungu =
-          location?.address?.b_code !== undefined ? location?.address?.b_code.slice(0, 5) : null;
+        sigungu = location?.address?.b_code !== undefined ? location?.address?.b_code.slice(0, 5) : null;
         console.log(sigungu);
       });
     // console.log(data);
@@ -42,14 +44,17 @@ const Location = ({ searchPlace }) => {
         }
       )
       .then((response) => {
-        // console.log(response.data);
+        window.localStorage.setItem("token", JSON.stringify(response.data.split(" ")[1]));
+        console.log(response.data);
+        localStorage.getItem("user").userAddress = address;
       })
       .catch((err) => {
         console.log(err);
       });
-      // console.log(second);
-    alert('주소가 변경되었습니다.')
-    history.push('/')
+
+    // console.log(second);
+    alert("주소가 변경되었습니다.");
+    history.push("/");
   };
 
   useEffect(() => {
@@ -104,17 +109,23 @@ const Location = ({ searchPlace }) => {
           <div key={i} style={{ marginTop: "20px" }}>
             {/* <span>{i + 1}</span> */}
             <div>
-              <h5 style={{cursor:"pointer"}} onClick={() => handleClick(item.address_name)}>{item.place_name}</h5>
+              <h5 style={{ cursor: "pointer" }} onClick={() => handleClick(item.address_name)}>
+                {item.place_name}
+              </h5>
               {item.road_address_name ? (
                 <div>
-                  <span style={{cursor:"pointer"}} onClick={() => handleClick(item.road_address_name)}>
+                  <span style={{ cursor: "pointer" }} onClick={() => handleClick(item.road_address_name)}>
                     {item.road_address_name}
                   </span>
                   <br />
-                  <span style={{cursor:"pointer"}} onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
+                  <span style={{ cursor: "pointer" }} onClick={() => handleClick(item.address_name)}>
+                    {item.address_name}
+                  </span>
                 </div>
               ) : (
-                <span style={{cursor:"pointer"}} onClick={() => handleClick(item.address_name)}>{item.address_name}</span>
+                <span style={{ cursor: "pointer" }} onClick={() => handleClick(item.address_name)}>
+                  {item.address_name}
+                </span>
               )}
               {/* <span>{item.phone}</span> */}
             </div>
