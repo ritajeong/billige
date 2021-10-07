@@ -17,7 +17,11 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/list`)
+      .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/item/list`, {
+        headers: {
+          Authentication: "Bearer " + token,
+        },
+      })
       .then((response) => {
         setNearProduct(response.data);
         console.log(response.data);
