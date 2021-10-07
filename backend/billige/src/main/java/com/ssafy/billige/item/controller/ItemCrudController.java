@@ -35,7 +35,6 @@ import lombok.RequiredArgsConstructor;
 public class ItemCrudController {
 
 	private final ItemCrudService itemCrudService;
-	private final ItemRepository itemRepository;
 	private final ImageService imageService;
 	private final S3UploadUtils s3UploadUtils;
 

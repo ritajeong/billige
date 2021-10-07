@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router";
+import { useHistory } from "react-router";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
@@ -16,10 +17,10 @@ import axios from "axios";
 import dayjs from "dayjs";
 
 const Rent = () => {
+  const history = useHistory();
   const location = useLocation();
   const historyState = location.state;
   const token = JSON.parse(window.localStorage.getItem("token"));
-  // console.log(historyState)
 
   const stringToNum = {
     Jan: 1,
@@ -145,7 +146,7 @@ const Rent = () => {
         setDisabledDates(response.data.unavailableList);
       })
       .catch((error) => {
-        console.log(error);
+        alert("메타마스크에 연결이 되지 않았습니다.");
       });
   }, []);
 
@@ -183,10 +184,11 @@ const Rent = () => {
           }
         )
         .then((response) => {
-          // alert("판매자의 이메일은 뭐입니다.")
+          alert("정상적으로 결제가 완료되었습니다.");
+          history.push('/tradelog');
         })
         .catch((error) => {
-          console.log(error);
+          alert("결제가 정상적으로 이뤄지지 않았습니다.");
         });
     }
   }, [contractSuccess]);

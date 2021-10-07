@@ -4,7 +4,7 @@ import noImage from "../../assets/image/no-image.jpg";
 import { Link } from "react-router-dom";
 import "./TradeLog.css";
 
-const TradeLog = () => {
+const TradeLog = ({ history }) => {
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -24,6 +24,10 @@ const TradeLog = () => {
       });
   }, []);
 
+  const goToTradeDetail = (contractId) => {
+    history.push(`/tradedetail/${contractId}`);
+  };
+
   return product.map((item) => {
     return (
       <div>
@@ -34,10 +38,12 @@ const TradeLog = () => {
               <Link to={`/detail/${item.itemId}`}>{item.itemname}</Link>
             </div>
             <span>{item.address}</span>
-            <div className="wish-item-price">{item.price} 원</div>
+            <div className="wish-item-price">{item.price} BLI</div>
           </div>
           <div>
-            <button className="trade-log-button">상세보기</button>
+            <button className="trade-log-button" onClick={() => goToTradeDetail(item.contractId)}>
+              상세보기
+            </button>
           </div>
         </div>
       </div>

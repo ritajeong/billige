@@ -1,8 +1,11 @@
 .wish-item-icon {
-  width: 100px;
-  height: 100px;
+  margin-top: 10px;
+  width: 120px;
+  height: 120px;
   border-radius: 30%;
   margin-right: 30px;
+  /* border: 1px solid #c5d3cc; */
+  box-shadow: 0.3px 0.3px 6px #c5d3cc;
 }
 .wish-item-list {
   position: relative;

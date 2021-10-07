@@ -10,6 +10,7 @@ import axios from 'axios';
 
 
 export const Detail = () => {
+	const history = useHistory();
 	const { pNo } = useParams();
 	const [detail, setDetail] = useState({})
 	const [loading, setLoading] = useState(true);
@@ -30,13 +31,14 @@ export const Detail = () => {
 				setDetail(response.data);
 				setLoading(false);
 				setLike(response.data.bookmark);
+				console.log(response.data)
 			})
 			.catch((error) => {
-				console.log(error);
+				alert('상품 내역이 존재하지 않습니다.')
+				history.push('/');
 			})
 	}, [])
 
-	const history = useHistory();
 	const onSelectProduct = () => {
 		history.push({
 			pathname: '/rent',
@@ -61,7 +63,7 @@ export const Detail = () => {
 			.then((response) => {
 			})
 			.catch((error) => {
-				console.log(error);
+				alert("찜버튼을 다시 눌러 주세요.");
 			})
   }
 
@@ -76,10 +78,9 @@ export const Detail = () => {
 				},
 			})
 			.then((response) => {
-				console.log(response)
 			})
 			.catch((error) => {
-				console.log(error);
+				alert("찜버튼을 다시 눌러 주세요.");
 			})
   }
 
@@ -92,7 +93,7 @@ export const Detail = () => {
 							</Button> */}
 					<img src={detail.imgSrc[0]} alt="product" className="detail-product" />
 					<div className="detail-profile">
-						<img src={User} alt="product" className="detail-user-icon" />
+						<img src={detail.owner.image} alt="product" className="detail-user-icon" />
 						<div className="detail-user-info">
 							<div className="detail-user-name">{detail.owner.username}</div>
 							<div className="detail-user-address">{detail.position}</div>
@@ -111,8 +112,8 @@ export const Detail = () => {
 					<div className="detail-product-detail">
 
 						<div className="detail-product-name">{detail.itemname}</div>
-						<div className="detail-product-category-time">{detail.category} | 6분</div>
-						<br />
+						<div className="detail-product-category-time">{detail.category}</div>
+						<br /><br />
 						<div>{detail.description}
 
 						</div>

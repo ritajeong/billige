@@ -21,13 +21,13 @@ public class ContractRepositoryImpl implements ContractRepositoryCustom {
 	public List<ItemResponse> contractedItem(Long uid) {
 		return queryFactory
 			.select(Projections.constructor(ItemResponse.class,
+				contract.contractId,
 				item.itemId,
 				item.itemname,
 				item.position,
 				item.price,
-				item.modifiedTime,
-				image.imgSrc))
-			.from(item).leftJoin(image).on(item.itemId.eq(image.item.itemId))
+				item.modifiedTime))
+			.from(item).join(contract).on(item.itemId.eq(contract.item.itemId))
 			.where(item.itemId.in(
 				queryFactory.select(contract.item.itemId)
 					.from(contract)

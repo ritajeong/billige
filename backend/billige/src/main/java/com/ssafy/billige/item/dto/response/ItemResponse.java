@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemResponse {
+    private Long contractId;
     private Long itemId;
     private String itemname;
     private String position;
@@ -24,6 +25,25 @@ public class ItemResponse {
 
 
     public ItemResponse(Long itemId, String itemname, String position, int  price, LocalDateTime modifiedTime, String image) {
+        this.itemId = itemId;
+        this.itemname = itemname;
+        this.position = position;
+        this.price = price;
+        this.modifiedTime = modifiedTime;
+        this.image = image;
+    }
+
+    public ItemResponse(Long contractId, Long itemId, String itemname, String position, int  price, LocalDateTime modifiedTime) {
+        this.contractId = contractId;
+        this.itemId = itemId;
+        this.itemname = itemname;
+        this.position = position;
+        this.price = price;
+        this.modifiedTime = modifiedTime;
+    }
+
+    public ItemResponse(Long contractId, Long itemId, String itemname, String position, int  price, LocalDateTime modifiedTime, String image) {
+        this.contractId = contractId;
         this.itemId = itemId;
         this.itemname = itemname;
         this.position = position;

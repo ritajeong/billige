@@ -22,6 +22,11 @@ public class ContractSearchController {
 
 	private final ContractSearchService contractSearchService;
 
+	@GetMapping("/{contractId}")
+	public ResponseEntity<?> contractInfo(@PathVariable("contractId") Long contractId) {
+		return ResponseEntity.ok().body(contractSearchService.contractInfo(contractId));
+	}
+
 	@GetMapping("/rent")
 	public ResponseEntity<?> rentItems(@RequestHeader(AUTH_HEADER) String token) {
 		Long uid = TokenUtils.getUidFromToken(token);
