@@ -44,7 +44,7 @@
 
 <br/><br/>
 
-## Git Convention
+## 🤙 Git Convention
 > [세부사항](https://elastic-carbon-574.notion.site/Convention-824ff805c9334a6e828da256dff44f44)
 
 ### 1. Commit types
@@ -68,6 +68,6 @@ footer(푸터)
 Resolves: #231
 ```
 
-## DB ERD
+## 🕋 DB ERD
 
 ![image](https://user-images.githubusercontent.com/36289638/135795063-7ac8b784-13a4-4054-af4c-d78bd41de107.png)
