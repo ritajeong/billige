@@ -40,7 +40,8 @@
 <br/><br/>
 
 ## 🛠 Architecture & 기술스택/배포
-![아키텍쳐](https://user-images.githubusercontent.com/60912550/136310398-ed9bc2b7-6fa7-4039-8a6a-a1425efde332.jpeg)
+![architecture](https://user-images.githubusercontent.com/60912550/136310599-31c522cf-ae41-4491-a326-d3ed16c9e411.jpeg)
+
 <br/><br/>
 
 ## Git Convention
