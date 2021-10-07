@@ -81,8 +81,8 @@ Resolves: #231
 
 #### [🍻 와이어프레임](https://www.figma.com/file/mPfccEI8i0yDRg6qCpwuNM/KLPC?node-id=4%3A9)
 
-#### [📺 UCC]()  
+#### [📺 UCC](https://user-images.githubusercontent.com/60912550/136360456-ca6e0cd4-4b26-49be-b363-b5b5eeb6a16b.mp4)  
 
-#### [🎬 시연영상](https://user-images.githubusercontent.com/60912550/136360456-ca6e0cd4-4b26-49be-b363-b5b5eeb6a16b.mp4)
+<!-- #### [🎬 시연영상](https://user-images.githubusercontent.com/60912550/136360456-ca6e0cd4-4b26-49be-b363-b5b5eeb6a16b.mp4) -->
 
 
