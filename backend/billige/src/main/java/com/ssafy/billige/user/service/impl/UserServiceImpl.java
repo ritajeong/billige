@@ -5,6 +5,7 @@ import static com.ssafy.billige.utils.StringUtils.*;
 import java.util.Map;
 import java.util.UUID;
 
+import com.ssafy.billige.utils.TokenUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -161,7 +162,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public void modifyProfile(String tokenEmail, String requestPassword, String imageUrl){
+	public String modifyProfile(String tokenEmail, String requestPassword, String imageUrl){
 
 		User user = getUser(tokenEmail);
 		if(requestPassword != null){
@@ -174,17 +175,27 @@ public class UserServiceImpl implements UserService {
 		}
 
 		userRepository.save(user);
+
+		String token = TokenUtils.generateJwtToken(user);
+		token = TOKEN_TYPE + " " + token;
+
+		return token;
 	}
 
 	@Override
 	@Transactional
-	public void modifyAddress(String tokenEmail, Map<String, String> request){
+	public String modifyAddress(String tokenEmail, Map<String, String> request){
 
 		User user = getUser(tokenEmail);
 		user.setUserAddress(request.get("userAddress"));
 		user.setUserSigunguCode(request.get("userSigunguCode"));
 
 		userRepository.save(user);
+
+		String token = TokenUtils.generateJwtToken(user);
+		token = TOKEN_TYPE + " " + token;
+
+		return token;
 	}
 
 	@Override

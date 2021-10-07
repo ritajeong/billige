@@ -30,9 +30,9 @@ public interface UserService {
 
 	public void modifyPassword(Map<String, String> modifyRequest);
 
-	public void modifyProfile(String tokenEmail, String requestPassword, String imageUrl);
+	public String modifyProfile(String tokenEmail, String requestPassword, String imageUrl);
 
-	public void modifyAddress(String tokenEmail, Map<String, String> request);
+	public String modifyAddress(String tokenEmail, Map<String, String> request);
 
 	public void createWallet(String tokenEmail, String userWallet);
 

@@ -123,9 +123,9 @@ public class UserController {
             }
         }
 
-        userService.modifyProfile(tokenEmail, requestPassword, imageUrl);
+        String newToken = userService.modifyProfile(tokenEmail, requestPassword, imageUrl);
         logger.info(tokenEmail + " : modify profile success");
-        return ResponseEntity.ok().body("success");
+        return ResponseEntity.ok().body(newToken);
     }
 
     @PutMapping("/modify/address")
@@ -136,9 +136,9 @@ public class UserController {
         String tokenEmail = (String) claims.get("userEmail");
         logger.info(tokenEmail + " : request modify address");
 
-        userService.modifyAddress(tokenEmail, request);
+        String newToken = userService.modifyAddress(tokenEmail, request);
         logger.info(tokenEmail + " : modify address success");
-        return ResponseEntity.ok().body("success");
+        return ResponseEntity.ok().body(newToken);
     }
 
     @PostMapping("/create/wallet")
