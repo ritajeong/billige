@@ -45,8 +45,9 @@ const Location = ({ searchPlace }) => {
       )
       .then((response) => {
         window.localStorage.setItem("token", JSON.stringify(response.data.split(" ")[1]));
-        console.log(response.data);
-        localStorage.getItem("user").userAddress = address;
+        const userData = JSON.parse(window.localStorage.getItem("user"));
+        userData.userAddress = address;
+        window.localStorage.setItem("user", JSON.stringify(userData));
       })
       .catch((err) => {
         console.log(err);
