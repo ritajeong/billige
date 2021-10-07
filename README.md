@@ -75,7 +75,7 @@ Resolves: #231
 
 ## 📚 자료
 
-#### [📄 Documents]()
+#### [📄 Documents](https://github.com/teamHousing/Housing_Server/files/7304118/default.pdf)
 
 #### [⚙️ 기능명세서](https://docs.google.com/spreadsheets/d/10elfkRQIAqbDK9UhEhUZi54sSvjVBQubSGi1udglqlk/edit#gid=0)
 
