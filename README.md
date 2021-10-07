@@ -72,3 +72,15 @@ Resolves: #231
 ## 🕋 DB ERD
 
 ![image](https://user-images.githubusercontent.com/36289638/135795063-7ac8b784-13a4-4054-af4c-d78bd41de107.png)
+
+## 📚 자료
+
+#### [📄 Documents]()
+
+#### [🍻 와이어프레임](https://www.figma.com/file/mPfccEI8i0yDRg6qCpwuNM/KLPC?node-id=4%3A9)
+
+#### [📺 UCC]()  
+
+#### [🎬 시연영상]()
+
+
