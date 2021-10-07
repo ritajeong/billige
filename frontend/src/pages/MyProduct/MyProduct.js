@@ -80,7 +80,7 @@ const MyProduct = (props) => {
                     <Link to={`/rentuser/${item.itemId}`}>{item.itemname}</Link>
                   </div>
                   <span>{item.position}</span>
-                  <div className="wish-item-price">{item.price} 원</div>
+                  <div className="wish-item-price">{item.price} BLI</div>
                 </div>
                 <div>
                   <label className="switch">
