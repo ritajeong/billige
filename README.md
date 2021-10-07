@@ -1,9 +1,10 @@
 # Billige
 
 <div align="center">
-  <!-- <img src="https://user-images.githubusercontent.com/60912550/136170990-81b0605d-8844-446e-9e3b-58d033bf1a98.png" /> -->
-  <img width="1531" alt="빌리지" src="https://user-images.githubusercontent.com/60912550/136320152-fea2567e-bf4e-40d0-bcae-9620fdd37ba0.png"> 
-  <h2> KLPCJ 🦝🦊🐰🦁🐳  </h2>
+  <img width="600" src="https://user-images.githubusercontent.com/60912550/136170990-81b0605d-8844-446e-9e3b-58d033bf1a98.png" />
+  <!-- <img width="1531" alt="빌리지" src="https://user-images.githubusercontent.com/60912550/136320152-fea2567e-bf4e-40d0-bcae-9620fdd37ba0.png">  -->
+  <!-- ![logo](https://user-images.githubusercontent.com/60912550/136320422-fcb5e73b-d2e1-4cdb-ac08-827b82141800.jpeg) -->
+  <!-- <h2> KLPCJ 🦝🦊🐰🦁🐳  </h2> -->
     <!-- <a href="https://github.com/happ-in/BEAR/graphs/contributors">
       <img src="https://contrib.rocks/image?repo=happ-in/BEAR" />
     </a> -->
