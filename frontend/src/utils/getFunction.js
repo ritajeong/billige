@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Web3 from "web3";
 // import getWeb3 from "./getWeb3";
 import ShopContract from "../config/Billige.json"
-import { bliTokenAddress } from "../config/index";
 
 // 계좌 연동(계좌가 없으면 이때 new account해줌. 아맞다 그리고 이때 지갑생성 버튼을 눌러야 메타마스크 연동하는 게 좋을 듯. 이전것은 서비스 들어가자마자 연동), 
 // 빌리 충전, 가입했을 때 빌리 제공, 
@@ -28,7 +27,7 @@ export class getFunction {
       // Modern dapp browsers...
     
       if (window.ethereum) {
-        const web3 = new Web3(Web3.givenProvider || 'https://ropsten.infura.io/v3/26261cf4c7af4304b492cefe8505e390');
+        const web3 = new Web3(Web3.givenProvider || process.env.INFURA_SERVER);
         try {
           // Request account access if needed
           window.ethereum.enable();
@@ -85,7 +84,7 @@ export class getFunction {
     ];
     var web3 = window.web3
     const Web3Client = new Web3(web3.currentProvider)
-    const tokenAddress = bliTokenAddress;
+    const tokenAddress = process.env.COINBASE;
     // const walletAddress = myAccount;
     const walletAddress = this.myAccount;
     const coinContract = new Web3Client.eth.Contract(minABI, tokenAddress);
