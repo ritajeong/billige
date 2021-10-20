@@ -120,7 +120,7 @@ const Rent = () => {
         type: "function",
       },
     ];
-    let contractAddress = "0x14CDEab2be4b34364BB866320d5BF129B1727C4A";
+    let contractAddress = process.env.COINBASE;
     let contract = new web3.eth.Contract(minABI, contractAddress);
     let value = web3.utils.toWei(String(axiosPrice), "ether");
     contract.methods
